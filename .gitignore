@@ -26,3 +26,4 @@ hs_err_pid*
 # other
 .classpath
 .settings
+/MatkApp/nbproject/private/
