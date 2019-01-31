@@ -1,4 +1,4 @@
-package com.mycompany.mavenproject1;
+package com.r4.matkapp;
 
 import java.net.URL;
 import java.util.ResourceBundle;

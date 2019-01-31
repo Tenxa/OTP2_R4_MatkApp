@@ -1,4 +1,4 @@
-package com.mycompany.mavenproject1;
+package com.r4.matkapp;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
