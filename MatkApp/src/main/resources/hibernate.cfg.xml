@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+   <session-factory>
+   <property name="hibernate.dialect">
+      org.hibernate.dialect.MySQLDialect
+   </property>
+   <property name="hibernate.connection.driver_class">
+      com.mysql.jdbc.Driver
+   </property>
+
+   <property name="hibernate.connection.url">
+      jdbc:mysql://10.114.34.84/matkapp
+   </property>
+   <property name="hibernate.connection.username">
+      eero
+   </property>
+   <property name="hibernate.connection.password">
+      eero
+   </property>
+   <property name="hbm2ddl.auto">create</property>
+   <property name="show_sql">true</property>
+   <!--<mapping class=""/> MAPPING CLASSES HERE-->
+
+</session-factory>
+</hibernate-configuration>

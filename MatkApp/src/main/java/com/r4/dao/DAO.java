@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.r4.matkapp;
+package com.r4.dao;
 
 import java.util.List;
 
