@@ -6,6 +6,7 @@
 package com.r4.matkapp.dao;
 
 import com.r4.matkapp.User;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,7 +24,8 @@ public class UserDAO implements DAO {
     private Session session = null;
 
     public UserDAO() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+        final StandardServiceRegistry registry = 
+                new StandardServiceRegistryBuilder().configure().build();
         try {
             sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
@@ -34,9 +36,20 @@ public class UserDAO implements DAO {
     }
 
     @Override
-    public List getAll() {
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<User> getAll() {
+        session = sessionFactory.openSession();
+        try {
+            session.beginTransaction(); 
+            List<User> result = session.createQuery("from User", User.class).list();
+            session.getTransaction().commit();
+            return result.isEmpty() ? null : result;              
+        } catch (Exception e) {
+            if (session.getTransaction() != null)
+                session.beginTransaction().rollback();
+            throw e;
+        } finally {    
+            session.close();
+        }
     }
 
     @Override

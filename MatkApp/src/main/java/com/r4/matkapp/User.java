@@ -2,6 +2,7 @@ package com.r4.matkapp;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -32,31 +33,19 @@ public class User {
     @Column(name = "phone_number")
     private String phone_number;
     
-    private static int idOrder;
-    
     public User() {
         super();
     }
     public User(String first_name, String last_name, String email, String password) {
-        //user_id = idOrder;
         super();
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
-        //idOrder++;
     }
     
     public int getId(){
         return user_id;
-    }
-
-    public static int getIdOrder() {
-        return idOrder;
-    }
-
-    public static void setIdOrder(int idOrder) {
-        User.idOrder = idOrder;
     }
 
     public int getGroup_id() {
