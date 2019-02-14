@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.r4.dao;
+package com.r4.matkapp.dao;
 
 import java.util.List;
 
@@ -14,10 +14,12 @@ public interface DAO<T> {
     
     List<T> getAll();
     
-    void save(T t);
+    abstract void create(T t);
     
-    void update(T t, String[] params);
+    abstract void update(T t, String[] params);
     
-    void delete(T t);
+    abstract void delete(T t);
+    
+    abstract void close();
     
 }
