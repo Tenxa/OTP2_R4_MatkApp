@@ -46,6 +46,10 @@ public class User {
         this.password = password;
         //idOrder++;
     }
+    
+    public int getId(){
+        return user_id;
+    }
 
     public static int getIdOrder() {
         return idOrder;

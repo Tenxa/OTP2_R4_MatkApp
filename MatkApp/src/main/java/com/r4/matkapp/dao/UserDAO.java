@@ -5,8 +5,6 @@
  */
 package com.r4.matkapp.dao;
 
-import com.r4.matkapp.dao.DAO;
-import com.r4.matkapp.User;
 import com.r4.matkapp.User;
 import java.util.List;
 import org.hibernate.Session;
@@ -37,7 +35,7 @@ public class UserDAO implements DAO {
 
     @Override
     public List getAll() {
-        
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -49,10 +47,10 @@ public class UserDAO implements DAO {
             session.saveOrUpdate((User) t);
             session.getTransaction().commit();
         } catch (Exception e) {
-            if(session.getTransaction() != null) {
+            if (session.getTransaction() != null) {
                 session.beginTransaction().rollback();
             }
-            throw e;        
+            throw e;
         } finally {
             session.close();
         }
@@ -65,10 +63,25 @@ public class UserDAO implements DAO {
 
     @Override
     public void delete(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            User u = (User) t;
+            u = (User) session.get(User.class, u.getId());
+            if (u != null) {
+                session.delete(u);
+                session.getTransaction().commit();
+            }
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.beginTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
- 
     @Override
     public void close() {
         sessionFactory.close();
