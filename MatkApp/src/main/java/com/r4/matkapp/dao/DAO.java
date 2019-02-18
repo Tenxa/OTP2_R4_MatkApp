@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface DAO<T> {
     
-    List<T> getAll();
+    abstract List<T> getAll();
     
     abstract void create(T t);
     
