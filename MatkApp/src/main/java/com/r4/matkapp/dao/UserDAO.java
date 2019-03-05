@@ -5,7 +5,7 @@
  */
 package com.r4.matkapp.dao;
 
-import com.r4.matkapp.User;
+import com.r4.matkapp.mvc.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;

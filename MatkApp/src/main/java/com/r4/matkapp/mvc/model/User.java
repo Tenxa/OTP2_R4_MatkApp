@@ -1,4 +1,4 @@
-package com.r4.matkapp;
+package com.r4.matkapp.mvc.model;
 
 import javax.persistence.*;
 

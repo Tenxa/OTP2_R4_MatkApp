@@ -1,5 +1,6 @@
 package com.r4.matkapp;
 
+import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.dao.DAO;
 import com.r4.matkapp.dao.UserDAO;
 import javafx.application.Application;
