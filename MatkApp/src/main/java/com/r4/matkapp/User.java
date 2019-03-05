@@ -12,9 +12,9 @@ public class User {
     @Column(name ="id", updatable = false, nullable = false)
     private int id;
     
-    @ManyToOne
-    @JoinColumn(name = "UserGroup")
-    private Group group;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_group")
+    private Group user_group;
     @Column(name = "first_name")
     private String first_name;
     @Column(name = "last_name")
@@ -50,11 +50,11 @@ public class User {
     }
 
     public Group getGroup() {
-        return group;
+        return user_group;
     }
     
     public void setGroup(Group group) {
-        group = group;
+        user_group = group;
     }
 
     
