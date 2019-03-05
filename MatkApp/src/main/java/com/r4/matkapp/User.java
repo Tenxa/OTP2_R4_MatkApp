@@ -9,11 +9,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="user_id", updatable = false, nullable = false)
-    private int user_id;
- 
-    @Column(name = "group_id")
-    private int group_id;
+    @Column(name ="id", updatable = false, nullable = false)
+    private int id;
+    
+    @ManyToOne
+    @JoinColumn(name = "UserGroup")
+    private Group group;
     @Column(name = "first_name")
     private String first_name;
     @Column(name = "last_name")
@@ -45,17 +46,18 @@ public class User {
     }
     
     public int getId(){
-        return user_id;
+        return id;
     }
 
-    public int getGroup_id() {
-        return group_id;
+    public Group getGroup() {
+        return group;
+    }
+    
+    public void setGroup(Group group) {
+        group = group;
     }
 
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
-    }
-
+    
     public String getFirst_name() {
         return first_name;
     }

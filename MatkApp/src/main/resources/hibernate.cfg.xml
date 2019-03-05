@@ -5,7 +5,7 @@
 <hibernate-configuration>
    <session-factory>
    <property name="hibernate.dialect">
-      org.hibernate.dialect.MySQL5Dialect
+      org.hibernate.dialect.MariaDB53Dialect
    </property>
    <property name="hibernate.connection.driver_class">
       com.mysql.jdbc.Driver
@@ -23,7 +23,9 @@
    <property name="hbm2ddl.auto">create</property>
    <property name="show_sql">true</property>
    <!--<mapping class=""/> MAPPING CLASSES HERE-->
+   <mapping class="com.r4.matkapp.Group"/>
    <mapping class="com.r4.matkapp.User"/>
+   
 
 </session-factory>
 </hibernate-configuration>

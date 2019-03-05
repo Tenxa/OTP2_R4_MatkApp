@@ -3,35 +3,35 @@ package com.r4.matkapp;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "group")
+@Table(name = "groups")
 public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "group_id", updatable = false, nullable = false)
-    private int group_id;
+    @Column(name = "id", updatable = false, nullable = false)
+    private int id;
     
-    @Column(name="group_name")
-    private String group_name;
+    @Column(name="name")
+    private String name;
     
     public Group() {
         super();
     }
 
     public Group(String group_name) {
-        this.group_name = group_name;
+        this.name = group_name;
     }
 
-    public int getGroup_id() {
-        return group_id;
+    public int getId() {
+        return id;
     }
 
     public String getGroup_name() {
-        return group_name;
+        return name;
     }
 
     public void setGroup_name(String group_name) {
-        this.group_name = group_name;
+        this.name = group_name;
     }
 
 }
