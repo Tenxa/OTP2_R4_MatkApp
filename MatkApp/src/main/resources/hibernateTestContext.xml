@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd"
+>
+ 
+    <bean id="sessionFactory"
+           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource"
+                  ref="dataSource"/>
+        <property name="packagesToScan"
+                  value="com.r4.matkapp.mvc.model"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">
+                    validate
+                </prop>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MariaDB53Dialect
+                </prop>
+            </props>
+        </property>
+    </bean>
+ 
+    <bean id="dataSource"
+          class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://10.114.34.84/matkapp"/>
+        <property name="username" value="eero"/>
+        <property name="password" value="eero"/>
+    </bean>
+ 
+    <bean id="txManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+</beans>

@@ -45,6 +45,10 @@ public class User {
         this.password = password;
     }
     
+    public void setId(int id){
+        this.id = id;
+    }
+    
     public int getId(){
         return id;
     }
@@ -129,5 +133,5 @@ public class User {
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
-    
+ 
 }

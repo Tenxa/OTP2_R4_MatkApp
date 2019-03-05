@@ -6,20 +6,21 @@
 package com.r4.matkapp.dao;
 
 import com.r4.matkapp.mvc.model.User;
-import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author teemu
  */
 public class UserDAO implements DAO {
-
+    
+    @Autowired
     private SessionFactory sessionFactory = null;
     private Session session = null;
 
@@ -29,6 +30,7 @@ public class UserDAO implements DAO {
         try {
             sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Connection Failed");
             StandardServiceRegistryBuilder.destroy(registry);
             System.exit(-1);
