@@ -155,6 +155,21 @@
             <version>9.0.1</version>
         </dependency>
         
+        <!-- javax.mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+
+
+        <!-- javax.activation -->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
         
 
     </dependencies>
