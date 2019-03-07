@@ -3,6 +3,7 @@ package com.r4.matkapp;
 import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.dao.DAO;
 import com.r4.matkapp.dao.UserDAO;
+import com.r4.matkapp.mvc.controller.UserController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
@@ -17,12 +18,8 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        User u = new User();
-        u.setFirst_name("mah");
-        u.setLast_name("nigga");
-        final DAO d = new UserDAO();
-        d.create(u);
-        d.delete(u);
+
+       
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
 
@@ -34,7 +31,7 @@ public class MainApp extends Application {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                d.close();
+                UserController.dao.close();
                 Platform.exit();
                 System.exit(0);
             }
