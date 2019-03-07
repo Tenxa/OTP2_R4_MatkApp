@@ -26,4 +26,12 @@ public class UserController {
     public void deleteUser(User user){
         dao.delete(user);
     }
+    
+    public void addGroup(String group_name) {
+        Group group = new Group(group_name);
+        dao.create(group);
+    }
+    public void deleteGroup(Group group) {
+        dao.delete(group);
+    }
 }
