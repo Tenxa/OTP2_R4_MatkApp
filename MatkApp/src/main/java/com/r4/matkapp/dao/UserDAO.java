@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -100,6 +101,31 @@ public class UserDAO implements DAO {
     @Override
     public void close() {
         sessionFactory.close();
+    }
+
+    @Override
+    public User find(String email) {
+       session = sessionFactory.openSession();
+       try {
+           session.beginTransaction();
+           Query q = session.createQuery("from User where email = :email");
+           q.setParameter("email", email);
+           List<User> result = q.getResultList();
+           User u = null;
+           if(result.size() == 1) {
+               u = result.get(0);
+           } 
+           session.getTransaction().commit();
+           return u;
+       } catch (Exception e) {
+            e.printStackTrace();
+            if (session.getTransaction().isActive()) {
+                session.beginTransaction().rollback();
+            }
+            throw e;
+       } finally {
+            session.close();
+        }
     }
 
 }

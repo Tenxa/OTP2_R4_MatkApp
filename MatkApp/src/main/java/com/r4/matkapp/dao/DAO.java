@@ -5,6 +5,7 @@
  */
 package com.r4.matkapp.dao;
 
+import com.r4.matkapp.mvc.model.User;
 import java.util.List;
 
 /**
@@ -21,5 +22,7 @@ public interface DAO<T> {
     abstract void delete(T t);
     
     abstract void close();
+    
+    abstract User find(String name);
     
 }

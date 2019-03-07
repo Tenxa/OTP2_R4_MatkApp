@@ -9,9 +9,9 @@ import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
 import java.util.List;
 import javax.transaction.Transactional;
-import junit.framework.Assert;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -31,31 +31,49 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = "classpath:hibernateTestContext.xml")
 @Transactional
 public class UserDAOTest {
-    
+
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     @Test
     public void testCreate() {
         Session session = sessionFactory.getCurrentSession();
-        
+
         User u = new User();
         u.setId(123);
         u.setFirst_name("Teppo");
         u.setLast_name("Testi");
-        
+
         String grpName = "TestGroup";
         Group g = new Group();
         g.setGroup_name(grpName);
-        
+
         u.setGroup(g);
-        
+
         session.saveOrUpdate(u);
         User findU = session.find(User.class, 123);
-        
+
         assertNotNull(findU);
         assertEquals(grpName, findU.getGroup().getGroup_name());
-        
+
+    }
+
+    @Test
+    public void testDelete() {
+        Session session = sessionFactory.getCurrentSession();
+
+        User u = new User();
+        u.setId(123);
+        u.setFirst_name("Teppo");
+        u.setLast_name("Testi");
+
+        session.saveOrUpdate(u);
+        User findU = session.find(User.class, 123);
+        assertNotNull(findU);
+        session.delete(u);
+        findU = session.find(User.class, 123);
+        assertNull(findU);
     }
     
+
 }
