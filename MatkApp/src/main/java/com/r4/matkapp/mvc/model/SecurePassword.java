@@ -16,6 +16,8 @@ import javax.crypto.spec.PBEKeySpec;
  * @author Mika
  */
 
+// TODO:
+// - tesit
 
 // Each user has a unique salt
 // This salt must be recomputed during password change!

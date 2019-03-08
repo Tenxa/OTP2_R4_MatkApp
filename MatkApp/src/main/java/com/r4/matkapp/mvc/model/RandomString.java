@@ -26,6 +26,10 @@ public class RandomString {
     private final char[] buf;
     
       
+    /**
+     * Creates random String containing alphabets and digits based on given length.
+     * @param length 
+     */
     public RandomString(int length) {
         Random random = new SecureRandom();
         String symbols = alphanum;
@@ -37,6 +41,10 @@ public class RandomString {
         this.buf = new char[length];
     }
     
+    /**
+     * Fetch next String from buffer.
+     * @return 
+     */
     public String nextString() {
         for (int idx = 0; idx < buf.length; ++idx)
             buf[idx] = symbols[random.nextInt(symbols.length)];

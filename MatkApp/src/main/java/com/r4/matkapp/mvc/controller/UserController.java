@@ -15,6 +15,13 @@ import javafx.scene.control.Alert.AlertType;
  *
  * @author teemu
  */
+
+// TODO:
+// - Ryhmään liityinen (invite)
+// - Ryhmän poistaminen
+// - 
+
+
 public class UserController {
 
     private static User selectedUser;
@@ -28,19 +35,24 @@ public class UserController {
     }
 
     public boolean addUser(String first_name, String last_name, String email, String password) {
-      
+        
+        // Validate user input.
         if (ValidateUserInfo.isValid(first_name, last_name, email, password)) {
             
             SecurePassword sPass = new SecurePassword();
             try {
+                // encrypt password
                 String userSalt = sPass.getNewSalt();
                 String encryptedPassword = sPass.generateEncryptedPassword(password, userSalt);
+                
                 User user = new User(first_name, last_name, email, encryptedPassword, userSalt);
-
+                
+                // check if email is not reserved.
                 if (dao.find(email) == null) {
                     dao.create(user);
                     return true;
                 } else {
+                    // tän vois joskus siirtää/ toteuttaa FXMLControlleris
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle(null);
                     alert.setHeaderText("Käyttäjän luonti epäonnistui!");
@@ -52,6 +64,7 @@ public class UserController {
             }
 
         } else {
+            // tän vois joskus siirtää/ toteuttaa FXMLControlleris
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
             alert.setHeaderText("Käyttäjän luonti epäonnistui!");
@@ -68,7 +81,11 @@ public class UserController {
         dao.delete(user);
         // TODO
     }
-
+    
+    // Create new group if logged in and user is not in any group.
+    // Sets created group as User group property and updates User.
+    // Updating User with group that does not exists creates
+    // new Group row into database.
     public String createGroup(String group_name) {
         if(loggedUser != null) {
             if(loggedUser.getGroup() != null) return null; // ei voi tehä grp jos on jo

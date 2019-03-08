@@ -16,6 +16,11 @@ import org.hibernate.query.Query;
  *
  * @author Eero
  */
+
+// TODO:
+// - loppujen metodien toteutus
+// - testit
+
 public class GroupDAO implements DAO {
     private SessionFactory sessionFactory = null;
     private Session session = null;

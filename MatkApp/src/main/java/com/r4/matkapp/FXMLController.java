@@ -14,6 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+// TODO:
+// - Ryhmään liittyminen (invite)
+// - PopUp message siistiminen / parempi toteutus.
+
 public class FXMLController implements Initializable {
 
     UserController uController;
@@ -28,7 +32,7 @@ public class FXMLController implements Initializable {
     private TextField login_email, login_password;
 
     @FXML
-    private TextField create_grp_name, join_grp_invite;
+    private TextField create_grp_name, join_grp_invite; // TODO: invite
 
     @FXML
     private StackPane users_pane, groups_pane, mainpage_pane;
