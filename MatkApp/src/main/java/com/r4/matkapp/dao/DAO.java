@@ -17,12 +17,10 @@ public interface DAO<T> {
     
     abstract void create(T t);
     
-    abstract void update(T t, String[] params);
+    abstract void update(T t);
     
     abstract void delete(T t);
     
-    abstract void close();
-    
-    abstract User find(String name);
+    abstract Object find(String column);
     
 }

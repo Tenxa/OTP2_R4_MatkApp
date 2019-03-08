@@ -10,36 +10,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.r4.matkapp.FXMLController">
    <children>
-      <StackPane fx:id="groups_pane" onDragDetected="#handleButtonAction" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button layoutX="226.0" layoutY="33.0" mnemonicParsing="false" text="Luo ryhmä" />
-                  <Button layoutX="226.0" layoutY="97.0" mnemonicParsing="false" text="Liity ryhmään" />
-                  <Button layoutX="385.0" layoutY="33.0" mnemonicParsing="false" text="Ryhmän jäsenet" />
-                  <Button layoutX="226.0" layoutY="155.0" mnemonicParsing="false" text="Kutsu ryhmään" />
-                  <TextField layoutX="43.0" layoutY="33.0" />
-                  <TextField layoutX="43.0" layoutY="97.0" />
-                  <TextField layoutX="43.0" layoutY="155.0" />
-                  <ListView layoutX="385.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" />
-                  <Button fx:id="mainpage_button" layoutX="43.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Etusivu" />
-                  <Text layoutX="43.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ryhmän nimi" />
-                  <Text layoutX="43.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Syötä koodi" />
-                  <Text layoutX="43.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Syötä ystävän sähköposti" />
-               </children>
-            </AnchorPane>
-         </children>
-      </StackPane>
-      <StackPane fx:id="mainpage_pane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="groups_button" layoutX="300.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ryhmät" />
-                  <Button fx:id="users_button" layoutX="222.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Käyttäjät" />
-               </children>
-            </AnchorPane>
-         </children>
-      </StackPane>
       <StackPane fx:id="users_pane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -59,6 +29,36 @@
                   <Text layoutX="423.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salasana" />
                   <Button layoutX="423.0" layoutY="254.0" mnemonicParsing="false" onAction="#createUser" text="Luo käyttäjä" />
                   <Button fx:id="mainpage2_button" layoutX="43.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Etusivu" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+      <StackPane fx:id="mainpage_pane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="groups_button" layoutX="300.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ryhmät" />
+                  <Button fx:id="users_button" layoutX="222.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Käyttäjät" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+      <StackPane fx:id="groups_pane" onDragDetected="#handleButtonAction" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="226.0" layoutY="33.0" mnemonicParsing="false" onAction="#createGroup" text="Luo ryhmä" />
+                  <Button layoutX="226.0" layoutY="97.0" mnemonicParsing="false" text="Liity ryhmään" />
+                  <Button layoutX="385.0" layoutY="33.0" mnemonicParsing="false" text="Ryhmän jäsenet" />
+                  <Button layoutX="226.0" layoutY="155.0" mnemonicParsing="false" text="Kutsu ryhmään" />
+                  <TextField fx:id="create_grp_name" layoutX="43.0" layoutY="33.0" />
+                  <TextField fx:id="join_grp_invite" layoutX="43.0" layoutY="97.0" />
+                  <TextField layoutX="43.0" layoutY="155.0" />
+                  <ListView layoutX="385.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Button fx:id="mainpage_button" layoutX="43.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Etusivu" />
+                  <Text layoutX="43.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ryhmän nimi" />
+                  <Text layoutX="43.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Syötä koodi" />
+                  <Text layoutX="43.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Syötä ystävän sähköposti" />
                </children>
             </AnchorPane>
          </children>

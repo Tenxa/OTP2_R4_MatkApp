@@ -24,6 +24,7 @@ public class Group {
 
     public Group(String group_name) {
         this.name = group_name;
+        invite = generateInvite();
     }
 
     public int getId() {

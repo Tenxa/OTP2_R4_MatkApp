@@ -78,5 +78,26 @@ public class UserDAOTest {
         assertNull(findU);
     }
     
+    @Test
+    public void testUpdate() {
+        Session session = sessionFactory.getCurrentSession();
+
+        User u = new User();
+        u.setId(123);
+        u.setFirst_name("Teppo");
+        u.setLast_name("Testi");
+        session.saveOrUpdate(u);
+        
+        User findU = session.find(User.class, 123);
+        assertNotNull(findU);
+        
+        u.setFirst_name("Pekka");
+        
+        session.update(u);
+        findU = session.find(User.class, 123);
+        
+        assertEquals("Pekka", findU.getFirst_name());
+    }
+    
 
 }

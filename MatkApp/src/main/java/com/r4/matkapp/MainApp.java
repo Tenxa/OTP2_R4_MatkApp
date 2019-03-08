@@ -31,7 +31,7 @@ public class MainApp extends Application {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                UserController.dao.close();
+                UserController.dbSession.close();
                 Platform.exit();
                 System.exit(0);
             }

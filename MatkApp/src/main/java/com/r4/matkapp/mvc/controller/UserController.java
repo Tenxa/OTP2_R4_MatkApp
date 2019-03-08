@@ -18,15 +18,17 @@ import javafx.scene.control.Alert.AlertType;
 public class UserController {
 
     private static User selectedUser;
-    public static DAO dao = new UserDAO();
+    public static DatabaseSession dbSession = new DatabaseSession();
+    static DAO dao = new UserDAO(dbSession.getSessionFactory());
+    
+    private User loggedUser;
 
     public UserController() {
-
+        loggedUser = null;
     }
 
     public boolean addUser(String first_name, String last_name, String email, String password) {
-        // TODO salasanan salaus / validointi
-        
+      
         if (ValidateUserInfo.isValid(first_name, last_name, email, password)) {
             
             SecurePassword sPass = new SecurePassword();
@@ -64,23 +66,37 @@ public class UserController {
 
     public void deleteUser(User user) {
         dao.delete(user);
+        // TODO
     }
 
-    public void addGroup(String group_name) {
-        Group group = new Group(group_name);
-        dao.create(group);
+    public String createGroup(String group_name) {
+        if(loggedUser != null) {
+            if(loggedUser.getGroup() != null) return null; // ei voi tehä grp jos on jo
+            Group group = new Group(group_name);
+            loggedUser.setGroup(group); 
+            try {
+               dao.update(loggedUser);
+               return group.getInvite();
+            } catch (Exception e) {
+                
+            }
+        }  
+        return null;
     }
 
     public void deleteGroup(Group group) {
-        dao.delete(group);
+       // TODO
     }
     
     public boolean checkLogin(String email, String password) {
-        User user = dao.find(email);
+        User user = (User) dao.find(email);
         if(user != null) {
             SecurePassword sPass = new SecurePassword();
             try {
-                return sPass.authenticateUser(user, password);            
+                if(sPass.authenticateUser(user, password)) {
+                    loggedUser = user;
+                    return true;
+                }          
             } catch (Exception e) {
                 
             }

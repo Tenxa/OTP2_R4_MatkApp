@@ -9,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 public class FXMLController implements Initializable {
@@ -24,6 +26,9 @@ public class FXMLController implements Initializable {
 
     @FXML
     private TextField login_email, login_password;
+
+    @FXML
+    private TextField create_grp_name, join_grp_invite;
 
     @FXML
     private StackPane users_pane, groups_pane, mainpage_pane;
@@ -63,7 +68,7 @@ public class FXMLController implements Initializable {
     private void login(ActionEvent event) {
         if (uController.checkLogin(
                 login_email.getText(), login_password.getText())) {
-            
+
             // kirjautminen ok tästä etiäpäi
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(null);
@@ -80,10 +85,42 @@ public class FXMLController implements Initializable {
 
     }
 
+    @FXML
+    private void createGroup(ActionEvent event) {
+        String result = uController.createGroup(create_grp_name.getText());
+        if (result != null) {
+            String content = "Liitymis koodi: " + result;
+            popCopyableMessage(Alert.AlertType.INFORMATION, "Ryhmän luonti onnistui", content);
+        } else {
+            popMessage(Alert.AlertType.WARNING, "Ryhmän luonti epäonnistui!", null);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         uController = new UserController();
 
+    }
+
+    private void popMessage(Alert.AlertType type, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(null);
+        alert.setHeaderText(header);
+        alert.setContentText(content);  
+        alert.showAndWait();
+    }
+    
+    private void popCopyableMessage(Alert.AlertType type, String header, String content){
+        TextField text = new TextField(content);
+        GridPane gridPane = new GridPane();
+        gridPane.setMaxWidth(Double.MAX_VALUE);
+        gridPane.add(text, 0, 0);
+        
+        Alert alert = new Alert(type);
+        alert.setTitle(null);
+        alert.setHeaderText(header);
+        alert.getDialogPane().setContent(text);
+        alert.showAndWait();
     }
 }

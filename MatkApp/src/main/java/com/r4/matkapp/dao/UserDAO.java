@@ -24,18 +24,9 @@ public class UserDAO implements DAO {
     @Autowired
     private SessionFactory sessionFactory = null;
     private Session session = null;
-
-    public UserDAO() {
-        final StandardServiceRegistry registry = 
-                new StandardServiceRegistryBuilder().configure().build();
-        try {
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Connection Failed");
-            StandardServiceRegistryBuilder.destroy(registry);
-            System.exit(-1);
-        }
+    
+    public UserDAO(SessionFactory dbSession) {
+        sessionFactory = dbSession;
     }
 
     @Override
@@ -73,8 +64,20 @@ public class UserDAO implements DAO {
     }
 
     @Override
-    public void update(Object t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Object t) {
+        session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update((User) t);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.beginTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
@@ -98,10 +101,6 @@ public class UserDAO implements DAO {
         }
     }
 
-    @Override
-    public void close() {
-        sessionFactory.close();
-    }
 
     @Override
     public User find(String email) {
