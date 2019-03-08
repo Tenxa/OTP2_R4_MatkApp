@@ -68,6 +68,20 @@ public class SecurePassword {
         saveUser(user);
     }
 
+    public String generateEncryptedPassword(String inputPassword) throws Exception {
+        String salt = getNewSalt();
+        String algorithm = "PBKDF2WithHmacSHA1";
+        int derivedKeyLength = 160;
+        int iterations = 20000;
+        
+        byte[] saltBytes = Base64.getDecoder().decode(salt);
+        KeySpec spec = new PBEKeySpec(inputPassword.toCharArray(), saltBytes, iterations, derivedKeyLength);
+        SecretKeyFactory f = SecretKeyFactory.getInstance(algorithm);
+        
+        byte[] encBytes = f.generateSecret(spec).getEncoded();
+        return Base64.getEncoder().encodeToString(encBytes);
+    }
+    
     // Get a encrypted password using PBKDF2 hash algorithm
     public String getEncryptedPassword(String password, String salt) throws Exception {
         String algorithm = "PBKDF2WithHmacSHA1";
