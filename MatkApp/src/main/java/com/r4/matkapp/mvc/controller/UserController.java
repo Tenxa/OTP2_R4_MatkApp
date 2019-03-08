@@ -5,6 +5,7 @@
  */
 package com.r4.matkapp.mvc.controller;
 
+import com.r4.matkapp.mvc.model.SecurePassword;
 import com.r4.matkapp.dao.*;
 import com.r4.matkapp.mvc.model.*;
 import javafx.scene.control.Alert;
@@ -25,13 +26,17 @@ public class UserController {
 
     public boolean addUser(String first_name, String last_name, String email, String password) {
         // TODO salasanan salaus / validointi
-
+        
         if (!(first_name.equals("")
                 || last_name.equals("")
                 || email.equals("")
                 || password.equals(""))) {
-            User user = new User(first_name, last_name, email, password);
+            SecurePassword sPass = new SecurePassword();         
             try {
+                String userSalt = sPass.getNewSalt();
+                String encryptedPassword = sPass.generateEncryptedPassword(password, userSalt);
+                User user = new User(first_name, last_name, email, encryptedPassword, userSalt);
+
                 if (dao.find(email) == null) {
                     dao.create(user);
                     return true;
@@ -68,5 +73,18 @@ public class UserController {
 
     public void deleteGroup(Group group) {
         dao.delete(group);
+    }
+    
+    public boolean checkLogin(String email, String password) {
+        User user = dao.find(email);
+        if(user != null) {
+            SecurePassword sPass = new SecurePassword();
+            try {
+                return sPass.authenticateUser(user, password);            
+            } catch (Exception e) {
+                
+            }
+        }
+        return false;
     }
 }

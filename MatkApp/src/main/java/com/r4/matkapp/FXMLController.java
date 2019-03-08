@@ -23,6 +23,9 @@ public class FXMLController implements Initializable {
     private TextField first_name, last_name, email, password;
 
     @FXML
+    private TextField login_email, login_password;
+
+    @FXML
     private StackPane users_pane, groups_pane, mainpage_pane;
 
     @FXML
@@ -52,6 +55,27 @@ public class FXMLController implements Initializable {
             last_name.clear();
             email.clear();
             password.clear();
+        }
+
+    }
+
+    @FXML
+    private void login(ActionEvent event) {
+        if (uController.checkLogin(
+                login_email.getText(), login_password.getText())) {
+            
+            // kirjautminen ok tästä etiäpäi
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("OK!");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText("Kirjautuminen epäonnistui!");
+            alert.setContentText("Käyttäjä tunnus tai salasana väärin.");
+            alert.showAndWait();
         }
 
     }

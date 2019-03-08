@@ -30,15 +30,25 @@
             </AnchorPane>
          </children>
       </StackPane>
+      <StackPane fx:id="mainpage_pane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="groups_button" layoutX="300.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ryhmät" />
+                  <Button fx:id="users_button" layoutX="222.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Käyttäjät" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
       <StackPane fx:id="users_pane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField layoutX="43.0" layoutY="33.0" />
-                  <TextField layoutX="43.0" layoutY="97.0" />
+                  <TextField fx:id="login_email" layoutX="43.0" layoutY="33.0" />
+                  <PasswordField fx:id="login_password" layoutX="43.0" layoutY="97.0" />
                   <Text layoutX="43.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Käyttäjätunnus" />
                   <Text layoutX="43.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salasana" />
-                  <Button layoutX="43.0" layoutY="135.0" mnemonicParsing="false" text="Kirjaudu sisään" />
+                  <Button layoutX="43.0" layoutY="135.0" mnemonicParsing="false" onAction="#login" text="Kirjaudu sisään" />
                   <TextField fx:id="first_name" layoutX="423.0" layoutY="58.0" />
                   <TextField fx:id="last_name" layoutX="423.0" layoutY="109.0" />
                   <TextField fx:id="email" layoutX="423.0" layoutY="168.0" />
@@ -49,16 +59,6 @@
                   <Text layoutX="423.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salasana" />
                   <Button layoutX="423.0" layoutY="254.0" mnemonicParsing="false" onAction="#createUser" text="Luo käyttäjä" />
                   <Button fx:id="mainpage2_button" layoutX="43.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Etusivu" />
-               </children>
-            </AnchorPane>
-         </children>
-      </StackPane>
-      <StackPane fx:id="mainpage_pane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="groups_button" layoutX="300.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ryhmät" />
-                  <Button fx:id="users_button" layoutX="222.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Käyttäjät" />
                </children>
             </AnchorPane>
          </children>

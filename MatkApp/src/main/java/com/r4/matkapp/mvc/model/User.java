@@ -33,16 +33,24 @@ public class User {
     private String country;
     @Column(name = "phone_number")
     private String phone_number;
+    @Column(name = "user_salt")
+    private String user_salt;
+    
+    public User(String salt) {
+        super();
+        user_salt = salt;
+    }
     
     public User() {
         super();
     }
-    public User(String first_name, String last_name, String email, String password) {
+    public User(String first_name, String last_name, String email, String password, String salt) {
         super();
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
+        this.user_salt = salt;
     }
     
     public void setId(int id){
@@ -132,6 +140,10 @@ public class User {
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
+    }
+    
+    public String getSalt() {
+        return user_salt;
     }
  
 }
