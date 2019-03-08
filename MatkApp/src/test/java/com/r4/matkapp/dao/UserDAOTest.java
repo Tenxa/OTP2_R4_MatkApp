@@ -18,6 +18,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,6 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Eero
  */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:hibernateTestContext.xml")
 @Transactional
@@ -49,13 +51,14 @@ public class UserDAOTest {
         g.setGroup_name(grpName);
 
         u.setGroup(g);
-
+        String invite = g.getInvite();
         session.saveOrUpdate(u);
         User findU = session.find(User.class, 123);
 
         assertNotNull(findU);
         assertEquals(grpName, findU.getGroup().getGroup_name());
-
+        assertEquals(invite, findU.getGroup().getInvite());
+        
     }
 
     @Test

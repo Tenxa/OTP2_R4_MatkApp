@@ -10,12 +10,16 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private int id;
-    
-    @Column(name="name")
+
+    @Column(name = "name")
     private String name;
-    
-    public Group() {
+
+    @Column(name = "invite")
+    private String invite;
+
+    public Group() { 
         super();
+        invite = generateInvite();
     }
 
     public Group(String group_name) {
@@ -32,6 +36,15 @@ public class Group {
 
     public void setGroup_name(String group_name) {
         this.name = group_name;
+    }
+    
+    public String getInvite() {
+        return invite;
+    }
+
+    private String generateInvite() {
+        RandomString rs = new RandomString(10);  
+        return rs.nextString();
     }
 
 }
