@@ -27,11 +27,9 @@ public class UserController {
     public boolean addUser(String first_name, String last_name, String email, String password) {
         // TODO salasanan salaus / validointi
         
-        if (!(first_name.equals("")
-                || last_name.equals("")
-                || email.equals("")
-                || password.equals(""))) {
-            SecurePassword sPass = new SecurePassword();         
+        if (ValidateUserInfo.isValid(first_name, last_name, email, password)) {
+            
+            SecurePassword sPass = new SecurePassword();
             try {
                 String userSalt = sPass.getNewSalt();
                 String encryptedPassword = sPass.generateEncryptedPassword(password, userSalt);
@@ -55,7 +53,9 @@ public class UserController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
             alert.setHeaderText("Käyttäjän luonti epäonnistui!");
-            alert.setContentText("Tietoja puuttuu.");
+            alert.setContentText("Tietoja puuttuu tai ne ovat virheelliset.\n"
+                    + "Salasanan pituus pitää olla 4 - 14 merkkiä.\n"
+                    + "Sähköposti formaattia 'nimi@domain.fi'.");
             alert.showAndWait();
         }
 
