@@ -28,12 +28,13 @@ public class SendMail {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        final String username = "lahettaja@gmail.com";
-        final String password = "salasana";
+        final String username = "officialmatkapp@gmail.com";
+        final String password = "MatkApp1234";
 
         Properties props = new Properties();
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", true);
+        props.put("mail.smtp.auth", true);
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
 
@@ -47,9 +48,9 @@ public class SendMail {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("lahettaja@gmail.com"));
+            message.setFrom(new InternetAddress("officialmatkapp@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse("vastaanottaja@domain.com"));
+                InternetAddress.parse("sakirimo@gmail.com"));
             message.setSubject("Testing");
             message.setText("Dear Mail Crawler,"
                 + "\n\n No spam to my email, please!");
