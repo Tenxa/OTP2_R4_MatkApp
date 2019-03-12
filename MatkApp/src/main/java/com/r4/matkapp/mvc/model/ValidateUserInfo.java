@@ -10,13 +10,23 @@ import javax.mail.internet.InternetAddress;
 
 
 /**
- *
+ * ValidateUserInfo is utility class for validating user info.
+ * 
  * @author Eero
  */
 public class ValidateUserInfo {
     static final int MIN_PASSWORD_LENGTH = 4;
     static final int MAX_PASSWORD_LENGTH = 14;
     
+    /**
+     * Validates User info. Returns false if any property is empty, password 
+     * length isn't between min and max length or email address is not valid.
+     * @param first_name
+     * @param last_name
+     * @param email
+     * @param password
+     * @return 
+     */
     public static boolean isValid(String first_name, String last_name, String email, String password) {
         
         // Check not empty.

@@ -11,13 +11,16 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 /**
- *
+ * Class for creating database SessionFactory.
  * @author Eero
  */
 public class DatabaseSession {
     
     private SessionFactory sessionFactory;
     
+    /**
+     * Parameterless constructor that creates new sessionFactory.
+     */
     public DatabaseSession() {
         final StandardServiceRegistry registry = 
                 new StandardServiceRegistryBuilder().configure().build();

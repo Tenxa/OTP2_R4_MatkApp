@@ -11,6 +11,8 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
+ * Class for generating random string containing upper and lower case alphabets
+ * and digits.
  *
  * @author Eero
  */

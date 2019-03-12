@@ -12,7 +12,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 /**
- *
+ * Class for generating PBKDF2 hash from String and
+ * authenticating user.
  * @author Mika
  */
 
@@ -26,6 +27,13 @@ import javax.crypto.spec.PBEKeySpec;
 
 public class SecurePassword {
     
+    /**
+     * Authenticates User info by comparing email and encrypted password.
+     * @param user
+     * @param inputPass
+     * @return
+     * @throws Exception 
+     */
     public boolean authenticateUser(User user, String inputPass) throws Exception {
         if (user == null) {
             return false;
@@ -39,7 +47,14 @@ public class SecurePassword {
             }
         }
     }
-  
+    
+    /**
+     * Generates Encrypted password for password with given salt.
+     * @param inputPassword
+     * @param salt
+     * @return
+     * @throws Exception 
+     */
     public String generateEncryptedPassword(String inputPassword, String salt) throws Exception {
         String algorithm = "PBKDF2WithHmacSHA1";
         int derivedKeyLength = 160;
@@ -53,7 +68,9 @@ public class SecurePassword {
         return Base64.getEncoder().encodeToString(encBytes);
     }
     
-    // Get a encrypted password using PBKDF2 hash algorithm
+    /**
+     * Get a encrypted password using PBKDF2 hash algorithm
+     */
     public String getEncryptedPassword(String password, String salt) throws Exception {
         String algorithm = "PBKDF2WithHmacSHA1";
         int derivedKeyLength = 160; // for SHA1
@@ -67,9 +84,14 @@ public class SecurePassword {
         return Base64.getEncoder().encodeToString(encBytes);
     }
 
-    // Returns base64 encoded salt
+    
+    /**
+     * Returns base64 encoded salt.
+     * @return
+     * @throws Exception 
+     */
     // (salt = random string, joka lisätään salasanan perään
-    // krytauksen randomisoinnin varimistamiseksi)
+    // kryptauksen randomisoinnin varimistamiseksi)
     public String getNewSalt() throws Exception {
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         // NIST recommends minimum 4 bytes. We use 8.

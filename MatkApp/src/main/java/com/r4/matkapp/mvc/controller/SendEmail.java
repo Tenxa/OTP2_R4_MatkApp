@@ -30,7 +30,7 @@ public class SendEmail {
         
     }
     
-    public void Send(String toUsername){
+    public void Send(String toUsername, String subject, String text){
         
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", true);
@@ -52,13 +52,10 @@ public class SendEmail {
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse(toUsername));
-            message.setSubject("Testing");
-            message.setText("Dear Mail Crawler,"
-                + "\n\n No spam to my email, please!");
+            message.setSubject(subject);
+            message.setText(text);
 
             Transport.send(message);
-
-            System.out.println("Done");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

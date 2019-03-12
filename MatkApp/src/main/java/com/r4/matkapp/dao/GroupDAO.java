@@ -13,7 +13,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 /**
- *
+ * Access object for Group class.
+ * 
+ * Currently only find() method is functional.
+ * 
  * @author Eero
  */
 

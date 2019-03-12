@@ -12,7 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- *
+ * Controller class for User data.
  * @author teemu
  */
 
@@ -33,7 +33,17 @@ public class UserController {
     public UserController() {
         loggedUser = null;
     }
-
+    
+    /**
+     * Adds new user into database.
+     * Validates user info and encrypts password before creating.
+     * Returns true if creation was successful.
+     * @param first_name
+     * @param last_name
+     * @param email
+     * @param password
+     * @return 
+     */
     public boolean addUser(String first_name, String last_name, String email, String password) {
         
         // Validate user input.
@@ -82,10 +92,18 @@ public class UserController {
         // TODO
     }
     
-    // Create new group if logged in and user is not in any group.
-    // Sets created group as User group property and updates User.
-    // Updating User with group that does not exists creates
-    // new Group row into database.
+  
+    /**
+     * Create new Group if logged in and user is not in any Group.
+     * Sets created Group as User group property and updates User.
+     * Updating User with group that does not exists creates new Group
+     * row into database.
+     * 
+     * So this method can be used to adding user into existing group.
+     * Returns true if successful.
+     * @param group_name
+     * @return 
+     */
     public String createGroup(String group_name) {
         if(loggedUser != null) {
             if(loggedUser.getGroup() != null) return null; // ei voi tehä grp jos on jo
@@ -105,6 +123,12 @@ public class UserController {
        // TODO
     }
     
+    /**
+     * Authenticates user login input.
+     * @param email
+     * @param password
+     * @return 
+     */
     public boolean checkLogin(String email, String password) {
         User user = (User) dao.find(email);
         if(user != null) {
