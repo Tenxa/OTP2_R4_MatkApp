@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class UserDAO implements DAO {
     
-    @Autowired
+    
     private SessionFactory sessionFactory = null;
     private Session session = null;
     
