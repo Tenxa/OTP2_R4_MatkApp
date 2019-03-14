@@ -28,6 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Eero
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:hibernateTestContext.xml")
 @Transactional
@@ -96,6 +97,44 @@ public class UserDAOTest {
         findU = session.find(User.class, 123);
         
         assertEquals("Pekka", findU.getFirst_name());
+    }
+    
+    @Test
+    public void testInsertAllUserInfo() {
+        
+        Session session = sessionFactory.getCurrentSession();
+        
+        User u = new User();
+        int id = 123;
+        String f_name = "Teppo";
+        String l_name = "testi";
+        String city = "city";
+        String country = "country";
+        String email = f_name + "@test.net";
+        String pass = "pass";
+        String phone = "123456789";
+        String post_num = "1234";
+        String street = "jokikuja";
+        Group g = new Group();
+        g.setGroup_name("grp");
+        
+        u.setId(id);
+        u.setFirst_name(f_name);
+        u.setLast_name(l_name);
+        u.setCity(city);
+        u.setCountry(country);
+        u.setEmail(email);
+        u.setPassword(pass);
+        u.setPhone_number(phone);
+        u.setPost_number(post_num);
+        u.setStreet_address(street);
+        u.setGroup(g);
+        
+        session.saveOrUpdate(u);
+        
+        User findU = session.find(User.class, 123);
+       
+        assertEquals(u, findU);
     }
     
 

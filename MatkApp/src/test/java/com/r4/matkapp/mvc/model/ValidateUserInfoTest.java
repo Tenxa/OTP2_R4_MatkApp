@@ -63,4 +63,15 @@ public class ValidateUserInfoTest {
         assertEquals(expResult, result); 
     }
     
+    @Test
+    public void testEmptyInput() {
+        String first_name = "";
+        String last_name = "";
+        String email = "";
+        String password = "";
+        boolean expResult = false;
+        boolean result = ValidateUserInfo.isValid(first_name, last_name, email, password);
+        assertEquals(expResult, result); 
+    }
+    
 }
