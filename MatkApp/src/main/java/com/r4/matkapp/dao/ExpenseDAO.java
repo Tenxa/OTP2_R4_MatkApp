@@ -5,6 +5,7 @@
  */
 package com.r4.matkapp.dao;
 
+import com.r4.matkapp.mvc.model.Expense;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Eero
  */
-public class ExpenseDAO implements DAO <DAO> {
+public class ExpenseDAO implements DAO <Expense> {
     
     private SessionFactory sessionFactory = null;
     private Session session = null;
@@ -25,27 +26,27 @@ public class ExpenseDAO implements DAO <DAO> {
     }
     
     @Override
-    public List<DAO> getAll() {
+    public List<Expense> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void create(DAO t) {
+    public void create(Expense e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(DAO t) {
+    public void update(Expense e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(DAO t) {
+    public void delete(Expense e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object find(String column) {
+    public Expense find(String column) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
