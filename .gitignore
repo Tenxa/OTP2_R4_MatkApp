@@ -28,3 +28,13 @@ hs_err_pid*
 .settings
 /MatkApp/nbproject/private/
 /MatkApp/target/
+
+
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml

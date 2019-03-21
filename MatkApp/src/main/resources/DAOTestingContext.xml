@@ -4,7 +4,7 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd"
 >
- 
+    <!-- Session Factory -->
     <bean id="sessionFactory"
            class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource"
@@ -14,25 +14,38 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">
-                    validate
+                    create-drop
                 </prop>
                 <prop key="hibernate.dialect">
-                    org.hibernate.dialect.MariaDB53Dialect
+                    org.hibernate.dialect.H2Dialect
                 </prop>
             </props>
         </property>
     </bean>
- 
+    
+    <!-- Database Configuration -->
     <bean id="dataSource"
           class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://10.114.34.84/matkapp"/>
-        <property name="username" value="eero"/>
-        <property name="password" value="eero"/>
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" 
+                  value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;"/>
+        <property name="username" value="sa"/>
+        <property name="password" value="sa"/>
     </bean>
- 
+    
+    <!-- DAO Classes -->
+    <bean id="UserDAO" class="com.r4.matkapp.dao.UserDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="GroupDAO" class="com.r4.matkapp.dao.GroupDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <!-- Transaction Manager -->
     <bean id="txManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    
 </beans>

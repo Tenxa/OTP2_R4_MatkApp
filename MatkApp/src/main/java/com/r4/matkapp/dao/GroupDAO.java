@@ -11,70 +11,148 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Access object for Group class.
  * 
- * Currently only find() method is functional.
+ * 
  * 
  * @author Eero
  */
 
-// TODO:
-// - loppujen metodien toteutus
-// - testit
 
-public class GroupDAO implements DAO {
+public class GroupDAO implements DAO<Group> {
     private SessionFactory sessionFactory = null;
     private Session session = null;
     
+    @Autowired
     public GroupDAO(SessionFactory dbSession) {
         sessionFactory = dbSession;
     }
     
     @Override
-    public List getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Group> getAll() {
+        setSession(getSessionFactory().openSession());
+        try {
+            getSession().beginTransaction(); 
+            List<Group> result = getSession().createQuery("from Group", Group.class).list();
+            getSession().getTransaction().commit();
+            return result.isEmpty() ? null : result;              
+        } catch (Exception e) {
+            if (getSession().getTransaction() != null)
+                getSession().beginTransaction().rollback();
+            throw e;
+        } finally {    
+            getSession().close();
+        }
     }
 
     @Override
-    public void create(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Group g) {
+        setSession(getSessionFactory().openSession());
+        try {
+            getSession().beginTransaction();
+            getSession().saveOrUpdate(g);
+            getSession().getTransaction().commit();
+        } catch (Exception e) {
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            getSession().close();
+        }
     }
 
     @Override
-    public void update(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Group g) {
+        setSession(getSessionFactory().openSession());
+        try {
+            getSession().beginTransaction();
+            getSession().update(g);
+            getSession().getTransaction().commit();
+        } catch (Exception e) {
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            getSession().close();
+        }
     }
 
     @Override
-    public void delete(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(Group g) {
+        setSession(getSessionFactory().openSession());
+        try {
+            getSession().beginTransaction();
+            g = getSession().get(Group.class, g.getId());
+            if (g != null) {
+                getSession().delete(g);
+                getSession().getTransaction().commit();
+            }
+        } catch (Exception e) {
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            getSession().close();
+        }
     }
 
     @Override
     public Group find(String invite) {
-        session = sessionFactory.openSession();
+        setSession(getSessionFactory().openSession());
         try {
-            session.beginTransaction();
-            Query q = session.createQuery("from Group where invite = :invite");
+            getSession().beginTransaction();
+            Query q = getSession().createQuery("from Group where invite = :invite");
             q.setParameter("invite", invite);
             List<Group> result = q.getResultList();
             Group g = null;
             if (result.size() == 1) {
                 g = result.get(0);
             }
-            session.getTransaction().commit();
+            getSession().getTransaction().commit();
             return g;
         } catch (Exception e) {
             e.printStackTrace();
-            if (session.getTransaction().isActive()) {
-                session.beginTransaction().rollback();
+            if (getSession().getTransaction().isActive()) {
+                getSession().beginTransaction().rollback();
             }
             throw e;
         } finally {
-            session.close();
+            getSession().close();
         }
+    }
+
+    /**
+     * @return the sessionFactory
+     */
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    /**
+     * @param sessionFactory the sessionFactory to set
+     */
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    /**
+     * @return the session
+     */
+    public Session getSession() {
+        return session;
+    }
+
+    /**
+     * @param session the session to set
+     */
+    public void setSession(Session session) {
+        this.session = session;
     }
 
 }

@@ -17,112 +17,139 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  * @author teemu
  */
-public class UserDAO implements DAO {
-    
+public class UserDAO implements DAO<User> {
     
     private SessionFactory sessionFactory = null;
     private Session session = null;
     
+    @Autowired
     public UserDAO(SessionFactory dbSession) {
         sessionFactory = dbSession;
     }
 
     @Override
     public List<User> getAll() {
-        session = sessionFactory.openSession();
+        setSession(getSessionFactory().openSession());
         try {
-            session.beginTransaction(); 
-            List<User> result = session.createQuery("from User", User.class).list();
-            session.getTransaction().commit();
+            getSession().beginTransaction(); 
+            List<User> result = getSession().createQuery("from User", User.class).list();
+            getSession().getTransaction().commit();
             return result.isEmpty() ? null : result;              
         } catch (Exception e) {
-            if (session.getTransaction() != null)
-                session.beginTransaction().rollback();
+            if (getSession().getTransaction() != null)
+                getSession().beginTransaction().rollback();
             throw e;
         } finally {    
-            session.close();
+            getSession().close();
         }
     }
 
     @Override
-    public void create(Object t) {
-        session = sessionFactory.openSession();
+    public void create(User u) {
+        setSession(getSessionFactory().openSession());
         try {
-            session.beginTransaction();
-            session.saveOrUpdate((User) t);
-            session.getTransaction().commit();
+            getSession().beginTransaction();
+            getSession().saveOrUpdate(u);
+            getSession().getTransaction().commit();
         } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.beginTransaction().rollback();
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
             }
             throw e;
         } finally {
-            session.close();
+            getSession().close();
         }
     }
 
     @Override
-    public void update(Object t) {
-        session = sessionFactory.openSession();
+    public void update(User u) {
+        setSession(getSessionFactory().openSession());
         try {
-            session.beginTransaction();
-            session.update((User) t);
-            session.getTransaction().commit();
+            getSession().beginTransaction();
+            getSession().update(u);
+            getSession().getTransaction().commit();
         } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.beginTransaction().rollback();
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
             }
             throw e;
         } finally {
-            session.close();
+            getSession().close();
         }
     }
 
     @Override
-    public void delete(Object t) {
-        session = sessionFactory.openSession();
+    public void delete(User u) {
+        setSession(getSessionFactory().openSession());
         try {
-            session.beginTransaction();
-            User u = (User) t;
-            u = (User) session.get(User.class, u.getId());
+            getSession().beginTransaction();
+            u = (User) getSession().get(User.class, u.getId());
             if (u != null) {
-                session.delete(u);
-                session.getTransaction().commit();
+                getSession().delete(u);
+                getSession().getTransaction().commit();
             }
         } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.beginTransaction().rollback();
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
             }
             throw e;
         } finally {
-            session.close();
+            getSession().close();
         }
     }
 
 
     @Override
     public User find(String email) {
-       session = sessionFactory.openSession();
+        setSession(getSessionFactory().openSession());
        try {
-           session.beginTransaction();
-           Query q = session.createQuery("from User where email = :email");
+            getSession().beginTransaction();
+           Query q = getSession().createQuery("from User where email = :email");
            q.setParameter("email", email);
            List<User> result = q.getResultList();
            User u = null;
            if(result.size() == 1) {
                u = result.get(0);
            } 
-           session.getTransaction().commit();
+            getSession().getTransaction().commit();
            return u;
        } catch (Exception e) {
             e.printStackTrace();
-            if (session.getTransaction().isActive()) {
-                session.beginTransaction().rollback();
+            if (getSession().getTransaction().isActive()) {
+                getSession().beginTransaction().rollback();
             }
             throw e;
        } finally {
-            session.close();
+            getSession().close();
         }
+    }
+
+    /**
+     * @return the sessionFactory
+     */
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    /**
+     * @param sessionFactory the sessionFactory to set
+     */
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    /**
+     * @return the session
+     */
+    public Session getSession() {
+        return session;
+    }
+
+    /**
+     * @param session the session to set
+     */
+    public void setSession(Session session) {
+        this.session = session;
     }
 
 }

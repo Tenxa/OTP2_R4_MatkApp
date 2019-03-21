@@ -28,114 +28,81 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Eero
  */
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:hibernateTestContext.xml")
+@ContextConfiguration(locations = "classpath:DAOTestingContext.xml")
 @Transactional
 public class UserDAOTest {
 
     @Autowired
-    private SessionFactory sessionFactory;
-
+    UserDAO dao;
+    
+    static String email;
+    private User u;
+    
+    @BeforeClass
+    public static void setUpClass() {
+        email = "email@domain.fi"; 
+    }
+    
+    @Before
+    public void setUp() {
+        u = new User();
+        u.setEmail(email);
+    }
+    
+    @After
+    public void tearDown() {
+        dao.delete(u);
+    }
+    
+    
+    /**
+     * Test of getAll method, of class UserDAO.
+     */
+    @Test
+    public void testGetAll() {
+        dao.create(u);
+        dao.create(new User());
+        dao.create(new User());
+        List<User> result = dao.getAll();
+        assertEquals(3, result.size());
+    }
+    
+    
+    /**
+     * Test of create method, of class UserDAO.
+     */
     @Test
     public void testCreate() {
-        Session session = sessionFactory.getCurrentSession();
-
-        User u = new User();
-        u.setId(123);
-        u.setFirst_name("Teppo");
-        u.setLast_name("Testi");
-
-        String grpName = "TestGroup";
-        Group g = new Group();
-        g.setGroup_name(grpName);
-
-        u.setGroup(g);
-        String invite = g.getInvite();
-        session.saveOrUpdate(u);
-        User findU = session.find(User.class, 123);
-
-        assertNotNull(findU);
-        assertEquals(grpName, findU.getGroup().getGroup_name());
-        assertEquals(invite, findU.getGroup().getInvite());
-        
+        dao.create(u);
+        assertEquals(u.getId(), dao.find(email).getId());
     }
-
+    
+    /**
+     * Test of delete method, of class UserDAO.
+     */
     @Test
     public void testDelete() {
-        Session session = sessionFactory.getCurrentSession();
-
-        User u = new User();
-        u.setId(123);
-        u.setFirst_name("Teppo");
-        u.setLast_name("Testi");
-
-        session.saveOrUpdate(u);
-        User findU = session.find(User.class, 123);
-        assertNotNull(findU);
-        session.delete(u);
-        findU = session.find(User.class, 123);
-        assertNull(findU);
+        dao.create(u);
+        assertEquals(u.getId(), dao.find(email).getId());
+        dao.delete(u);
+        assertNull(dao.find(email));
     }
     
+    /**
+     * Test of update method, of class GroupDAO.
+     */
     @Test
     public void testUpdate() {
-        Session session = sessionFactory.getCurrentSession();
-
-        User u = new User();
-        u.setId(123);
-        u.setFirst_name("Teppo");
-        u.setLast_name("Testi");
-        session.saveOrUpdate(u);
-        
-        User findU = session.find(User.class, 123);
-        assertNotNull(findU);
-        
-        u.setFirst_name("Pekka");
-        
-        session.update(u);
-        findU = session.find(User.class, 123);
-        
-        assertEquals("Pekka", findU.getFirst_name());
+        dao.create(u);
+        assertEquals(u.getId(), dao.find(email).getId());
+        u.setCity("City");
+        u.setCountry("Country");
+        u.setFirst_name("FirstName");
+        u.setLast_name("LastName");
+        u.setPassword("Pass");
+        u.setPhone_number("123456890");
+        dao.update(u);
+        assertEquals(u.getCountry(), dao.find(email).getCountry());      
     }
-    
-    @Test
-    public void testInsertAllUserInfo() {
-        
-        Session session = sessionFactory.getCurrentSession();
-        
-        User u = new User();
-        int id = 123;
-        String f_name = "Teppo";
-        String l_name = "testi";
-        String city = "city";
-        String country = "country";
-        String email = f_name + "@test.net";
-        String pass = "pass";
-        String phone = "123456789";
-        String post_num = "1234";
-        String street = "jokikuja";
-        Group g = new Group();
-        g.setGroup_name("grp");
-        
-        u.setId(id);
-        u.setFirst_name(f_name);
-        u.setLast_name(l_name);
-        u.setCity(city);
-        u.setCountry(country);
-        u.setEmail(email);
-        u.setPassword(pass);
-        u.setPhone_number(phone);
-        u.setPost_number(post_num);
-        u.setStreet_address(street);
-        u.setGroup(g);
-        
-        session.saveOrUpdate(u);
-        
-        User findU = session.find(User.class, 123);
-       
-        assertEquals(u, findU);
-    }
-    
-
 }
