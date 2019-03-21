@@ -33,7 +33,13 @@
         <property name="password" value="sa"/>
     </bean>
     
-    <!-- DAO Classes -->
+    <!-- Transaction Manager -->
+    <bean id="txManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <!-- DAO Classes Below -->
     <bean id="UserDAO" class="com.r4.matkapp.dao.UserDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
@@ -42,9 +48,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
-    <!-- Transaction Manager -->
-    <bean id="txManager"
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    <bean id="ExpenseDAO" class="com.r4.matkapp.dao.ExpenseDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
