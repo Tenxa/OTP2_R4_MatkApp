@@ -108,7 +108,7 @@ public class UserController {
         if(loggedUser != null) {
             if(loggedUser.getGroup() != null) return null; // ei voi tehä grp jos on jo
             Group group = new Group(group_name);
-            loggedUser.setGroup(group); 
+            loggedUser.setGroup(group);
             try {
                dao.update(loggedUser);
                return group.getInvite();
@@ -117,6 +117,10 @@ public class UserController {
             }
         }  
         return null;
+    }
+    
+    public void sendInvitation(Group group, User user){
+        group.sendInvite(user);
     }
 
     public void deleteGroup(Group group) {
