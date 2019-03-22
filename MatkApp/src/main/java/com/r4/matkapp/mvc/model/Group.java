@@ -47,5 +47,12 @@ public class Group {
         RandomString rs = new RandomString(10);  
         return rs.nextString();
     }
+    
+    public void sendInvite(User user){
+        SendEmail email = new SendEmail();
+        String subject = "MatkApp group invitation";
+        String text = "Group: " + this.getGroup_name() + " has sent you an invitation. Here is the link: " + this.getInvite();
+        email.Send(user.getEmail(), subject, text);
+    }
 
 }
