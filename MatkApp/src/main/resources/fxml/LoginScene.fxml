@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.r4.matkapp.mvc.controller.LoginSceneController">
+   <children>
+      <StackPane fx:id="createPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="217.0" layoutY="37.0" prefHeight="311.0" prefWidth="166.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etunimi" />
+                        <TextField fx:id="first_name">
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sukunimi" />
+                        <TextField fx:id="last_name">
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sähköposti" />
+                        <TextField fx:id="email">
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Salasana" />
+                        <PasswordField fx:id="password">
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="5.0" />
+                           </VBox.margin>
+                        </PasswordField>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createUser" text="Luo käyttäjä">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Button layoutX="35.0" layoutY="336.0" mnemonicParsing="false" onAction="#setLoginPane" text="Takaisin" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+      <StackPane fx:id="loginPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="217.0" layoutY="68.0" prefHeight="284.0" prefWidth="166.0">
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="166.0" text="Sähköposti" />
+                        <TextField fx:id="loginEmail" prefHeight="37.0">
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label text="Salasana" />
+                        <PasswordField fx:id="loginPassword" prefHeight="37.0">
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="5.0" />
+                           </VBox.margin>
+                        </PasswordField>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" prefHeight="37.0" text="Kirjaudu Sisään">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Label layoutX="10.0" layoutY="84.0" text="Tai" />
+                        <Button layoutX="10.0" layoutY="178.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setCreatePane" prefHeight="37.0" text="Luo Käyttäjä">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
