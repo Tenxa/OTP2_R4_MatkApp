@@ -25,6 +25,7 @@
    <!--<mapping class=""/> MAPPING CLASSES HERE-->
    <mapping class="com.r4.matkapp.mvc.model.Group"/>
    <mapping class="com.r4.matkapp.mvc.model.User"/>
+   <mapping class="com.r4.matkapp.mvc.model.Expense"/>
    
 
 </session-factory>

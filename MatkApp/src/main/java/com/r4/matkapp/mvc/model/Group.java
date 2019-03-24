@@ -1,5 +1,6 @@
 package com.r4.matkapp.mvc.model;
 
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +17,10 @@ public class Group {
 
     @Column(name = "invite")
     private String invite;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "expense")
+    private Set<Group> expense;
 
     public Group() { 
         super();
@@ -53,6 +58,20 @@ public class Group {
         String subject = "MatkApp group invitation";
         String text = "Group: " + this.getGroup_name() + " has sent you an invitation. Here is the link: " + this.getInvite();
         email.Send(user.getEmail(), subject, text);
+    }
+
+    /**
+     * @return the expense
+     */
+    public Set<Group> getExpense() {
+        return expense;
+    }
+
+    /**
+     * @param expense the expense to set
+     */
+    public void setExpense(Set<Group> expense) {
+        this.expense = expense;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.r4.matkapp.mvc.model;
 
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -16,9 +17,9 @@ public class Expense {
     private int id;
     
     //Olettaen, että rakkenne kulut liitetään aina johonkin ryhmään
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_group")
-    private Group user_group;
+    
+    
+    
     @Column(name = "expense_description")
     private String expense_description;
     @Column(name = "expense_amount")
@@ -44,14 +45,6 @@ public class Expense {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Group getUser_group() {
-        return user_group;
-    }
-
-    public void setUser_group(Group user_group) {
-        this.user_group = user_group;
     }
 
     public String getExpense_description() {
