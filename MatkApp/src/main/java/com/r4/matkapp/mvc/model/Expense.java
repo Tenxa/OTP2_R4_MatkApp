@@ -29,6 +29,9 @@ public class Expense {
      * private String expense_currency
      */
     
+    @ManyToOne
+    private Group expense_group;
+    
     //Ajattelumalli:
     //True = kaikki osallistuu, tasajako
     //False = ei kaikki osallistu tai ei tasajako
