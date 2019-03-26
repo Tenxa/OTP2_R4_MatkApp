@@ -73,6 +73,20 @@ public class Expense {
     public void setEqual_split(boolean equal_split) {
         this.equal_split = equal_split;
     }
+
+    /**
+     * @return the expense_group
+     */
+    public Group getExpense_group() {
+        return expense_group;
+    }
+
+    /**
+     * @param expense_group the expense_group to set
+     */
+    public void setExpense_group(Group expense_group) {
+        this.expense_group = expense_group;
+    }
     
     
     

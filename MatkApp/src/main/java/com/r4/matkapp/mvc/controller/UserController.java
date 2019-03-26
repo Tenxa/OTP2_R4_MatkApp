@@ -28,10 +28,10 @@ public class UserController {
     public static DatabaseSession dbSession = new DatabaseSession();
     static DAO dao = new UserDAO(dbSession.getSessionFactory());
     
-    private User loggedUser;
+    private static User loggedUser = null;
 
     public UserController() {
-        loggedUser = null;
+        
     }
     
     /**

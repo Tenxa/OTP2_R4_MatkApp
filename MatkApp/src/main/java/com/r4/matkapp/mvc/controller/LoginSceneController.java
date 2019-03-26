@@ -53,8 +53,7 @@ public class LoginSceneController implements Initializable {
     
     @FXML
     private void login(ActionEvent event) throws IOException {
-        if (uController.checkLogin(
-                loginEmail.getText(), loginPassword.getText())) {
+        if (uController.checkLogin(getLoginEmail().getText(), loginPassword.getText())) {
             // SET MAIN SCENE
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/RootScene.fxml"));
             Scene scene = new Scene(root);
@@ -90,6 +89,13 @@ public class LoginSceneController implements Initializable {
     @FXML
     private void setLoginPane() {
         loginPane.toFront();
+    }
+
+    /**
+     * @return the loginEmail
+     */
+    public TextField getLoginEmail() {
+        return loginEmail;
     }
     
 }

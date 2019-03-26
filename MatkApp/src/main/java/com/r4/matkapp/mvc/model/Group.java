@@ -61,4 +61,18 @@ public class Group {
         email.Send(user.getEmail(), subject, text);
     }
 
+    /**
+     * @return the expenses
+     */
+    public Set<Expense> getExpenses() {
+        return expenses;
+    }
+
+    /**
+     * @param expenses the expenses to set
+     */
+    public void setExpenses(Set<Expense> expenses) {
+        this.expenses = expenses;
+    }
+
 }
