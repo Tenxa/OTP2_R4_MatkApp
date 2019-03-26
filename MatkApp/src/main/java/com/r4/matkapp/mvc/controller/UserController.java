@@ -106,9 +106,9 @@ public class UserController {
      */
     public String createGroup(String group_name) {
         if(loggedUser != null) {
-            if(loggedUser.getGroup() != null) return null; // ei voi tehä grp jos on jo
+            //if(loggedUser.getGroup() != null) return null; // ei voi tehä grp jos on jo
             Group group = new Group(group_name);
-            loggedUser.setGroup(group);
+            loggedUser.addGroup(group);
             try {
                dao.update(loggedUser);
                return group.getInvite();

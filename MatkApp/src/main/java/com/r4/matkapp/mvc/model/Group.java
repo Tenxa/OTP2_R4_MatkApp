@@ -3,6 +3,7 @@ package com.r4.matkapp.mvc.model;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity
 @Table(name = "groups")
@@ -18,6 +19,9 @@ public class Group {
 
     @Column(name = "invite")
     private String invite;
+    
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "user_group")
+    private Set<User> users = new HashSet<User>();
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "expense_group",
             orphanRemoval = true)
@@ -74,5 +78,14 @@ public class Group {
     public void setExpenses(Set<Expense> expenses) {
         this.expenses = expenses;
     }
+
+    /**
+     * @return the users
+     */
+    
+    public Set<User> getUsers() {
+        return users;
+    }
+    
 
 }

@@ -1,5 +1,7 @@
 package com.r4.matkapp.mvc.model;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 
@@ -12,9 +14,14 @@ public class User {
     @Column(name ="id", updatable = false, nullable = false)
     private int id;
     
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_group")
-    private Group user_group;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_group",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "group_id")
+    )
+    private Set<Group> user_group = new HashSet<Group>();
+    
+    
     @Column(name = "first_name")
     private String first_name;
     @Column(name = "last_name")
@@ -61,12 +68,13 @@ public class User {
         return id;
     }
 
-    public Group getGroup() {
+    public Set<Group> getGroup() {
         return user_group;
     }
     
-    public void setGroup(Group group) {
-        user_group = group;
+    public void addGroup(Group group) {
+        user_group.add(group);
+        group.getUsers().add(this);
     }
 
     
