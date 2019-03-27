@@ -2,26 +2,48 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.r4.matkapp.mvc.controller.RootSceneController">
+<BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.r4.matkapp.mvc.controller.RootSceneController">
    <bottom>
       <AnchorPane prefHeight="40.0" prefWidth="739.0" style="-fx-background-color: #1e1e1e;" BorderPane.alignment="CENTER" />
    </bottom>
    <left>
-      <VBox prefWidth="165.0" style="-fx-background-color: #333333;" BorderPane.alignment="CENTER">
+      <HBox fx:id="menuHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="165.0" BorderPane.alignment="CENTER">
          <children>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setHomeScene" prefHeight="50.0" prefWidth="100.0" text="Oma Sivu">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </Button>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setGroupScene" prefHeight="50.0" prefWidth="100.0" text="Ryhmät" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Kulut" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="100.0" text="Kirjaudu Ulos" />
+            <VBox minWidth="-Infinity" prefWidth="165.0" style="-fx-background-color: #333333;">
+               <children>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setHomeScene" prefHeight="50.0" prefWidth="100.0" text="Oma Sivu">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setGroupScene" prefHeight="50.0" prefWidth="100.0" text="Ryhmät" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Kulut" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="100.0" text="Kirjaudu Ulos" />
+               </children>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </left>
+   <top>
+      <HBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="739.0" style="-fx-background-color: #2c2d30;" BorderPane.alignment="CENTER">
+         <children>
+            <MenuButton fx:id="loggedUserBox" minWidth="100.0" mnemonicParsing="false" text="user">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Omat tiedot" />
+                <MenuItem mnemonicParsing="false" onAction="#logout" text="Kirjaudu ulos" />
+              </items>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </MenuButton>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

@@ -5,6 +5,7 @@
  */
 package com.r4.matkapp.mvc.controller;
 
+import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import com.r4.matkapp.mvc.view.alertfactory.InformationAlert;
 import java.io.IOException;
@@ -17,11 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -55,9 +52,12 @@ public class LoginSceneController implements Initializable {
     private void login(ActionEvent event) throws IOException {
         if (uController.checkLogin(getLoginEmail().getText(), loginPassword.getText())) {
             // SET MAIN SCENE
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/RootScene.fxml"));
+            
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(getClass().getResource("/fxml/RootScene.fxml"));
             Scene scene = new Scene(root);
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Stage window = MainApp.getWindow();
+            window.setResizable(true);
             window.setScene(scene);
             window.show();
         } else {

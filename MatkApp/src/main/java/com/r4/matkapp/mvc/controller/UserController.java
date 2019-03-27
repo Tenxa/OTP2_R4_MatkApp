@@ -148,4 +148,11 @@ public class UserController {
         }
         return false;
     }
+    
+    public static User getLoggedUser() {
+        return UserController.loggedUser;
+    }
+    public static void setLoggedUser(User u) {
+        UserController.loggedUser = u;
+    }
 }

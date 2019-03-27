@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.r4.matkapp.mvc.controller.LoginSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.r4.matkapp.mvc.controller.LoginSceneController">
    <children>
       <StackPane fx:id="createPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
          <children>
@@ -72,7 +72,7 @@
                               <Insets bottom="15.0" top="5.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" prefHeight="37.0" text="Kirjaudu Sisään">
+                        <Button defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" prefHeight="37.0" text="Kirjaudu Sisään">
                            <VBox.margin>
                               <Insets bottom="10.0" top="20.0" />
                            </VBox.margin>

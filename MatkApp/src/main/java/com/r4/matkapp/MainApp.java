@@ -12,11 +12,17 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class MainApp extends Application {
-
+    
+    static Stage window;
+    
+    public static Stage getWindow() {
+        return window;
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
 
-       
+        
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginScene.fxml"));
 
@@ -25,6 +31,7 @@ public class MainApp extends Application {
 
         stage.setTitle("JavaFX and Maven");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
@@ -34,6 +41,7 @@ public class MainApp extends Application {
             }
         });
         stage.show();
+        window = stage;
         
 
     }
