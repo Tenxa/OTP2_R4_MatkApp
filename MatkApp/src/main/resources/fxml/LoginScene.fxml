@@ -72,7 +72,7 @@
                               <Insets bottom="15.0" top="5.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" prefHeight="37.0" text="Kirjaudu Sisään">
+                        <Button fx:id="loginButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" prefHeight="37.0" text="Kirjaudu Sisään">
                            <VBox.margin>
                               <Insets bottom="10.0" top="20.0" />
                            </VBox.margin>

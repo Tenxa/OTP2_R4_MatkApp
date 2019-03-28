@@ -40,6 +40,8 @@ public class LoginSceneController implements Initializable {
 
     
     private UserController uController;
+    
+    private AlertFactory alert;
     /**
      * Initializes the controller class.
      */
@@ -61,7 +63,7 @@ public class LoginSceneController implements Initializable {
             window.setScene(scene);
             window.show();
         } else {
-            AlertFactory alert = new InformationAlert();
+            alert = new InformationAlert();
             alert.createAlert("Kirjautuminen epäonnistui!", "Käyttäjä tunnus tai salasana väärin.");
         }
     }
@@ -96,6 +98,10 @@ public class LoginSceneController implements Initializable {
      */
     public TextField getLoginEmail() {
         return loginEmail;
+    }
+    
+    public AlertFactory getAlert() {
+        return alert;
     }
     
 }

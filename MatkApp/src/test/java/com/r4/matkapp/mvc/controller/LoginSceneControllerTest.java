@@ -5,16 +5,14 @@
  */
 package com.r4.matkapp.mvc.controller;
 
+import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
+import com.r4.matkapp.mvc.view.alertfactory.AlertMessage;
 import javafx.scene.control.TextField;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,10 +20,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.testfx.api.FxAssert;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.matcher.control.LabeledMatchers;
-import org.testfx.assertions.api.Assertions;
 
 /**
  *
@@ -78,10 +73,22 @@ public class LoginSceneControllerTest extends ApplicationTest{
     
     
     @Test
-    public void testSetCreatePane() {
-        TextField tf = (TextField) parent.lookup("#loginEmail");
-        tf.setText("teppo@testi.net");
-        assertEquals("teppo@testi.net", tf.getText());                         
+    public void testLogin() {
+        TextField emailField = (TextField) parent.lookup("#loginEmail");
+        TextField passField = (TextField) parent.lookup("#loginPassword");
+        emailField.setText("teppo@testi.net");
+        
+        passField.setText("pass");
+        assertEquals("teppo@testi.net", emailField.getText());   
+        assertEquals("pass", passField.getText());
+        
+        clickOn("#loginButton");
+        AlertMessage alert = (AlertMessage)controller.getAlert();
+        
+        assertEquals("Kirjautuminen epäonnistui!", "Käyttäjä tunnus tai salasana väärin.", alert.getAlert().getContentText());
+        
+        
+        
     }
   
     

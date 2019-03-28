@@ -37,4 +37,8 @@ public abstract class AlertMessage implements AlertFactory {
         alert.showAndWait();
     }
     
+    public Alert getAlert() {
+        return alert;
+    }
+    
 }
