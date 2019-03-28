@@ -26,13 +26,13 @@ import org.testfx.framework.junit.ApplicationTest;
  *
  * @author Eero
  */
-public class LoginSceneControllerTest extends ApplicationTest{
+public class LoginSceneTest extends ApplicationTest{
     
     Parent parent;
     Scene scene;
     LoginSceneController controller;
     
-    public LoginSceneControllerTest() {
+    public LoginSceneTest() {
     }
     
     @BeforeClass
