@@ -120,7 +120,10 @@ public class UserController {
     }
     
     public void sendInvitation(Group group, User user){
-        group.sendInvite(user);
+        SendEmail email = new SendEmail();
+        String subject = "MatkApp group invitation";
+        String text = "Group: " + group.getGroup_name() + " has sent you an invitation. Here is the link: " +group.getInvite();
+        email.Send(user.getEmail(), subject, text);
     }
 
     public void deleteGroup(Group group) {
