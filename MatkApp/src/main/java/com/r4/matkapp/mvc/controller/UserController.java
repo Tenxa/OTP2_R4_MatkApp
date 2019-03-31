@@ -27,6 +27,7 @@ public class UserController {
     private static User selectedUser;
     public static DatabaseSession dbSession = new DatabaseSession();
     static DAO dao = new UserDAO(dbSession.getSessionFactory());
+    static DAO groupdao = new GroupDAO(dbSession.getSessionFactory());
     
     private static User loggedUser = null;
 
@@ -124,6 +125,15 @@ public class UserController {
         String subject = "MatkApp group invitation";
         String text = "Group: " + group.getGroup_name() + " has sent you an invitation. Here is the link: " +group.getInvite();
         email.Send(user.getEmail(), subject, text);
+    }
+    
+    public boolean addUsertoGroup(String invitation, Group group){
+        if (loggedUser != null && invitation.equals(group.getInvite()) && loggedUser.getGroup().contains(group) ){
+            loggedUser.addGroup(group);
+            dao.update(loggedUser);
+            return true;
+        }
+        return false;
     }
 
     public void deleteGroup(Group group) {
