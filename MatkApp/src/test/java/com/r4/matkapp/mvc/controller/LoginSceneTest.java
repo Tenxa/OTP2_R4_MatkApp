@@ -19,13 +19,15 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 /**
  *
- * @author Eero
+ * @author Eero 
  */
+@Ignore
 public class LoginSceneTest extends ApplicationTest{
     
     Parent parent;
