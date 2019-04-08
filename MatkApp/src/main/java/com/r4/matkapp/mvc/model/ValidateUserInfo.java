@@ -63,6 +63,8 @@ public class ValidateUserInfo {
     //Modified isValid() so that it doesn't contain the long parameter list.
     
     public static boolean userIsValid(User user){
+        
+        // Check not empty.
         if (user.getFirst_name().equals("")
                 || user.getLast_name().equals("")
                 || user.getEmail().equals("")
@@ -70,16 +72,19 @@ public class ValidateUserInfo {
             return false;
         }
         
+        // Check password length.
         if (user.getPassword().length() < MIN_PASSWORD_LENGTH
                 || user.getPassword().length() > MAX_PASSWORD_LENGTH){
             return false;
         }
         
+        //Validate email address.
         try {
             InternetAddress address = new InternetAddress(user.getEmail());
         } catch (AddressException ex) {
             return false;
         }
+        
         
         return true;
     }
