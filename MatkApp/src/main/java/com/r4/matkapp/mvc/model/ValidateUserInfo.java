@@ -81,6 +81,7 @@ public class ValidateUserInfo {
         //Validate email address.
         try {
             InternetAddress address = new InternetAddress(user.getEmail());
+            address.validate();
         } catch (AddressException ex) {
             return false;
         }
