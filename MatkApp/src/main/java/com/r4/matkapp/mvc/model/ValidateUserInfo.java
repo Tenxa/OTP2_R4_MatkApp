@@ -5,6 +5,8 @@
  */
 package com.r4.matkapp.mvc.model;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
@@ -54,6 +56,32 @@ public class ValidateUserInfo {
         
         // All good m8
         return true;    
+    }
+    
+    
+    
+    //Modified isValid() so that it doesn't contain the long parameter list.
+    
+    public static boolean userIsValid(User user){
+        if (user.getFirst_name().equals("")
+                || user.getLast_name().equals("")
+                || user.getEmail().equals("")
+                || user.getPassword().equals("")) {
+            return false;
+        }
+        
+        if (user.getPassword().length() < MIN_PASSWORD_LENGTH
+                || user.getPassword().length() > MAX_PASSWORD_LENGTH){
+            return false;
+        }
+        
+        try {
+            InternetAddress address = new InternetAddress(user.getEmail());
+        } catch (AddressException ex) {
+            return false;
+        }
+        
+        return true;
     }
 }
 
