@@ -9,7 +9,6 @@ import com.r4.matkapp.mvc.model.SecurePassword;
 import com.r4.matkapp.dao.*;
 import com.r4.matkapp.mvc.model.*;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 /**
  * Controller class for User data.
@@ -95,24 +94,24 @@ public class UserController {
     
   
     /**
-     * Create new Group if logged in and user is not in any Group.
-     * Sets created Group as User group property and updates User.
-     * Updating User with group that does not exists creates new Group
-     * row into database.
+     * Create new Group and sets created Group as User group property and 
+     * updates User. Updating User with group that does not exists creates 
+     * new Group row into database.
      * 
      * So this method can be used to adding user into existing group.
      * Returns true if successful.
+     * 
      * @param group_name
      * @return 
      */
-    public String createGroup(String group_name) {
+    public Group createGroup(String group_name) {
         if(loggedUser != null) {
-            //if(loggedUser.getGroup() != null) return null; // ei voi tehä grp jos on jo
+        
             Group group = new Group(group_name);
             loggedUser.addGroup(group);
             try {
                dao.update(loggedUser);
-               return group.getInvite();
+               return group;
             } catch (Exception e) {
                 
             }

@@ -15,32 +15,18 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Pair;
 
 /**
  * FXML Controller class
@@ -89,6 +75,7 @@ public class GroupListSceneController implements Initializable {
                         Node n = loader.load(getClass().getResource("/fxml/GroupScene.fxml").openStream());
                         expenseController = loader.getController();
                         root.setCenter(n);
+                        expenseController.setActiveGroup(g);
                         expenseController.setTitleText(g.getGroup_name());
                         selectedGroup = g;
                     } catch (IOException ex) {
@@ -107,7 +94,9 @@ public class GroupListSceneController implements Initializable {
 
     @FXML
     private void createNewGroup() {
-        String name = inputDialog();
+        
+        Group g = inputDialog();
+        String name = g.getGroup_name();
         if (name != null) {
             
             // Luo uuden buttonin ryhmälle -> voi muuttaa jos jaksaa ryhmien listat 
@@ -123,8 +112,8 @@ public class GroupListSceneController implements Initializable {
                         Node n = loader.load(getClass().getResource("/fxml/GroupScene.fxml").openStream());
                         expenseController = loader.getController();
                         root.setCenter(n);
-                        Button b = (Button) event.getSource();
-                        expenseController.setTitleText(b.getText());
+                        expenseController.setActiveGroup(g);
+                        expenseController.setTitleText(name);
                     } catch (IOException ex) {
                         Logger.getLogger(GroupListSceneController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -139,7 +128,7 @@ public class GroupListSceneController implements Initializable {
 
     // kysy tiedot ryhmälle eli vain ryhmän nimi -> palauttaa inviten
     // vois joskus toteuttaa paremmin
-    private String inputDialog() {
+    private Group inputDialog() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Luo uusi ryhmä");
         dialog.setContentText("Syötä ryhmän nimi:");
@@ -147,11 +136,11 @@ public class GroupListSceneController implements Initializable {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             UserController u = new UserController();
-            String invite = u.createGroup(result.get());
-            if (invite != null) {
+            Group g = u.createGroup(result.get());
+            if (g.getInvite() != null) {
                 AlertFactory f = new InformationAlert();
-                f.createAlert(null, "Ryhmän luonti onnistui!", invite);
-                return result.get();
+                f.createAlert(null, "Ryhmän luonti onnistui!", g.getInvite());
+                return g;
             }
         }
         return null;

@@ -1,6 +1,7 @@
 package com.r4.matkapp;
 
 import com.r4.matkapp.mvc.controller.UserController;
+import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -91,9 +92,9 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void createGroup(ActionEvent event) {
-        String result = uController.createGroup(create_grp_name.getText());
+        Group result = uController.createGroup(create_grp_name.getText());
         if (result != null) {
-            String content = "Liitymis koodi: " + result;
+            String content = "Liitymis koodi: " + result.getInvite();
             popCopyableMessage(Alert.AlertType.INFORMATION, "Ryhmän luonti onnistui", content);
         } else {
             popMessage(Alert.AlertType.WARNING, "Ryhmän luonti epäonnistui!", null);
