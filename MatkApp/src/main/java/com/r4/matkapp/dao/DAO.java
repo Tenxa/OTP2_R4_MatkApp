@@ -5,7 +5,6 @@
  */
 package com.r4.matkapp.dao;
 
-import com.r4.matkapp.mvc.model.User;
 import java.util.List;
 
 /**
@@ -21,6 +20,19 @@ public interface DAO<T> {
     
     abstract void delete(T t);
     
-    abstract Object find(String column);
+    /**
+     * Find Object with specified column data value.
+     * Currently each concrete data access object specifies what column it is.
+     * @param column
+     * @return Object
+     */
+    abstract T find(String column);
+    
+    /**
+     * Find Object with id value.
+     * @param id
+     * @return Object 
+     */
+    abstract T find(int id);
     
 }

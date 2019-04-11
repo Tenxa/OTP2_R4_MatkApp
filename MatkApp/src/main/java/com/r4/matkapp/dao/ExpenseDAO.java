@@ -6,48 +6,121 @@
 package com.r4.matkapp.dao;
 
 import com.r4.matkapp.mvc.model.Expense;
+import com.r4.matkapp.mvc.model.Group;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author Eero
  */
-public class ExpenseDAO implements DAO <Expense> {
-    
+public class ExpenseDAO implements DAO<Expense> {
+
     private SessionFactory sessionFactory = null;
     private Session session = null;
-    
+
     @Autowired
     public ExpenseDAO(SessionFactory dbSession) {
         sessionFactory = dbSession;
     }
-    
+
     @Override
     public List<Expense> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setSession(getSessionFactory().openSession());
+        try {
+            getSession().beginTransaction();
+            List<Expense> result = getSession().createQuery("from Expense", Expense.class).list();
+            getSession().getTransaction().commit();
+            return result.isEmpty() ? null : result;
+        } catch (Exception e) {
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            getSession().close();
+        }
     }
 
     @Override
     public void create(Expense e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setSession(getSessionFactory().openSession());
+        getSession().beginTransaction();
+        getSession().saveOrUpdate(e);
+        getSession().getTransaction().commit();
+        getSession().close();
     }
 
     @Override
     public void update(Expense e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setSession(getSessionFactory().openSession());
+        getSession().beginTransaction();
+        getSession().update(e);
+        getSession().getTransaction().commit();
+        getSession().close();
     }
 
     @Override
     public void delete(Expense e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setSession(getSessionFactory().openSession());
+        try {
+            getSession().beginTransaction();
+            e = getSession().get(Expense.class, e.getId());
+            if (e != null) {
+                getSession().delete(e);
+                getSession().getTransaction().commit();
+            }
+        } catch (Exception ex) {
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
+            }
+            throw ex;
+        } finally {
+            getSession().close();
+        }
     }
 
     @Override
-    public Expense find(String column) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Expense find(String expense_description) {
+        setSession(getSessionFactory().openSession());
+        try {
+            getSession().beginTransaction();
+            Query q = getSession().createQuery("from Expense where expense_description = :expense_description");
+            q.setParameter("expense_description", expense_description);
+            List<Expense> result = q.getResultList();
+            Expense e = null;
+            if (result.size() == 1) {
+                e = result.get(0);
+            }
+            getSession().getTransaction().commit();
+            return e;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            if (getSession().getTransaction().isActive()) {
+                getSession().beginTransaction().rollback();
+            }
+            throw ex;
+        } finally {
+            getSession().close();
+        }
+    }
+    
+    @Override
+    public Expense find(int id) {
+        setSession(getSessionFactory().openSession());
+        try {
+           getSession().beginTransaction();
+           Expense e = getSession().find(Expense.class, id); 
+           getSession().getTransaction().commit();
+           return e;
+        } catch(Exception ex) {
+        } finally {
+            getSession().close();
+        } 
+        return null;
     }
 
     /**
@@ -77,5 +150,7 @@ public class ExpenseDAO implements DAO <Expense> {
     public void setSession(Session session) {
         this.session = session;
     }
+
     
+
 }

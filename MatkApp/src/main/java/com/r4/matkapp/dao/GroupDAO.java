@@ -126,6 +126,21 @@ public class GroupDAO implements DAO<Group> {
             getSession().close();
         }
     }
+    
+    @Override
+    public Group find(int id) {
+        setSession(getSessionFactory().openSession());
+        try {
+           getSession().beginTransaction();
+           Group g = getSession().find(Group.class, id); 
+           getSession().getTransaction().commit();
+           return g;
+        } catch(Exception ex) {
+        } finally {
+            getSession().close();
+        } 
+        return null;
+    }
 
     /**
      * @return the sessionFactory
