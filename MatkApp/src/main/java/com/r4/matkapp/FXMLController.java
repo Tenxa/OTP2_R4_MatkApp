@@ -105,15 +105,18 @@ public class FXMLController implements Initializable {
     }
     
     private void addGroupMember(ActionEvent event){
+        
         User addUser = uController.getUserbyEmail(email.getText());
         
-        Group group = uController.getGroupbyInvitation(group_inv_code.getText());
-        if (group != null){
-            uController.sendInvitation(group, addUser);
-            String content = "Osoitteeseen: " + addUser.getEmail();
-            popMessage(Alert.AlertType.INFORMATION, "Liittymis koodi on lähetetty", content);
-        } else {
-            popMessage(Alert.AlertType.WARNING, "Liittymis koodin lähetys epäonnistui!", null);
+        if (addUser != null){
+            Group group = uController.getGroupbyInvitation(group_inv_code.getText());
+            if (group != null){
+                uController.sendInvitation(group, addUser);
+                String content = "Osoitteeseen: " + addUser.getEmail();
+                popMessage(Alert.AlertType.INFORMATION, "Liittymis koodi on lähetetty", content);
+            } else {
+                popMessage(Alert.AlertType.WARNING, "Liittymis koodin lähetys epäonnistui!", null);
+            }
         }
         
     }
