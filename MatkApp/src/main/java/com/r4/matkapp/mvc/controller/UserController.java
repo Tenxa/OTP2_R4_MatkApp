@@ -138,7 +138,7 @@ public class UserController {
     public void deleteGroup(Group group) {
        // TODO
     }
-    
+     
     /**
      * Authenticates user login input.
      * @param email
@@ -159,6 +159,16 @@ public class UserController {
             }
         }
         return false;
+    }
+    
+    public User getUserbyEmail(String email) {
+        User user = (User) dao.find(email);
+        return user;
+    }
+    
+    public Group getGroupbyInvitation(String inv){
+        Group group = (Group) dao.find(inv);
+        return group;
     }
     
     public static User getLoggedUser() {
