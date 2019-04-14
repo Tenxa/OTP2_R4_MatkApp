@@ -15,15 +15,12 @@ import javafx.scene.control.Alert;
  * @author teemu
  */
 
-// TODO:
-// - Ryhmään liityinen (invite)
-// - Ryhmän poistaminen
-// - 
-
+// vois miettii tän luokan oikeet tarkotust
+// näyttäis vaa database controllerilt
+// muutenki aika sekava
 
 public class UserController {
 
-    private static User selectedUser;
     public static DatabaseSession dbSession = new DatabaseSession();
     static DAO dao = new UserDAO(dbSession.getSessionFactory());
     static DAO groupdao = new GroupDAO(dbSession.getSessionFactory());
@@ -176,5 +173,8 @@ public class UserController {
     }
     public static void setLoggedUser(User u) {
         UserController.loggedUser = u;
+    }
+    public static void updateLoggedUser() {
+        UserController.loggedUser = (User) dao.find(loggedUser.getId());
     }
 }

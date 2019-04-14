@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 
 @Entity
 @Table(name = "groups")
-public class Group {
+public class Group implements Comparable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +23,12 @@ public class Group {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "user_group")
     private Set<User> users = new HashSet<User>();
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "expense_group",
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "expense_group",
             orphanRemoval = true)
     private Set<Expense> expenses = new HashSet<>();
+    
+    @Column(name = "budget")
+    private double budget;
 
     public Group() { 
         super();
@@ -72,6 +75,10 @@ public class Group {
     public void setExpenses(Set<Expense> expenses) {
         this.expenses = expenses;
     }
+    
+    public void addExpense(Expense e) {
+        this.expenses.add(e);
+    }
 
     /**
      * @return the users
@@ -79,6 +86,25 @@ public class Group {
     
     public Set<User> getUsers() {
         return users;
+    }
+
+    /**
+     * @return the budget
+     */
+    public double getBudget() {
+        return budget;
+    }
+
+    /**
+     * @param budget the budget to set
+     */
+    public void setBudget(double budget) {
+        this.budget = budget;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return name.compareTo(((Group)o).getGroup_name());  
     }
     
 

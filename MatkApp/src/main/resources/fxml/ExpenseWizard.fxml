@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="354.0" prefWidth="333.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane fx:id="secondPane" prefHeight="358.0" prefWidth="351.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="356.0" prefWidth="340.0">
+               <children>
+                  <Button layoutX="190.0" layoutY="310.0" mnemonicParsing="false" onAction="#createExpense" text="Luo Kulu" />
+                  <Button layoutX="266.0" layoutY="310.0" mnemonicParsing="false" onAction="#closeWindow" text="Peruuta" />
+                  <Button layoutX="116.0" layoutY="310.0" mnemonicParsing="false" onAction="#setFirstPane" text="Takaisin" />
+                  <ListView fx:id="users" layoutX="16.0" layoutY="79.0" prefHeight="185.0" prefWidth="117.0" />
+                  <ListView fx:id="selectedUsers" layoutX="203.0" layoutY="79.0" prefHeight="185.0" prefWidth="117.0" />
+                  <Button layoutX="156.0" layoutY="132.0" mnemonicParsing="false" onAction="#add">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" size="15" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="156.0" layoutY="178.0" mnemonicParsing="false" onAction="#remove">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="MINUS" size="15" />
+                     </graphic>
+                  </Button>
+                  <Label layoutX="88.0" layoutY="30.0" text="Liitä käyttäjiä Kuluun">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+      <StackPane fx:id="firstPane" prefHeight="358.0" prefWidth="345.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="356.0" prefWidth="340.0">
+               <children>
+                  <GridPane layoutX="83.0" layoutY="48.0" prefHeight="201.0" prefWidth="183.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Kuvaus" />
+                        <Label text="Hinta" GridPane.rowIndex="1" />
+                        <Label text="Tasajako" GridPane.rowIndex="2" />
+                        <TextField fx:id="description" GridPane.columnIndex="1" />
+                        <TextField fx:id="price" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="equalSplit" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <Button layoutX="192.0" layoutY="310.0" mnemonicParsing="false" onAction="#setSecondPane" text="Seuraava" />
+                  <Button layoutX="266.0" layoutY="310.0" mnemonicParsing="false" onAction="#closeWindow" text="Peruuta" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

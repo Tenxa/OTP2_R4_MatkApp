@@ -29,7 +29,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
 
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("MatkApp");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -42,8 +42,6 @@ public class MainApp extends Application {
         });
         stage.show();
         window = stage;
-        
-
     }
 
     /**

@@ -21,6 +21,12 @@ public class User {
     )
     private Set<Group> user_group = new HashSet<Group>();
     
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_expenses",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "expense_id")
+    )
+    private Set<Expense> user_expenses = new HashSet<Expense>();
     
     @Column(name = "first_name")
     private String first_name;
@@ -152,6 +158,24 @@ public class User {
     
     public String getSalt() {
         return user_salt;
+    }
+
+    /**
+     * @return the user_expenses
+     */
+    public Set<Expense> getUser_expenses() {
+        return user_expenses;
+    }
+
+    /**
+     * @param user_expenses the user_expenses to set
+     */
+    public void setUser_expenses(Set<Expense> user_expenses) {
+        this.user_expenses = user_expenses;
+    }
+    
+    public void addUser_expense(Expense expense) {
+        this.user_expenses.add(expense);
     }
  
 }

@@ -56,11 +56,15 @@ public class LoginSceneController implements Initializable {
             // SET MAIN SCENE
             
             FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.load(getClass().getResource("/fxml/RootScene.fxml"));
+            Parent root = loader.load(getClass().getResource("/fxml/RootScene.fxml").openStream());
+            RootSceneController cont = loader.getController();
             Scene scene = new Scene(root);
             Stage window = MainApp.getWindow();
             window.setResizable(true);
+            window.setMinWidth(750);
+            window.setMinHeight(450);
             window.setScene(scene);
+            cont.setHomeScene();
             window.show();
         } else {
             alert = new InformationAlert();
@@ -79,6 +83,7 @@ public class LoginSceneController implements Initializable {
             last_name.clear();
             email.clear();
             password.clear();
+            setLoginPane();
         }
 
     }

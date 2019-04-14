@@ -34,7 +34,9 @@ import javafx.scene.layout.VBox;
  * @author Eero
  */
 public class GroupListSceneController implements Initializable {
-
+    
+    // vanha toteutus ryhmä listalle, voinee poistaa joskus koko luokan
+    
     @FXML
     VBox groupListPane;
 

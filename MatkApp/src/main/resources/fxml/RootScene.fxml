@@ -1,38 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.r4.matkapp.mvc.controller.RootSceneController">
-   <bottom>
-      <AnchorPane prefHeight="40.0" prefWidth="739.0" style="-fx-background-color: #1e1e1e;" BorderPane.alignment="CENTER" />
-   </bottom>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.r4.matkapp.mvc.controller.RootSceneController">
    <left>
       <HBox fx:id="menuHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="165.0" BorderPane.alignment="CENTER">
          <children>
             <VBox minWidth="-Infinity" prefWidth="165.0" style="-fx-background-color: #333333;">
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setHomeScene" prefHeight="50.0" prefWidth="100.0" text="Oma Sivu">
+                  <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setHomeScene" prefHeight="50.0" prefWidth="100.0" text="Koti">
                      <VBox.margin>
                         <Insets top="50.0" />
                      </VBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView glyphName="HOME" size="35" />
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="24.0" />
+                     </padding>
                   </Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setGroupScene" prefHeight="50.0" prefWidth="100.0" text="Ryhmät" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Kulut" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="100.0" text="Kirjaudu Ulos" />
+                  <TitledPane expanded="false" minHeight="-Infinity" minWidth="-Infinity" prefWidth="165.0" text="Ryhmät">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <VBox fx:id="groupList" layoutX="19.6" layoutY="19.6" minWidth="-Infinity" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                                 <children>
+                                    <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#createNewGroup" text="Uusi ryhmä">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="PLUS" size="20" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <graphic>
+                        <AnchorPane>
+                           <children>
+                              <FontAwesomeIconView glyphName="GROUP" size="30" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </graphic>
+                  </TitledPane>
+                  <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Kulut">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PIE_CHART" size="30" />
+                     </graphic>
+                     <padding>
+                        <Insets left="28.0" />
+                     </padding></Button>
                </children>
             </VBox>
          </children>
       </HBox>
    </left>
    <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="739.0" style="-fx-background-color: #2c2d30;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="750.0" style="-fx-background-color: #2c2d30;" BorderPane.alignment="CENTER">
          <children>
             <MenuButton fx:id="loggedUserBox" minWidth="100.0" mnemonicParsing="false" text="user">
               <items>

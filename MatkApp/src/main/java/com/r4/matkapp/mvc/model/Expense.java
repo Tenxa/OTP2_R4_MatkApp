@@ -1,5 +1,7 @@
 package com.r4.matkapp.mvc.model;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -37,6 +39,9 @@ public class Expense {
     //False = ei kaikki osallistu tai ei tasajako
     @Column(name = "equal_split")
     private boolean equal_split;
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "user_expenses")
+    private Set<User> joined_users = new HashSet<>();
     
     public Expense() {
         super();
@@ -88,6 +93,22 @@ public class Expense {
         this.expense_group = expense_group;
     }
     
-    
+    public void addUser(User u) {
+        getUsers().add(u);
+    }
+
+    /**
+     * @return the users
+     */
+    public Set<User> getUsers() {
+        return joined_users;
+    }
+
+    /**
+     * @param users the users to set
+     */
+    public void setUsers(Set<User> users) {
+        this.joined_users = users;
+    }
     
 }
