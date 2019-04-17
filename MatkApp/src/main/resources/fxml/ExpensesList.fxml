@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <Tab text="Untitled Tab 1">
+         <content>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="599.0">
+               <content>
+                  <VBox fx:id="list" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0">
+                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" percentWidth="40.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" percentWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" percentWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="15.0" />
+                          </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Kuvaus" />
+                              <Label text="Kokonais hinta" GridPane.columnIndex="1" />
+                              <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
+                              <Label text="Osallistujia" GridPane.columnIndex="2" />
+                           </children>
+                        </GridPane>
+                        <GridPane fx:id="expenseList" layoutX="10.0" layoutY="100.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </content>
+    </Tab>
+    <Tab text="Untitled Tab 2">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

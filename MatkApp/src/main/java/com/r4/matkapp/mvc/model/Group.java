@@ -23,8 +23,7 @@ public class Group implements Comparable{
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "user_group")
     private Set<User> users = new HashSet<User>();
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "expense_group",
-            orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "expense_group")
     private Set<Expense> expenses = new HashSet<>();
     
     @Column(name = "budget")

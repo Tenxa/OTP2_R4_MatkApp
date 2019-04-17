@@ -52,8 +52,8 @@ public class GroupSettingsSceneController implements Initializable {
         try {
             group.setGroup_name(groupName.getText());
             group.setBudget(Double.parseDouble(budget.getText()));
-            UserController.groupdao.update(group);
-            parentController.updateGroupData(group);
+            UserController.groupDAO.update(group);
+            parentController.updateGroupData();
             closeWindow(event);
         } catch (NumberFormatException e) {
             AlertFactory alert = new WarningAlert();

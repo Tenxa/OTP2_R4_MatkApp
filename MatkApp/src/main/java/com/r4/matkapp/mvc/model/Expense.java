@@ -40,7 +40,11 @@ public class Expense {
     @Column(name = "equal_split")
     private boolean equal_split;
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "user_expenses")
+    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_expenses",
+        joinColumns = @JoinColumn(name = "expense_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private Set<User> joined_users = new HashSet<>();
     
     public Expense() {

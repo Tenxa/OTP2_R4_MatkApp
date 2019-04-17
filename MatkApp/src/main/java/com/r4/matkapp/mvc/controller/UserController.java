@@ -14,23 +14,22 @@ import javafx.scene.control.Alert;
  * Controller class for User data.
  * @author teemu
  */
-
 // vois miettii tän luokan oikeet tarkotust
 // näyttäis vaa database controllerilt
 // muutenki aika sekava
-
 public class UserController {
 
     public static DatabaseSession dbSession = new DatabaseSession();
     static DAO dao = new UserDAO(dbSession.getSessionFactory());
-    static DAO groupdao = new GroupDAO(dbSession.getSessionFactory());
-    
+    public static DAO groupDAO = new GroupDAO(dbSession.getSessionFactory());
+    public static DAO expenseDAO = new ExpenseDAO(dbSession.getSessionFactory());
+
     private static User loggedUser = null;
 
     public UserController() {
-        
+
     }
-    
+
     /**
      * Adds new user into database.
      * Validates user info and encrypts password before creating.
@@ -39,21 +38,21 @@ public class UserController {
      * @param last_name
      * @param email
      * @param password
-     * @return 
+     * @return
      */
     public boolean addUser(String first_name, String last_name, String email, String password) {
-        
+
         // Validate user input.
         if (ValidateUserInfo.isValid(first_name, last_name, email, password)) {
-            
+
             SecurePassword sPass = new SecurePassword();
             try {
                 // encrypt password
                 String userSalt = sPass.getNewSalt();
                 String encryptedPassword = sPass.generateEncryptedPassword(password, userSalt);
-                
+
                 User user = new User(first_name, last_name, email, encryptedPassword, userSalt);
-                
+
                 // check if email is not reserved.
                 if (dao.find(email) == null) {
                     dao.create(user);
@@ -88,41 +87,41 @@ public class UserController {
         dao.delete(user);
         // TODO
     }
-    
+
   
     /**
-     * Create new Group and sets created Group as User group property and 
+     * Create new Group and sets created Group as User group property and
      * updates User. Updating User with group that does not exists creates 
      * new Group row into database.
-     * 
+     *
      * So this method can be used to adding user into existing group.
      * Returns true if successful.
-     * 
+     *
      * @param group_name
-     * @return 
+     * @return
      */
     public Group createGroup(String group_name) {
         if(loggedUser != null) {
-        
+
             Group group = new Group(group_name);
             loggedUser.addGroup(group);
             try {
-               dao.update(loggedUser);
-               return group;
+                dao.update(loggedUser);
+                return group;
             } catch (Exception e) {
-                
+
             }
-        }  
+        }
         return null;
     }
-    
+
     public void sendInvitation(Group group, User user){
         SendEmail email = new SendEmail();
         String subject = "MatkApp group invitation";
         String text = "Group: " + group.getGroup_name() + " has sent you an invitation. Here is the link: " +group.getInvite();
         email.Send(user.getEmail(), subject, text);
     }
-    
+
     public boolean addUsertoGroup(String invitation, Group group){
         if (loggedUser != null && invitation.equals(group.getInvite()) && loggedUser.getGroup().contains(group) ){
             loggedUser.addGroup(group);
@@ -133,14 +132,14 @@ public class UserController {
     }
 
     public void deleteGroup(Group group) {
-       // TODO
+        // TODO
     }
-     
+
     /**
      * Authenticates user login input.
      * @param email
      * @param password
-     * @return 
+     * @return
      */
     public boolean checkLogin(String email, String password) {
         User user = (User) dao.find(email);
@@ -150,24 +149,24 @@ public class UserController {
                 if(sPass.authenticateUser(user, password)) {
                     loggedUser = user;
                     return true;
-                }          
+                }
             } catch (Exception e) {
-                
+
             }
         }
         return false;
     }
-    
+
     public User getUserbyEmail(String email) {
         User user = (User) dao.find(email);
         return user;
     }
-    
+
     public Group getGroupbyInvitation(String inv){
         Group group = (Group) dao.find(inv);
         return group;
     }
-    
+
     public static User getLoggedUser() {
         return UserController.loggedUser;
     }

@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <ToolBar BorderPane.alignment="CENTER">
         <items>
-          <Button mnemonicParsing="false" text="Etusivu" />
+          <Button mnemonicParsing="false" onAction="#setNavMenu" text="Etusivu" />
             <Button mnemonicParsing="false" onAction="#showGroupProperties" text="Asetukset" />
             <Button mnemonicParsing="false" text="Kutsu Käyttäjä" />
             <Button mnemonicParsing="false" onAction="#openExpenseWizard" text="Lisää Kulu" />
@@ -45,7 +45,7 @@
         </rowConstraints>
          <children>
             <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Chat" GridPane.columnIndex="2" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Kulut" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setExpenseListScene" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Kulut" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
             <Label fx:id="groupNameLabel" minHeight="50.0" text="I" GridPane.columnIndex="1">
                <font>
                   <Font size="36.0" />

@@ -75,7 +75,7 @@ public class ExpenseWizardController implements Initializable {
 
     @FXML
     private void closeWindow(ActionEvent event) {
-        parentController.updateGroupData((Group) UserController.groupdao.find(activeGroup.getId()));
+        parentController.updateGroupData();
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
     }
 
@@ -90,16 +90,17 @@ public class ExpenseWizardController implements Initializable {
         //  jostai syyst ei luo user - expense relaatioo
         Set<User> set = new HashSet<>(selectedUsers.getItems());
         expense.setUsers(set);
-        new ExpenseDAO(UserController.dbSession.getSessionFactory()).create(expense);
+        UserController.expenseDAO.create(expense);
         
         // pitää viel lisäks päivittää käyttäjät eriksee
         // en keksiny miks, vois joskus selvitellä
+        /*
         ObservableList<User> list = selectedUsers.getItems();
         for (User u : list) {
            u.addUser_expense(expense);
            UserController.dao.update(u);
         }
-        
+        */
         closeWindow(event);
     }
 

@@ -21,11 +21,7 @@ public class User {
     )
     private Set<Group> user_group = new HashSet<Group>();
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_expenses",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "expense_id")
-    )
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "joined_users")
     private Set<Expense> user_expenses = new HashSet<Expense>();
     
     @Column(name = "first_name")

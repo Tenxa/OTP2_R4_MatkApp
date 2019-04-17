@@ -38,7 +38,7 @@ public class UserDAO implements DAO<User> {
             return result.isEmpty() ? null : result;              
         } catch (Exception e) {
             if (getSession().getTransaction() != null)
-                getSession().beginTransaction().rollback();
+                getSession().getTransaction().rollback();
             throw e;
         } finally {    
             getSession().close();
@@ -54,7 +54,7 @@ public class UserDAO implements DAO<User> {
             getSession().getTransaction().commit();
         } catch (Exception e) {
             if (getSession().getTransaction() != null) {
-                getSession().beginTransaction().rollback();
+                getSession().getTransaction().rollback();
             }
             throw e;
         } finally {
@@ -71,7 +71,7 @@ public class UserDAO implements DAO<User> {
             getSession().getTransaction().commit();
         } catch (Exception e) {
             if (getSession().getTransaction() != null) {
-                getSession().beginTransaction().rollback();
+                getSession().getTransaction().rollback();
             }
             throw e;
         } finally {
@@ -91,7 +91,7 @@ public class UserDAO implements DAO<User> {
             }
         } catch (Exception e) {
             if (getSession().getTransaction() != null) {
-                getSession().beginTransaction().rollback();
+                getSession().getTransaction().rollback();
             }
             throw e;
         } finally {
@@ -117,7 +117,7 @@ public class UserDAO implements DAO<User> {
        } catch (Exception e) {
             e.printStackTrace();
             if (getSession().getTransaction().isActive()) {
-                getSession().beginTransaction().rollback();
+                getSession().getTransaction().rollback();
             }
             throw e;
        } finally {

@@ -44,6 +44,8 @@ import javafx.stage.Stage;
 public class RootSceneController implements Initializable {
 
     @FXML
+    BorderPane root;
+    @FXML
     HBox menuHBox;
     @FXML
     MenuButton loggedUserBox;
@@ -77,8 +79,7 @@ public class RootSceneController implements Initializable {
     @FXML
     public void setHomeScene() {
         try {
-            BorderPane root = (BorderPane) MainApp.getWindow().getScene().getRoot();
-            root.setCenter((Node) FXMLLoader.load(getClass().getResource("/fxml/HomeScene.fxml")));
+            setCenter((Node) FXMLLoader.load(getClass().getResource("/fxml/HomeScene.fxml")));
         } catch (IOException ex) {
             Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -130,12 +131,11 @@ public class RootSceneController implements Initializable {
     private void createGroupButton(Group g) {
         RootSceneController ctrl = this;
         Button b = new Button(g.getGroup_name());
-        b.setOnAction((ActionEvent event) -> {
-            BorderPane root = (BorderPane) ((Node) event.getSource()).getScene().getRoot();
+        b.setOnAction((ActionEvent event) -> { 
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AltGroupScene.fxml"));
-                loader.setController(new AltGroupSceneController(ctrl, g.getId()));
-                root.setCenter(loader.load());
+                loader.setController(new AltGroupSceneController(ctrl, g));
+                setCenter(loader.load());
             } catch (IOException ex) {
                 Logger.getLogger(GroupListSceneController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -167,6 +167,10 @@ public class RootSceneController implements Initializable {
             }
         }
         return null;
+    }
+    
+    public void setCenter(Node node) {
+        root.setCenter(node);
     }
 
 }
