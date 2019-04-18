@@ -46,13 +46,12 @@ public class GroupInvitationSceneController implements Initializable {
     //En oo päässyt kokeilemaan näitä, koska tuo GroupInvitationScene ei aukea.
     
     @FXML
-    private void sendInvitation(ActionEvent event){
+    private void inviteMember(ActionEvent event){
         User addUser = uController.getUserbyEmail(email.getText());
         if (addUser != null){
-            Group group = activeGroup;
             
-            if (group != null){
-                uController.sendInvitation(group, addUser);
+            if (activeGroup != null){
+                uController.sendInvitation(activeGroup, addUser);
                 
                 String content = "Osoitteeseen: " + addUser.getEmail();
                 alert = new InformationAlert();
