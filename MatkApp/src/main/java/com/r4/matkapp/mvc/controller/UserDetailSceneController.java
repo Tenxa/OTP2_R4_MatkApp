@@ -7,8 +7,12 @@ package com.r4.matkapp.mvc.controller;
  */
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -17,13 +21,22 @@ import javafx.fxml.Initializable;
  */
 public class UserDetailSceneController implements Initializable {
 
+    private Map<Label, TextField> laTe;
+    Label jarmo;
+    TextField t;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        initLaTe();
     }    
     
+    //La = Label, Te = TextField
+    private void initLaTe() {
+        laTe = new HashMap();
+        laTe.put(jarmo, t);
+    }
     
 }
