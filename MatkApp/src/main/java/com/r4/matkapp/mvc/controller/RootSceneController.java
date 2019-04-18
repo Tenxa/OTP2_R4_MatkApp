@@ -84,6 +84,17 @@ public class RootSceneController implements Initializable {
             Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @FXML
+    private void setDetailScene() {
+        Node n = null;
+        try {
+            n = FXMLLoader.load(getClass().getResource("/fxml/UserDetailScene.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        setCenter(n);
+    }
 
     @FXML
     public void logout(ActionEvent event) {
