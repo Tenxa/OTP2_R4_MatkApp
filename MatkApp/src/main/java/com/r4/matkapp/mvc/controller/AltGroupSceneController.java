@@ -91,7 +91,7 @@ public class AltGroupSceneController implements Initializable {
         }
     }
     
-    //En tiedä miks tää ei avaa tota ikkunaa. Jos joku vois tsekkaa vähä?
+    
     @FXML
     private void openGroupInvitationScene(){
         try {

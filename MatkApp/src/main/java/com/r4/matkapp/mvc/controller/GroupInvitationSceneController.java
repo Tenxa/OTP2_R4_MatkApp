@@ -43,8 +43,7 @@ public class GroupInvitationSceneController implements Initializable {
         this.parentController = parentController;
     }
     
-    //En oo päässyt kokeilemaan näitä, koska tuo GroupInvitationScene ei aukea.
-    
+    // pitää vielä testata toimiiko tää nyt ihan oikein
     @FXML
     private void inviteMember(ActionEvent event){
         User addUser = uController.getUserbyEmail(email.getText());
