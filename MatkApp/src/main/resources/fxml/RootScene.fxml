@@ -72,7 +72,7 @@
          <children>
             <MenuButton fx:id="loggedUserBox" minWidth="100.0" mnemonicParsing="false" text="user">
               <items>
-                <MenuItem mnemonicParsing="false" text="Omat tiedot" />
+                <MenuItem mnemonicParsing="false" onAction="#setDetailScene" text="Omat tiedot" />
                 <MenuItem mnemonicParsing="false" onAction="#logout" text="Kirjaudu ulos" />
               </items>
                <HBox.margin>

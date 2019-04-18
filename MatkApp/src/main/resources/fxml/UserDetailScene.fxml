@@ -5,17 +5,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller=".UserDetailSceneController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.r4.matkapp.mvc.controller.UserDetailSceneController">
    <children>
-      <TextField layoutX="52.0" layoutY="43.0" />
-      <TextField layoutX="52.0" layoutY="73.0" />
-      <TextField layoutX="52.0" layoutY="103.0" />
-      <TextField layoutX="52.0" layoutY="133.0" />
-      <TextField layoutX="52.0" layoutY="163.0" />
-      <TextField layoutX="52.0" layoutY="193.0" />
-      <TextField layoutX="52.0" layoutY="223.0" />
-      <TextField layoutX="52.0" layoutY="253.0" />
+      <TextField layoutX="52.0" layoutY="43.0" visible="false" />
+      <TextField layoutX="52.0" layoutY="73.0" visible="false" />
+      <TextField layoutX="52.0" layoutY="103.0" visible="false" />
+      <TextField layoutX="52.0" layoutY="133.0" visible="false" />
+      <TextField layoutX="52.0" layoutY="163.0" visible="false" />
+      <TextField layoutX="52.0" layoutY="193.0" visible="false" />
+      <TextField layoutX="52.0" layoutY="223.0" visible="false" />
+      <TextField layoutX="52.0" layoutY="253.0" visible="false" />
       <Label layoutX="58.0" layoutY="47.0" text="Etunimi" />
       <Label layoutX="58.0" layoutY="77.0" text="Sukunimi" />
       <Label layoutX="58.0" layoutY="107.0" text="Sähköposti" />
