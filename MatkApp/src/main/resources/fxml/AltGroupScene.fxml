@@ -17,7 +17,7 @@
         <items>
           <Button mnemonicParsing="false" onAction="#setNavMenu" text="Etusivu" />
             <Button mnemonicParsing="false" onAction="#showGroupProperties" text="Asetukset" />
-            <Button mnemonicParsing="false" text="Kutsu Käyttäjä" />
+            <Button mnemonicParsing="false" onAction="#openGroupInvitationScene" text="Kutsu Käyttäjä" />
             <Button mnemonicParsing="false" onAction="#openExpenseWizard" text="Lisää Kulu" />
             <Button mnemonicParsing="false" text="Poistu Ryhmästä" />
         </items>

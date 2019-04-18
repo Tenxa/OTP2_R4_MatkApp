@@ -91,6 +91,24 @@ public class AltGroupSceneController implements Initializable {
         }
     }
     
+    //En tiedä miks tää ei avaa tota ikkunaa. Jos joku vois tsekkaa vähä?
+    @FXML
+    private void openGroupInvitationScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GroupInvitationScene.fxml"));
+            loader.setController(new GroupInvitationSceneController(this, selectedGroup));
+            
+            Stage stage = new Stage();
+            stage.setTitle("Kutsu uusi jäsen");
+            stage.setScene(new Scene(loader.load()));
+            stage.initOwner(MainApp.getWindow());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @FXML
     private void setNavMenu() {
         root.setCenter(navMenu);
