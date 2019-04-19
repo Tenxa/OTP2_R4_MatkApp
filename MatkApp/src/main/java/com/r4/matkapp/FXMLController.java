@@ -33,7 +33,7 @@ public class FXMLController implements Initializable {
     private TextField login_email, login_password;
 
     @FXML
-    private TextField create_grp_name, join_grp_invite, add_grp_member; // TODO: invite
+    private TextField create_grp_name; // TODO: invite
     
     @FXML
     private TextField group_inv_code;
@@ -104,23 +104,7 @@ public class FXMLController implements Initializable {
         }
     }
     
-    private void addGroupMember(ActionEvent event){
-        
-        User addUser = uController.getUserbyEmail(email.getText());
-        
-        if (addUser != null){
-            Group group = uController.getGroupbyInvitation(group_inv_code.getText());
-            if (group != null){
-                uController.sendInvitation(group, addUser);
-                String content = "Osoitteeseen: " + addUser.getEmail();
-                popMessage(Alert.AlertType.INFORMATION, "Liittymis koodi on lähetetty", content);
-            } else {
-                popMessage(Alert.AlertType.WARNING, "Liittymis koodin lähetys epäonnistui!", null);
-            }
-        }
-        
-    }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

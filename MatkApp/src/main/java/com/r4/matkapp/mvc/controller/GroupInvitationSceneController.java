@@ -50,13 +50,16 @@ public class GroupInvitationSceneController implements Initializable {
         if (addUser != null){
             
             if (activeGroup != null){
+                
                 uController.sendInvitation(activeGroup, addUser);
                 
                 String content = "Osoitteeseen: " + addUser.getEmail();
                 alert = new InformationAlert();
                 alert.createAlert("Liittymis koodi on lähetetty", content);
                 closeWindow(event);
+                
             } else {
+                
                 alert = new WarningAlert();
                 alert.createAlert("Liittymis koodin lähetys epäonnistui!", null);
             }
