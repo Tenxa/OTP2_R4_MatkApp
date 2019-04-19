@@ -43,7 +43,8 @@ public class GroupInvitationSceneController implements Initializable {
         this.parentController = parentController;
     }
     
-    // pitää vielä testata toimiiko tää nyt ihan oikein
+    /* Sähköposti osoite, mikä syötetään käyttöliittymään
+        täytyy olla jollakin käyttäjällä olemassa*/
     @FXML
     private void inviteMember(ActionEvent event){
         User addUser = uController.getUserbyEmail(email.getText());
