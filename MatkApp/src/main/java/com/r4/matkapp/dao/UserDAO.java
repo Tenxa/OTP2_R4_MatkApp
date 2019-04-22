@@ -168,4 +168,13 @@ public class UserDAO implements DAO<User> {
         this.session = session;
     }
 
+    @Override
+    public void refresh(User t) {
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.refresh(t);
+        session.getTransaction().commit();
+        session.close();  
+    }
+
 }

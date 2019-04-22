@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -37,6 +38,8 @@ public class LoginSceneController implements Initializable {
     
     @FXML
     private StackPane loginPane, createPane;
+    
+    @FXML Button loginButton, createUserButton;
 
     
     private UserController uController;
@@ -90,11 +93,15 @@ public class LoginSceneController implements Initializable {
 
     @FXML
     private void setCreatePane() {
+        loginButton.setDefaultButton(false);
+        createUserButton.setDefaultButton(true);
         createPane.toFront();
     }
     
     @FXML
     private void setLoginPane() {
+        createUserButton.setDefaultButton(false);
+        loginButton.setDefaultButton(true);
         loginPane.toFront();
     }
 

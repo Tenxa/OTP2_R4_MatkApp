@@ -10,6 +10,7 @@ import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -24,10 +25,13 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -37,10 +41,12 @@ import javafx.util.Callback;
 public class ExpenseWizardController implements Initializable {
 
     @FXML
-    StackPane firstPane, secondPane;
+    private StackPane firstPane, secondPane;
 
     @FXML
-    private TextField description, price;
+    private TextField description;
+    @FXML
+    private Spinner<Double> priceSpinner;
     @FXML
     private CheckBox equalSplit;
     @FXML
@@ -48,6 +54,7 @@ public class ExpenseWizardController implements Initializable {
 
     private boolean isEqualSplit;
 
+    // selected group object
     private Group activeGroup;
     private AltGroupSceneController parentController;
 
@@ -59,18 +66,84 @@ public class ExpenseWizardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         initListView(users);
         initListView(selectedUsers);
         users.getItems().addAll(FXCollections.observableArrayList(activeGroup.getUsers()));
-        
+
+        initPriceSpinner();
+
         equalSplit.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 isEqualSplit = newValue;
             }
         });
+
+    }
+
+    private void initPriceSpinner() {
+        SpinnerValueFactory.DoubleSpinnerValueFactory priceFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 999999, 0, 0.1);
+        // define converter
+        priceFactory.setConverter(new StringConverter<Double>() {
+            private final DecimalFormat df = new DecimalFormat("#.##");
+
+            @Override
+            public String toString(Double value) {
+                // If the specified value is null, return a zero-length String
+                if (value == null) {
+                    return "";
+                }
+
+                return df.format(value);
+            }
+
+            @Override
+            public Double fromString(String value) {
+                try {
+                    // If the specified value is null or zero-length, return null
+                    if (value == null) {
+                        return null;
+                    }
+
+                    value = value.trim();
+
+                    if (value.length() < 1) {
+                        return null;
+                    }
+
+                    // Perform the requested parsing  
+                    return df.parse(value).doubleValue();
+
+                } catch (Exception ex) {
+                    return 0.0;
+                }
+            }
+
+        });
+        priceSpinner.setValueFactory(priceFactory);
         
+        // for removing alphabeths on focus lost
+        priceSpinner.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    StringConverter<Double> converter = priceFactory.getConverter();
+                    Double val = converter.fromString(priceSpinner.getEditor().getText());
+                    priceFactory.setValue(val);
+                }
+
+            }
+
+        });
+        // add scroll event
+        priceSpinner.setOnScroll(event -> {
+            if (event.getDeltaY() < 0d) {
+                priceSpinner.decrement();
+            } else if (event.getDeltaY() > 0d) {
+                priceSpinner.increment();
+            }
+        });
     }
 
     @FXML
@@ -83,24 +156,14 @@ public class ExpenseWizardController implements Initializable {
     private void createExpense(ActionEvent event) {
         Expense expense = new Expense();
         expense.setExpense_description(description.getText());
-        expense.setExpense_amount(Double.parseDouble(price.getText()));
+        expense.setExpense_amount((double) priceSpinner.getValue());
         expense.setEqual_split(isEqualSplit);
         expense.setExpense_group(activeGroup);
-        
-        //  jostai syyst ei luo user - expense relaatioo
+
         Set<User> set = new HashSet<>(selectedUsers.getItems());
         expense.setUsers(set);
         UserController.expenseDAO.create(expense);
-        
-        // pitää viel lisäks päivittää käyttäjät eriksee
-        // en keksiny miks, vois joskus selvitellä
-        /*
-        ObservableList<User> list = selectedUsers.getItems();
-        for (User u : list) {
-           u.addUser_expense(expense);
-           UserController.dao.update(u);
-        }
-        */
+
         closeWindow(event);
     }
 
@@ -134,10 +197,9 @@ public class ExpenseWizardController implements Initializable {
         secondPane.toFront();
     }
 
-    
     /**
      * Set cell factory for users ListView
-     * 
+     *
      * cell value == first name
      */
     private void initListView(ListView list) {

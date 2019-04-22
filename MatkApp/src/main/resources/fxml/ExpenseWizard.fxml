@@ -5,6 +5,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -62,8 +63,8 @@
                         <Label text="Hinta" GridPane.rowIndex="1" />
                         <Label text="Tasajako" GridPane.rowIndex="2" />
                         <TextField fx:id="description" GridPane.columnIndex="1" />
-                        <TextField fx:id="price" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <CheckBox fx:id="equalSplit" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Spinner fx:id="priceSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <Button layoutX="192.0" layoutY="310.0" mnemonicParsing="false" onAction="#setSecondPane" text="Seuraava" />

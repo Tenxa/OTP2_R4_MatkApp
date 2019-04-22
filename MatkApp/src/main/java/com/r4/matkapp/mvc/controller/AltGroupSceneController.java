@@ -45,7 +45,8 @@ public class AltGroupSceneController implements Initializable {
 
     protected AltGroupSceneController(RootSceneController ctrl, Group g) {
         parentController = ctrl;
-        selectedGroup = (Group) UserController.groupDAO.find(g.getId());
+        selectedGroup = g;
+        UserController.groupDAO.refresh(selectedGroup);
     }
 
     @Override
@@ -65,7 +66,10 @@ public class AltGroupSceneController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle(selectedGroup.getGroup_name() + " Asetukset");
             stage.setScene(new Scene(loader.load()));
+            
+            // set owner and modality
             stage.initOwner(MainApp.getWindow());
+            // block evets from beign delivered to its entire owner window hierarchy
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
 
@@ -83,7 +87,10 @@ public class AltGroupSceneController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Luo uusi kulu");
             stage.setScene(new Scene(loader.load()));
+            
+            // set owner and modality
             stage.initOwner(MainApp.getWindow());
+            // block evets from beign delivered to its entire owner window hierarchy
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
         } catch (IOException ex) {
@@ -128,7 +135,7 @@ public class AltGroupSceneController implements Initializable {
     // parannettavaa..
     protected void updateGroupData() {
         
-        selectedGroup = (Group) UserController.groupDAO.find(selectedGroup.getId());
+        UserController.groupDAO.refresh(selectedGroup);
         if (groupNameLabel.getText() != selectedGroup.getGroup_name()) {
             groupNameLabel.setText(getSelectedGroup().getGroup_name());
             parentController.updateGroupList();

@@ -170,4 +170,13 @@ public class GroupDAO implements DAO<Group> {
         this.session = session;
     }
 
+    @Override
+    public void refresh(Group t) {
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.refresh(t);
+        session.getTransaction().commit();
+        session.close();       
+    }
+
 }

@@ -5,14 +5,10 @@
  */
 package com.r4.matkapp.mvc.controller;
 
-import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.view.ExpenseListFactory;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
@@ -25,20 +21,16 @@ import javafx.scene.layout.VBox;
  */
 public class ExpensesListController implements Initializable {
 
-    List<String> expenses = new ArrayList<>();
-    private Set<Expense> groupExpenses;
-
     @FXML
     private GridPane expenseList;
     @FXML
     private VBox list;
+
     
-    private GridPane pane;
-    
-    private Group group;
+    private Group activeGroup;
     
     public ExpensesListController(AltGroupSceneController cont) {
-        group = cont.getSelectedGroup();
+        activeGroup = cont.getSelectedGroup();
     }
 
     /**
@@ -51,13 +43,10 @@ public class ExpensesListController implements Initializable {
     
     @FXML
     private void refreshExpenseList() {
-        list.getChildren().remove(1);
-        group = (Group) UserController.groupDAO.find(group.getId());
+        list.getChildren().remove(1); // remove old list (index 1)
+        activeGroup = (Group) UserController.groupDAO.find(activeGroup.getId());
+        
         ExpenseListFactory factory = new ExpenseListFactory();
-        //pane = factory.createList(group.getExpenses());
-        list.getChildren().add(factory.createList(group.getExpenses()));
-    }
-
-    
-    
+        list.getChildren().add(factory.createList(activeGroup.getExpenses()));
+    } 
 }

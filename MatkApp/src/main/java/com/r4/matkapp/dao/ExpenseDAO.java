@@ -151,6 +151,12 @@ public class ExpenseDAO implements DAO<Expense> {
         this.session = session;
     }
 
-    
-
+    @Override
+    public void refresh(Expense t) {
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.refresh(t);
+        session.getTransaction().commit();
+        session.close();  
+    }
 }

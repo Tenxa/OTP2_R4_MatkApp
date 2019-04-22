@@ -35,4 +35,6 @@ public interface DAO<T> {
      */
     abstract T find(int id);
     
+    abstract void refresh(T t);
+    
 }
