@@ -28,6 +28,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -123,19 +124,11 @@ public class ExpenseWizardController implements Initializable {
         });
         priceSpinner.setValueFactory(priceFactory);
         
-        // for removing alphabeths on focus lost
-        priceSpinner.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (!newValue) {
-                    StringConverter<Double> converter = priceFactory.getConverter();
-                    Double val = converter.fromString(priceSpinner.getEditor().getText());
-                    priceFactory.setValue(val);
-                }
-
-            }
-
-        });
+        // for removing alphabeths
+        TextFormatter formatter = new TextFormatter(priceFactory.getConverter(), priceFactory.getValue());
+        priceSpinner.getEditor().setTextFormatter(formatter);
+        priceFactory.valueProperty().bindBidirectional(formatter.valueProperty());
+        
         // add scroll event
         priceSpinner.setOnScroll(event -> {
             if (event.getDeltaY() < 0d) {

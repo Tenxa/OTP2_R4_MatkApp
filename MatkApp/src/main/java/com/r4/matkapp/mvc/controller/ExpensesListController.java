@@ -26,7 +26,6 @@ public class ExpensesListController implements Initializable {
     @FXML
     private VBox list;
 
-    
     private Group activeGroup;
     
     public ExpensesListController(AltGroupSceneController cont) {
@@ -44,7 +43,7 @@ public class ExpensesListController implements Initializable {
     @FXML
     private void refreshExpenseList() {
         list.getChildren().remove(1); // remove old list (index 1)
-        activeGroup = (Group) UserController.groupDAO.find(activeGroup.getId());
+        UserController.groupDAO.refresh(activeGroup);
         
         ExpenseListFactory factory = new ExpenseListFactory();
         list.getChildren().add(factory.createList(activeGroup.getExpenses()));
