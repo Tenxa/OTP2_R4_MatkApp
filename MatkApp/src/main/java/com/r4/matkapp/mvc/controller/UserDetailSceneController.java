@@ -5,7 +5,6 @@ package com.r4.matkapp.mvc.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import com.r4.matkapp.mvc.model.User;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,17 +32,13 @@ public class UserDetailSceneController implements Initializable {
     private Map<Label, TextField> laTe;
     private String placeholder = "Syötä tieto";
     private List<Label> lbDetails = new ArrayList<>();
-    
-    
+
     @FXML
     private Label lbFirstname, lbLastname, lbEmail, lbAddress, lbPhonenumber, lbPostnumber, lbCity, lbCountry;
-    
+
     @FXML
     private TextField tfFirstname, tfLastname, tfEmail, tfAddress, tfPhonenumber, tfPostnumber, tfCity, tfCountry;
-    
-    @FXML
-    private Button saveButton, resetButton;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -52,8 +47,8 @@ public class UserDetailSceneController implements Initializable {
         initLaTe();
         initlbDetails();
         loadUserDetails();
-    }    
-    
+    }
+
     //La = Label, Te = TextField
     private void initLaTe() {
         laTe = new HashMap();
@@ -66,7 +61,7 @@ public class UserDetailSceneController implements Initializable {
         laTe.put(lbCity, tfCity);
         laTe.put(lbCountry, tfCountry);
     }
-    
+
     private void initlbDetails() {
         lbDetails.add(lbFirstname);
         lbDetails.add(lbLastname);
@@ -77,23 +72,7 @@ public class UserDetailSceneController implements Initializable {
         lbDetails.add(lbCity);
         lbDetails.add(lbCountry);
     }
-    
-    //Method to edit user details
-    @FXML
-    private void clickLabelToShowTf(MouseEvent event) {
-        Label label = (Label)event.getSource();
-        label.setVisible(false);
-        TextField tf = laTe.get(label);
-        tf.setText(label.getText());
-        tf.setVisible(true);
-        tf.setOnAction((ActionEvent event1) -> {
-            label.setText(tf.getText());
-            tf.setVisible(false);
-            label.setVisible(true);
-        });
-    }
-    
-    @FXML
+
     private void saveChanges() {
         User user = UserController.getLoggedUser();
         user.setFirst_name(lbFirstname.getText());
@@ -106,7 +85,23 @@ public class UserDetailSceneController implements Initializable {
         user.setCountry(lbCountry.getText());
         UserController.dao.update(user);
     }
-    
+
+    //Method to edit user details
+    @FXML
+    private void clickLabelToShowTf(MouseEvent event) {
+        Label label = (Label) event.getSource();
+        label.setVisible(false);
+        TextField tf = laTe.get(label);
+        tf.setText(label.getText());
+        tf.setVisible(true);
+        tf.setOnAction((ActionEvent event1) -> {
+            label.setText(tf.getText());
+            tf.setVisible(false);
+            label.setVisible(true);
+            saveChanges();
+        });
+    }
+
     @FXML
     private void loadUserDetails() {
         User user = UserController.getLoggedUser();
@@ -118,12 +113,12 @@ public class UserDetailSceneController implements Initializable {
         lbPostnumber.setText(user.getPost_number());
         lbCity.setText(user.getCity());
         lbCountry.setText(user.getCountry());
-        
+
         lbDetails.stream().filter((label) -> (label.getText() == null)).forEachOrdered((label) -> {
             label.setText(placeholder);
         });
     }
-    
+
     @FXML
     private void setupToolTip() {
         Tooltip toolTip = new Tooltip();
