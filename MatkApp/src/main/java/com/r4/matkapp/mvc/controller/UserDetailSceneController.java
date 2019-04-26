@@ -5,6 +5,7 @@ package com.r4.matkapp.mvc.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.User;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,15 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -30,14 +36,19 @@ import javafx.scene.input.MouseEvent;
 public class UserDetailSceneController implements Initializable {
 
     private Map<Label, TextField> laTe;
-    private String placeholder = "Syötä tieto";
+    private String placeholder = "";
     private List<Label> lbDetails = new ArrayList<>();
+
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private Label lbFirstname, lbLastname, lbEmail, lbAddress, lbPhonenumber, lbPostnumber, lbCity, lbCountry;
 
     @FXML
     private TextField tfFirstname, tfLastname, tfEmail, tfAddress, tfPhonenumber, tfPostnumber, tfCity, tfCountry;
+
+    private TextField lastFocus;
 
     /**
      * Initializes the controller class.
@@ -47,6 +58,12 @@ public class UserDetailSceneController implements Initializable {
         initLaTe();
         initlbDetails();
         loadUserDetails();
+        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                checkFocus();
+            }
+        });
     }
 
     //La = Label, Te = TextField
@@ -89,11 +106,21 @@ public class UserDetailSceneController implements Initializable {
     //Method to edit user details
     @FXML
     private void clickLabelToShowTf(MouseEvent event) {
+        checkFocus();
         Label label = (Label) event.getSource();
         label.setVisible(false);
         TextField tf = laTe.get(label);
         tf.setText(label.getText());
         tf.setVisible(true);
+        
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tf.requestFocus();
+            }
+        });
+        lastFocus = tf;
+        
         tf.setOnAction((ActionEvent event1) -> {
             label.setText(tf.getText());
             tf.setVisible(false);
@@ -126,5 +153,15 @@ public class UserDetailSceneController implements Initializable {
         lbDetails.forEach((label) -> {
             label.setTooltip(toolTip);
         });
+    }
+    
+    // for firing event of last focused textfield
+    private void checkFocus() {
+        if (root.getScene().focusOwnerProperty().get() instanceof TextField) {
+            if (lastFocus == (TextField) root.getScene().focusOwnerProperty().get()) {
+                lastFocus.fireEvent(new ActionEvent());
+                lastFocus = null;
+            }
+        }
     }
 }
