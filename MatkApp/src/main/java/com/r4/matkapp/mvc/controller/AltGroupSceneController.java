@@ -8,6 +8,9 @@ package com.r4.matkapp.mvc.controller;
 import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.Group;
+import com.r4.matkapp.mvc.model.User;
+import com.r4.matkapp.mvc.view.alertfactory.ConfirmationAlert;
+import com.r4.matkapp.mvc.view.alertfactory.ConfirmationFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -130,6 +133,19 @@ public class AltGroupSceneController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @FXML
+    private void leaveGroup() {
+       ConfirmationFactory confirmation = new ConfirmationAlert();
+       boolean result = confirmation.createAlert(null, "Poistutaako ryhmästä " + selectedGroup.getGroup_name() + "?");
+       if(result) {
+           User u = UserController.getLoggedUser();
+           u.getGroup().remove(selectedGroup);
+           UserController.dao.update(u);
+           parentController.setHomeScene();
+           updateGroupData();
+       }
     }
 
     // parannettavaa..

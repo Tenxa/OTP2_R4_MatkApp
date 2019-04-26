@@ -7,6 +7,7 @@ package com.r4.matkapp.mvc.controller;
 
 import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Group;
+import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import com.r4.matkapp.mvc.view.alertfactory.InformationAlert;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -119,13 +120,14 @@ public class RootSceneController implements Initializable {
             updateGroupList();
         }
     }
-
+    
     // en jaksanu miettii, aika sekava ja turhan paljon kyselyjä tietokantaan
     // aka parennttavaa..
     public void updateGroupList() {
         Node n = groupList.getChildren().get(0);
+        Node n1 = groupList.getChildren().get(1);
         groupList.getChildren().clear();
-        groupList.getChildren().add(n);
+        groupList.getChildren().addAll(n,n1);
         generateGroupList();
     }
 
@@ -174,6 +176,34 @@ public class RootSceneController implements Initializable {
             if (g.getInvite() != null) {
                 AlertFactory f = new InformationAlert();
                 f.createAlert(null, "Ryhmän luonti onnistui!", g.getInvite());
+                return g;
+            }
+        }
+        return null;
+    }
+    
+    @FXML
+    private void JoinGroup(){
+        if (JoinGroupInputDialog() != null){
+            updateGroupList();
+        }
+    }
+    
+    private Group JoinGroupInputDialog(){
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Liity ryhmään");
+        dialog.setContentText("Syötä ryhmän liittymis koodi");
+        
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            UserController u = new UserController();
+            Group g = (Group) UserController.groupDAO.find(result.get());
+            if (g != null){
+                User us = UserController.getLoggedUser();
+                us.addGroup(g);
+                UserController.dao.update(us);
+                AlertFactory f = new InformationAlert();
+                f.createAlert(null, "Ryhmään liittyminen onnistui", g.getGroup_name());
                 return g;
             }
         }
