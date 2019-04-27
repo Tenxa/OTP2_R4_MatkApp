@@ -18,25 +18,25 @@
                <children>
                   <VBox layoutX="217.0" layoutY="37.0" prefHeight="311.0" prefWidth="166.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etunimi" />
+                        <Text fx:id="registerFNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Etunimi" />
                         <TextField fx:id="first_name">
                            <VBox.margin>
                               <Insets bottom="15.0" top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sukunimi" />
+                        <Text fx:id="registerLNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Sukunimi" />
                         <TextField fx:id="last_name">
                            <VBox.margin>
                               <Insets bottom="15.0" top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sähköposti" />
+                        <Text fx:id="registerEmailLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Sähköposti" />
                         <TextField fx:id="email">
                            <VBox.margin>
                               <Insets bottom="15.0" top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Salasana" />
+                        <Text fx:id="registerPasswordLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Salasana" />
                         <PasswordField fx:id="password">
                            <VBox.margin>
                               <Insets bottom="15.0" top="5.0" />
@@ -60,13 +60,13 @@
                <children>
                   <VBox layoutX="217.0" layoutY="68.0" prefHeight="284.0" prefWidth="166.0">
                      <children>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="166.0" text="Sähköposti" />
+                        <Label fx:id="loginEmailLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="166.0" text="Sähköposti" />
                         <TextField fx:id="loginEmail" prefHeight="37.0">
                            <VBox.margin>
                               <Insets bottom="15.0" top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label text="Salasana" />
+                        <Label fx:id="loginPasswordLabel" text="Salasana" />
                         <PasswordField fx:id="loginPassword" prefHeight="37.0">
                            <VBox.margin>
                               <Insets bottom="15.0" top="5.0" />
@@ -77,8 +77,8 @@
                               <Insets bottom="10.0" top="20.0" />
                            </VBox.margin>
                         </Button>
-                        <Label layoutX="10.0" layoutY="84.0" text="Tai" />
-                        <Button layoutX="10.0" layoutY="178.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setCreatePane" prefHeight="37.0" text="Luo Käyttäjä">
+                        <Label fx:id="loginOrLabel" layoutX="10.0" layoutY="84.0" text="Tai" />
+                        <Button fx:id="loginSignUpButton" layoutX="10.0" layoutY="178.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setCreatePane" prefHeight="37.0" text="Luo Käyttäjä">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
