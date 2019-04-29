@@ -19,8 +19,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -31,6 +33,12 @@ import javafx.stage.Stage;
 public class LoginSceneController implements Initializable {
     
     @FXML
+    private Text registerFNameLabel, registerLNameLabel, registerEmailLabel, registerPasswordLabel;
+    
+    @FXML
+    private Label loginEmailLabel, loginPasswordLabel, loginOrLabel;
+    
+    @FXML
     private TextField first_name, last_name, email, password;
     
     @FXML
@@ -39,7 +47,7 @@ public class LoginSceneController implements Initializable {
     @FXML
     private StackPane loginPane, createPane;
     
-    @FXML Button loginButton, createUserButton;
+    @FXML Button loginButton, createUserButton, loginSignUpButton;
 
     
     private UserController uController;
