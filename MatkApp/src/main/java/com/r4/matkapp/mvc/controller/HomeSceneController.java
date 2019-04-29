@@ -21,7 +21,7 @@ import javafx.scene.control.ProgressBar;
  *
  * @author Eero
  */
-public class HomeSceneController implements Initializable {
+public class HomeSceneController implements Initializable, SceneController  {
 
     @FXML
     ProgressBar bar;

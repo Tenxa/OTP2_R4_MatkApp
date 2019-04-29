@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  *
  * @author Eero
  */
-public class GroupSettingsSceneController implements Initializable {
+public class GroupSettingsSceneController implements Initializable, SceneController {
 
     @FXML
     TextField groupName, budget, invite;

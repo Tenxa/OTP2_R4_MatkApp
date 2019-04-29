@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.r4.matkapp.mvc.controller.HomeSceneController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ProgressBar fx:id="bar" layoutX="188.0" layoutY="191.0" prefWidth="200.0" progress="0.0" />
       <Label fx:id="text" layoutX="260.0" layoutY="163.0" text="juna kulkee..." />

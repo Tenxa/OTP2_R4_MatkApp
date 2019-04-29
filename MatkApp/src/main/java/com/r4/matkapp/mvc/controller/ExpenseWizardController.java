@@ -39,7 +39,7 @@ import javafx.util.StringConverter;
  *
  * @author Eero
  */
-public class ExpenseWizardController implements Initializable {
+public class ExpenseWizardController implements Initializable, SceneController {
 
     @FXML
     private StackPane firstPane, secondPane;

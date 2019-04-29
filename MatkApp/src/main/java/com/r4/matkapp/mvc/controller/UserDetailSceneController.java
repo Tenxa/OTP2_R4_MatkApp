@@ -33,7 +33,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Heikki
  */
-public class UserDetailSceneController implements Initializable {
+public class UserDetailSceneController implements Initializable, SceneController {
 
     private Map<Label, TextField> laTe;
     private String placeholder = "";

@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -63,19 +64,10 @@ public class AltGroupSceneController implements Initializable {
     @FXML
     private void showGroupProperties() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GroupSettingsScene.fxml"));
-            loader.setController(new GroupSettingsSceneController(this, selectedGroup));
+            Parent rootPane = loadFXML("GroupSettingsScene", new GroupSettingsSceneController(this, selectedGroup));
 
-            Stage stage = new Stage();
-            stage.setTitle(selectedGroup.getGroup_name() + " Asetukset");
-            stage.setScene(new Scene(loader.load()));
-            
-            // set owner and modality
-            stage.initOwner(MainApp.getWindow());
-            // block evets from beign delivered to its entire owner window hierarchy
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
-
+            String title = selectedGroup.getGroup_name() + " Asetukset".intern();
+            createNewStage(rootPane, title);
         } catch (IOException ex) {
             Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,21 +76,29 @@ public class AltGroupSceneController implements Initializable {
     @FXML
     private void openExpenseWizard() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ExpenseWizard.fxml"));
-            loader.setController(new ExpenseWizardController(this, selectedGroup));
-
-            Stage stage = new Stage();
-            stage.setTitle("Luo uusi kulu");
-            stage.setScene(new Scene(loader.load()));
-            
-            // set owner and modality
-            stage.initOwner(MainApp.getWindow());
-            // block evets from beign delivered to its entire owner window hierarchy
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
+            Parent rootPane = loadFXML("ExpenseWizard" , new ExpenseWizardController(this, selectedGroup));       
+            createNewStage(rootPane, "Luo uusi kulu");
         } catch (IOException ex) {
             Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private Parent loadFXML(String fxmlFileName, SceneController controller) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + fxmlFileName + ".fxml"));
+        loader.setController(controller);
+        return loader.load();
+    }
+
+    private void createNewStage(Parent pane, String title) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.setScene(new Scene(pane));
+        
+        // set owner and modality
+        stage.initOwner(MainApp.getWindow());
+        // block evets from beign delivered to its entire owner window hierarchy
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
     }
     
     

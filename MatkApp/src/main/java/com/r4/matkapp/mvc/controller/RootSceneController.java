@@ -79,22 +79,14 @@ public class RootSceneController implements Initializable {
 
     @FXML
     public void setHomeScene() {
-        try {
-            setCenter((Node) FXMLLoader.load(getClass().getResource("/fxml/HomeScene.fxml")));
-        } catch (IOException ex) {
-            Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Node fxmlRoot = loadFXML("HomeScene", new HomeSceneController());
+        setCenter(fxmlRoot);
     }
-    
+
     @FXML
     private void setDetailScene() {
-        Node n = null;
-        try {
-            n = FXMLLoader.load(getClass().getResource("/fxml/UserDetailScene.fxml"));
-        } catch (IOException ex) {
-            Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        setCenter(n);
+        Node fxmlRoot = loadFXML("UserDetailScene", new UserDetailSceneController());
+        setCenter(fxmlRoot);
     }
 
     @FXML
@@ -120,14 +112,14 @@ public class RootSceneController implements Initializable {
             updateGroupList();
         }
     }
-    
+
     // en jaksanu miettii, aika sekava ja turhan paljon kyselyjä tietokantaan
     // aka parennttavaa..
     public void updateGroupList() {
         Node n = groupList.getChildren().get(0);
         Node n1 = groupList.getChildren().get(1);
         groupList.getChildren().clear();
-        groupList.getChildren().addAll(n,n1);
+        groupList.getChildren().addAll(n, n1);
         generateGroupList();
     }
 
@@ -144,7 +136,7 @@ public class RootSceneController implements Initializable {
     private void createGroupButton(Group g) {
         RootSceneController ctrl = this;
         Button b = new Button(g.getGroup_name());
-        b.setOnAction((ActionEvent event) -> { 
+        b.setOnAction((ActionEvent event) -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AltGroupScene.fxml"));
                 loader.setController(new AltGroupSceneController(ctrl, g));
@@ -181,19 +173,19 @@ public class RootSceneController implements Initializable {
         }
         return null;
     }
-    
+
     @FXML
     private void JoinGroup(){
         if (JoinGroupInputDialog() != null){
             updateGroupList();
         }
     }
-    
+
     private Group JoinGroupInputDialog(){
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Liity ryhmään");
         dialog.setContentText("Syötä ryhmän liittymis koodi");
-        
+
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             UserController u = new UserController();
@@ -209,9 +201,20 @@ public class RootSceneController implements Initializable {
         }
         return null;
     }
-    
+
     public void setCenter(Node node) {
         root.setCenter(node);
+    }
+
+    private Node loadFXML(String fileName, SceneController controller) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/"+ fileName +".fxml"));
+            loader.setController(controller);
+            return loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }
