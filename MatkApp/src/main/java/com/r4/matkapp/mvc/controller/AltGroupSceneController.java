@@ -49,8 +49,7 @@ public class AltGroupSceneController implements Initializable {
 
     protected AltGroupSceneController(RootSceneController ctrl, Group g) {
         parentController = ctrl;
-        selectedGroup = g;
-        UserController.groupDAO.refresh(selectedGroup);
+        selectedGroup = (Group) UserController.groupDAO.find(g.getId());
     }
 
     @Override
@@ -150,8 +149,8 @@ public class AltGroupSceneController implements Initializable {
 
     // parannettavaa..
     protected void updateGroupData() {
-        
-        UserController.groupDAO.refresh(selectedGroup);
+        selectedGroup = (Group) UserController.groupDAO.find(selectedGroup.getId());
+        System.out.println(selectedGroup.getExpenses().size());
         if (groupNameLabel.getText() != selectedGroup.getGroup_name()) {
             groupNameLabel.setText(getSelectedGroup().getGroup_name());
             parentController.updateGroupList();

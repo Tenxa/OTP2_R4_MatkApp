@@ -20,7 +20,7 @@ public class Group implements Comparable{
     @Column(name = "invite")
     private String invite;
     
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "user_group")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user_group")
     private Set<User> users = new HashSet<User>();
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "expense_group")
