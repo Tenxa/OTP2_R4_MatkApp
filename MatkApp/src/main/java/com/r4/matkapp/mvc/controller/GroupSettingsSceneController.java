@@ -6,6 +6,8 @@ package com.r4.matkapp.mvc.controller;
  * and open the template in the editor.
  */
 import com.r4.matkapp.mvc.model.Group;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
 import com.r4.matkapp.mvc.view.ElementInitor;
 import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import com.r4.matkapp.mvc.view.alertfactory.WarningAlert;
@@ -57,7 +59,10 @@ public class GroupSettingsSceneController implements Initializable, SceneControl
         try {
             group.setGroup_name(groupName.getText());
             group.setBudget((double) budget.getValue());
-            UserController.groupDAO.update(group);
+            
+            DatabaseManager<Group> manager = new GroupManager();
+            manager.update(group);
+            
             parentController.updateGroupData();
             closeWindow(event);
         } catch (NumberFormatException e) {

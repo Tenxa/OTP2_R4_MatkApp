@@ -5,8 +5,9 @@ package com.r4.matkapp.mvc.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.User;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.model.dbmanager.UserManager;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -91,7 +88,7 @@ public class UserDetailSceneController implements Initializable, SceneController
     }
 
     private void saveChanges() {
-        User user = UserController.getLoggedUser();
+        User user = DatabaseManager.getLoggedUser();
         user.setFirst_name(lbFirstname.getText());
         user.setLast_name(lbLastname.getText());
         user.setEmail(lbEmail.getText());
@@ -100,7 +97,9 @@ public class UserDetailSceneController implements Initializable, SceneController
         user.setPost_number(lbPostnumber.getText());
         user.setCity(lbCity.getText());
         user.setCountry(lbCountry.getText());
-        UserController.dao.update(user);
+        
+        DatabaseManager<User> manager = new UserManager();
+        manager.update(user);
     }
 
     //Method to edit user details
@@ -131,7 +130,7 @@ public class UserDetailSceneController implements Initializable, SceneController
 
     @FXML
     private void loadUserDetails() {
-        User user = UserController.getLoggedUser();
+        User user = DatabaseManager.getLoggedUser();
         lbFirstname.setText(user.getFirst_name());
         lbLastname.setText(user.getLast_name());
         lbEmail.setText(user.getEmail());

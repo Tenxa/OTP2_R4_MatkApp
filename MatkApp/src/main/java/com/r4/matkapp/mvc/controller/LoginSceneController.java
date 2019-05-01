@@ -59,7 +59,7 @@ public class LoginSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         uController = new UserController();
-        ResourceBundle bundle = rb;
+        ResourceBundle bundle = ResourceBundle.getBundle("properties.Login", MainApp.getLocale());
         
         loginEmailLabel.setText(bundle.getString("EmailLabel"));
         loginPasswordLabel.setText(bundle.getString("PasswordLabel"));

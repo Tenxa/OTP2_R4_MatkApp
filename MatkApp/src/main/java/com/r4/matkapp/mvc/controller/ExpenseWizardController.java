@@ -9,6 +9,8 @@ import com.r4.matkapp.dao.ExpenseDAO;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
+import com.r4.matkapp.mvc.model.dbmanager.ExpenseManager;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.view.ElementInitor;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -102,8 +104,10 @@ public class ExpenseWizardController implements Initializable, SceneController {
 
         Set<User> set = new HashSet<>(selectedUsers.getItems());
         expense.setUsers(set);
-        UserController.expenseDAO.create(expense);
-
+        
+        DatabaseManager<Expense> manager = new ExpenseManager();
+        manager.create(expense);
+        
         closeWindow(event);
     }
 

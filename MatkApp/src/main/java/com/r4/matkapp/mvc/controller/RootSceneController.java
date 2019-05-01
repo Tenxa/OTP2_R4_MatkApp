@@ -8,6 +8,9 @@ package com.r4.matkapp.mvc.controller;
 import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
+import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.model.dbmanager.UserManager;
 import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import com.r4.matkapp.mvc.view.alertfactory.InformationAlert;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -59,22 +62,8 @@ public class RootSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loggedUserBox.setText(UserController.getLoggedUser().getEmail());
+        loggedUserBox.setText(DatabaseManager.getLoggedUser().getEmail());
         generateGroupList();
-    }
-
-    // vanha ei käytös
-    @FXML
-    public void setGroupScene(ActionEvent event) throws IOException {
-        if (groupSceneVisible) {
-            menuHBox.getChildren().remove(1);
-            menuHBox.setMinWidth(165);
-            groupSceneVisible = false;
-        } else {
-            menuHBox.getChildren().add((Node) FXMLLoader.load(getClass().getResource("/fxml/GroupListScene.fxml")));
-            menuHBox.setMinWidth(165 + 150);
-            groupSceneVisible = true;
-        }
     }
 
     @FXML
@@ -92,12 +81,13 @@ public class RootSceneController implements Initializable {
     @FXML
     public void logout(ActionEvent event) {
         try {
-            UserController.setLoggedUser(null);
+            DatabaseManager.setLoggedUser(null);
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginScene.fxml"));
             Scene scene = new Scene(root);
             Stage window = MainApp.getWindow();
-            window.setWidth(600);
-            window.setHeight(400);
+            window.setMinHeight(400);
+            window.setMinWidth(600);
+            window.sizeToScene();
             window.setResizable(false);
             window.setScene(scene);
             window.show();
@@ -124,8 +114,9 @@ public class RootSceneController implements Initializable {
     }
 
     private void generateGroupList() {
-        UserController.updateLoggedUser();
-        userGroups = UserController.getLoggedUser().getGroup();
+        DatabaseManager<User> manager = new UserManager();
+        manager.update(DatabaseManager.getLoggedUser());
+        userGroups = DatabaseManager.getLoggedUser().getGroup();
         List<Group> groups = new ArrayList<>(userGroups);
         Collections.sort(groups);
         for (Group g : groups) {
@@ -142,7 +133,7 @@ public class RootSceneController implements Initializable {
                 loader.setController(new AltGroupSceneController(ctrl, g));
                 setCenter(loader.load());
             } catch (IOException ex) {
-                Logger.getLogger(GroupListSceneController.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         });
         FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.GROUP);
@@ -188,12 +179,13 @@ public class RootSceneController implements Initializable {
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            UserController u = new UserController();
-            Group g = (Group) UserController.groupDAO.find(result.get());
+            DatabaseManager<Group> gManager = new GroupManager();
+            Group g = gManager.find(result.get());
             if (g != null){
-                User us = UserController.getLoggedUser();
+                User us = DatabaseManager.getLoggedUser();
                 us.addGroup(g);
-                UserController.dao.update(us);
+                DatabaseManager<User> uManager = new UserManager();
+                uManager.update(us);
                 AlertFactory f = new InformationAlert();
                 f.createAlert(null, "Ryhmään liittyminen onnistui", g.getGroup_name());
                 return g;

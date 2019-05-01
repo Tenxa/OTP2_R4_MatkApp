@@ -9,6 +9,9 @@ import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
+import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.model.dbmanager.UserManager;
 import com.r4.matkapp.mvc.view.alertfactory.ConfirmationAlert;
 import com.r4.matkapp.mvc.view.alertfactory.ConfirmationFactory;
 import java.io.IOException;
@@ -49,7 +52,8 @@ public class AltGroupSceneController implements Initializable {
 
     protected AltGroupSceneController(RootSceneController ctrl, Group g) {
         parentController = ctrl;
-        selectedGroup = (Group) UserController.groupDAO.find(g.getId());
+        DatabaseManager<Group> manager = new GroupManager();
+        selectedGroup = manager.find(g.getId());
     }
 
     @Override
@@ -139,9 +143,11 @@ public class AltGroupSceneController implements Initializable {
        ConfirmationFactory confirmation = new ConfirmationAlert();
        boolean result = confirmation.createAlert(null, "Poistutaako ryhmästä " + selectedGroup.getGroup_name() + "?");
        if(result) {
-           User u = UserController.getLoggedUser();
+           
+           User u = DatabaseManager.getLoggedUser();
            u.getGroup().remove(selectedGroup);
-           UserController.dao.update(u);
+           DatabaseManager<User> manager = new UserManager();
+           manager.update(u);
            parentController.setHomeScene();
            updateGroupData();
        }
@@ -149,7 +155,8 @@ public class AltGroupSceneController implements Initializable {
 
     // parannettavaa..
     protected void updateGroupData() {
-        selectedGroup = (Group) UserController.groupDAO.find(selectedGroup.getId());
+        DatabaseManager<Group> manager = new GroupManager();
+        selectedGroup = manager.find(selectedGroup.getId());
         System.out.println(selectedGroup.getExpenses().size());
         if (groupNameLabel.getText() != selectedGroup.getGroup_name()) {
             groupNameLabel.setText(getSelectedGroup().getGroup_name());

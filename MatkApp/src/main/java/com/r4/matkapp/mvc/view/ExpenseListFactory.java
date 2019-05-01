@@ -1,13 +1,12 @@
 package com.r4.matkapp.mvc.view;
 
-import com.r4.matkapp.mvc.controller.UserController;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.User;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.model.dbmanager.ExpenseManager;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -50,7 +49,7 @@ public class ExpenseListFactory {
             boolean isInGroup = false;
             while(itr.hasNext()) {
                 User u = (User) itr.next();
-                if(u.getId() == UserController.getLoggedUser().getId()) {
+                if(u.getId() == DatabaseManager.getLoggedUser().getId()) {
                     isInGroup = true;
                     break;
                 }
@@ -99,10 +98,11 @@ public class ExpenseListFactory {
         AnchorPane p = new AnchorPane();
         Button b = new Button(join);
         b.setOnAction((ActionEvent event) -> {
-                       
-            User u = UserController.getLoggedUser();
+           
+            User u = DatabaseManager.getLoggedUser();
             e.addUser(u);
-            UserController.expenseDAO.update(e);
+            DatabaseManager<Expense> manager = new ExpenseManager();
+            manager.update(e);
             p.getChildren().clear();
         });
         b.setMinHeight(30);

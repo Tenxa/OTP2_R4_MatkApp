@@ -8,6 +8,8 @@ package com.r4.matkapp.mvc.controller;
 import com.r4.matkapp.mvc.model.SecurePassword;
 import com.r4.matkapp.dao.*;
 import com.r4.matkapp.mvc.model.*;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.model.dbmanager.UserManager;
 import javafx.scene.control.Alert;
 
 /**
@@ -18,14 +20,14 @@ import javafx.scene.control.Alert;
 // näyttäis vaa database controllerilt
 // muutenki aika sekava
 public class UserController {
-
+/*
     public static DatabaseSession dbSession = new DatabaseSession();
     static DAO dao = new UserDAO(dbSession.getSessionFactory());
     public static DAO groupDAO = new GroupDAO(dbSession.getSessionFactory());
     public static DAO expenseDAO = new ExpenseDAO(dbSession.getSessionFactory());
 
     private static User loggedUser = null;
-
+*/
     public UserController() {
 
     }
@@ -41,7 +43,7 @@ public class UserController {
      * @return
      */
     public boolean addUser(String first_name, String last_name, String email, String password) {
-
+        DatabaseManager<User> manager = new UserManager();
         // Validate user input.
         if (ValidateUserInfo.isValid(first_name, last_name, email, password)) {
 
@@ -54,8 +56,8 @@ public class UserController {
                 User user = new User(first_name, last_name, email, encryptedPassword, userSalt);
 
                 // check if email is not reserved.
-                if (dao.find(email) == null) {
-                    dao.create(user);
+                if (manager.find(email) == null) {
+                    manager.create(user);
                     return true;
                 } else {
                     // tän vois joskus siirtää/ toteuttaa FXMLControlleris
@@ -83,12 +85,6 @@ public class UserController {
         return false;
     }
 
-    public void deleteUser(User user) {
-        dao.delete(user);
-        // TODO
-    }
-
-  
     /**
      * Create new Group and sets created Group as User group property and
      * updates User. Updating User with group that does not exists creates 
@@ -101,12 +97,13 @@ public class UserController {
      * @return
      */
     public Group createGroup(String group_name) {
-        if(loggedUser != null) {
+        if(DatabaseManager.getLoggedUser() != null) {
 
             Group group = new Group(group_name);
-            loggedUser.addGroup(group);
+            DatabaseManager.getLoggedUser().addGroup(group);
+            DatabaseManager<User> manager = new UserManager();
             try {
-                dao.update(loggedUser);
+                manager.update(DatabaseManager.getLoggedUser());
                 return group;
             } catch (Exception e) {
 
@@ -123,9 +120,10 @@ public class UserController {
     }
 
     public boolean addUsertoGroup(String invitation, Group group){
-        if (loggedUser != null && invitation.equals(group.getInvite()) && loggedUser.getGroup().contains(group) ){
-            loggedUser.addGroup(group);
-            dao.update(loggedUser);
+        if (DatabaseManager.getLoggedUser() != null && invitation.equals(group.getInvite()) && DatabaseManager.getLoggedUser().getGroup().contains(group) ){
+            DatabaseManager.getLoggedUser().addGroup(group);
+            DatabaseManager<User> manager = new UserManager();
+            manager.update(DatabaseManager.getLoggedUser());
             return true;
         }
         return false;
@@ -142,12 +140,13 @@ public class UserController {
      * @return
      */
     public boolean checkLogin(String email, String password) {
-        User user = (User) dao.find(email);
+        DatabaseManager<User> manager = new UserManager();
+        User user = (User) manager.find(email);
         if(user != null) {
             SecurePassword sPass = new SecurePassword();
             try {
                 if(sPass.authenticateUser(user, password)) {
-                    loggedUser = user;
+                    DatabaseManager.setLoggedUser(user);
                     return true;
                 }
             } catch (Exception e) {
@@ -155,25 +154,5 @@ public class UserController {
             }
         }
         return false;
-    }
-
-    public User getUserbyEmail(String email) {
-        User user = (User) dao.find(email);
-        return user;
-    }
-
-    public Group getGroupbyInvitation(String inv){
-        Group group = (Group) dao.find(inv);
-        return group;
-    }
-
-    public static User getLoggedUser() {
-        return UserController.loggedUser;
-    }
-    public static void setLoggedUser(User u) {
-        UserController.loggedUser = u;
-    }
-    public static void updateLoggedUser() {
-        UserController.loggedUser = (User) dao.find(loggedUser.getId());
     }
 }

@@ -7,6 +7,8 @@ package com.r4.matkapp.mvc.controller;
 
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.model.dbmanager.UserManager;
 import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import com.r4.matkapp.mvc.view.alertfactory.InformationAlert;
 import com.r4.matkapp.mvc.view.alertfactory.WarningAlert;
@@ -47,7 +49,8 @@ public class GroupInvitationSceneController implements Initializable {
         täytyy olla jollakin käyttäjällä olemassa*/
     @FXML
     private void inviteMember(ActionEvent event){
-        User addUser = uController.getUserbyEmail(email.getText());
+        DatabaseManager<User> manager = new UserManager();
+        User addUser = manager.find(email.getText());
         if (addUser != null){
             
             if (activeGroup != null){

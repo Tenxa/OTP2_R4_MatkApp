@@ -1,6 +1,7 @@
 package com.r4.matkapp;
 
 import com.r4.matkapp.mvc.controller.UserController;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
@@ -36,19 +37,19 @@ public class MainApp extends Application {
         
         
         FXMLLoader loader = new FXMLLoader();
-        loader.setResources(ResourceBundle.getBundle("properties.Login", getLocale()));
-        Parent root = loader.load(getClass().getResource("/fxml/LoginScene.fxml").openStream());
+        Parent root = loader.load(getClass().getResource("/fxml/LoginScene.fxml"));
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
 
         stage.setTitle("MatkApp");
         stage.setScene(scene);
+        stage.sizeToScene();
         stage.setResizable(false);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                UserController.dbSession.close();
+                DatabaseManager.close();
                 Platform.exit();
                 System.exit(0);
             }
