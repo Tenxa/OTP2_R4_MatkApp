@@ -47,7 +47,7 @@ public class LoginSceneController implements Initializable {
     @FXML
     private StackPane loginPane, createPane;
     
-    @FXML Button loginButton, createUserButton, loginSignUpButton;
+    @FXML Button loginButton, createUserButton, loginSignUpButton, backButton;
 
     
     private UserController uController;
@@ -59,6 +59,20 @@ public class LoginSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         uController = new UserController();
+        ResourceBundle bundle = rb;
+        
+        loginEmailLabel.setText(bundle.getString("EmailLabel"));
+        loginPasswordLabel.setText(bundle.getString("PasswordLabel"));
+        loginButton.setText(bundle.getString("LoginButton"));
+        loginOrLabel.setText(bundle.getString("OrLabel"));
+        loginSignUpButton.setText(bundle.getString("SignUp"));
+        
+        registerFNameLabel.setText(bundle.getString("FNameLabel"));
+        registerLNameLabel.setText(bundle.getString("LNameLabel"));
+        registerEmailLabel.setText(bundle.getString("EmailLabel"));
+        registerPasswordLabel.setText(bundle.getString("PasswordLabel"));
+        createUserButton.setText(bundle.getString("CreateUser"));
+        backButton.setText(bundle.getString("Back"));
     }
     
     @FXML

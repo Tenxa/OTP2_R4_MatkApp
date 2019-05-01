@@ -1,6 +1,9 @@
 package com.r4.matkapp;
 
 import com.r4.matkapp.mvc.controller.UserController;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
@@ -13,18 +16,28 @@ import javafx.stage.WindowEvent;
 
 public class MainApp extends Application {
     
-    static Stage window;
+    private static Stage window;
+    private static Locale locale;
     
     public static Stage getWindow() {
         return window;
     }
+
+    public static void setLocale(Locale l) {
+        locale = l;
+    }
+    
+    public static Locale getLocale() {
+        return locale;
+    }
     
     @Override
     public void start(Stage stage) throws Exception {
-
         
-
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginScene.fxml"));
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setResources(ResourceBundle.getBundle("properties.Login", getLocale()));
+        Parent root = loader.load(getClass().getResource("/fxml/LoginScene.fxml").openStream());
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
@@ -55,5 +68,16 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    
+    @Override
+    public void init() {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        if(prefs.get("language", null) == null) {
+            prefs.put("language", "en");
+            prefs.put("region", "US");
+        }
+        String lang = prefs.get("language", "root");
+        String region = prefs.get("region", "root");   
+        setLocale(new Locale(lang, region));
+    }
 }
