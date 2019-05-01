@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -25,8 +26,8 @@
             <Label text="Budjetti" GridPane.rowIndex="1" />
             <Label text="Kutsumis Koodi" GridPane.rowIndex="2" />
             <TextField fx:id="groupName" GridPane.columnIndex="1" />
-            <TextField fx:id="budget" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="invite" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Spinner fx:id="budget" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button layoutX="178.0" layoutY="206.0" mnemonicParsing="false" onAction="#updateGroup" text="Tallenna" />

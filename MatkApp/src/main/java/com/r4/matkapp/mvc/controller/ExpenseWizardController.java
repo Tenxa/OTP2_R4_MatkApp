@@ -9,6 +9,7 @@ import com.r4.matkapp.dao.ExpenseDAO;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
+import com.r4.matkapp.mvc.view.ElementInitor;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.HashSet;
@@ -72,7 +73,7 @@ public class ExpenseWizardController implements Initializable, SceneController {
         initListView(selectedUsers);
         users.getItems().addAll(FXCollections.observableArrayList(activeGroup.getUsers()));
 
-        initPriceSpinner();
+        new ElementInitor().init(priceSpinner);
 
         equalSplit.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -83,61 +84,7 @@ public class ExpenseWizardController implements Initializable, SceneController {
 
     }
 
-    private void initPriceSpinner() {
-        SpinnerValueFactory.DoubleSpinnerValueFactory priceFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 999999, 0, 0.1);
-        // define converter
-        priceFactory.setConverter(new StringConverter<Double>() {
-            private final DecimalFormat df = new DecimalFormat("#.##");
-
-            @Override
-            public String toString(Double value) {
-                // If the specified value is null, return a zero-length String
-                if (value == null) {
-                    return "";
-                }
-
-                return df.format(value);
-            }
-
-            @Override
-            public Double fromString(String value) {
-                try {
-                    // If the specified value is null or zero-length, return null
-                    if (value == null) {
-                        return null;
-                    }
-
-                    value = value.trim();
-
-                    if (value.length() < 1) {
-                        return null;
-                    }
-
-                    // Perform the requested parsing  
-                    return df.parse(value).doubleValue();
-
-                } catch (Exception ex) {
-                    return 0.0;
-                }
-            }
-
-        });
-        priceSpinner.setValueFactory(priceFactory);
-        
-        // for removing alphabeths
-        TextFormatter formatter = new TextFormatter(priceFactory.getConverter(), priceFactory.getValue());
-        priceSpinner.getEditor().setTextFormatter(formatter);
-        priceFactory.valueProperty().bindBidirectional(formatter.valueProperty());
-        
-        // add scroll event
-        priceSpinner.setOnScroll(event -> {
-            if (event.getDeltaY() < 0d) {
-                priceSpinner.decrement();
-            } else if (event.getDeltaY() > 0d) {
-                priceSpinner.increment();
-            }
-        });
-    }
+    
 
     @FXML
     private void closeWindow(ActionEvent event) {
