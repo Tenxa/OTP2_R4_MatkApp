@@ -20,7 +20,11 @@ public class Group implements Comparable{
     @Column(name = "invite")
     private String invite;
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user_group")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_group",
+        joinColumns = @JoinColumn(name = "group_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private Set<User> users = new HashSet<User>();
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "expense_group")
@@ -85,6 +89,10 @@ public class Group implements Comparable{
     
     public Set<User> getUsers() {
         return users;
+    }
+    
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     /**

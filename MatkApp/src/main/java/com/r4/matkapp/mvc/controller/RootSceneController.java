@@ -45,21 +45,21 @@ import javafx.stage.Stage;
  *
  * @author Eero
  */
-public class RootSceneController implements Initializable {
+public class RootSceneController extends AbstractSceneController implements Initializable {
 
     @FXML
-    BorderPane root;
+    private BorderPane root;
     @FXML
-    HBox menuHBox;
+    private MenuButton loggedUserBox;
     @FXML
-    MenuButton loggedUserBox;
-    @FXML
-    VBox groupList;
+    private VBox groupList;
 
-    Set<Group> userGroups;
+    private Set<Group> userGroups;
 
-    private boolean groupSceneVisible = false;
-
+    public RootSceneController() {
+        super(null);
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loggedUserBox.setText(DatabaseManager.getLoggedUser().getEmail());
@@ -67,14 +67,14 @@ public class RootSceneController implements Initializable {
     }
 
     @FXML
-    public void setHomeScene() {
-        Node fxmlRoot = loadFXML("HomeScene", new HomeSceneController());
+    public void setHomeScene() throws IOException {
+        Parent fxmlRoot = loadFXML("HomeScene", new HomeSceneController());
         setCenter(fxmlRoot);
     }
 
     @FXML
-    private void setDetailScene() {
-        Node fxmlRoot = loadFXML("UserDetailScene", new UserDetailSceneController());
+    private void setDetailScene() throws IOException {
+        Parent fxmlRoot = loadFXML("UserDetailScene", new UserDetailSceneController());
         setCenter(fxmlRoot);
     }
 
@@ -103,8 +103,12 @@ public class RootSceneController implements Initializable {
         }
     }
 
-    // en jaksanu miettii, aika sekava ja turhan paljon kyselyjä tietokantaan
-    // aka parennttavaa..
+    
+    @Override
+    protected void update() {
+        updateGroupList();
+    }
+    
     public void updateGroupList() {
         Node n = groupList.getChildren().get(0);
         Node n1 = groupList.getChildren().get(1);
@@ -115,7 +119,7 @@ public class RootSceneController implements Initializable {
 
     private void generateGroupList() {
         DatabaseManager<User> manager = new UserManager();
-        manager.update(DatabaseManager.getLoggedUser());
+        manager.refresh(DatabaseManager.getLoggedUser());
         userGroups = DatabaseManager.getLoggedUser().getGroup();
         List<Group> groups = new ArrayList<>(userGroups);
         Collections.sort(groups);
@@ -125,12 +129,11 @@ public class RootSceneController implements Initializable {
     }
 
     private void createGroupButton(Group g) {
-        RootSceneController ctrl = this;
         Button b = new Button(g.getGroup_name());
         b.setOnAction((ActionEvent event) -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AltGroupScene.fxml"));
-                loader.setController(new AltGroupSceneController(ctrl, g));
+                loader.setController(new AltGroupSceneController(this, g));
                 setCenter(loader.load());
             } catch (IOException ex) {
                 
@@ -183,9 +186,8 @@ public class RootSceneController implements Initializable {
             Group g = gManager.find(result.get());
             if (g != null){
                 User us = DatabaseManager.getLoggedUser();
-                us.addGroup(g);
-                DatabaseManager<User> uManager = new UserManager();
-                uManager.update(us);
+                g.getUsers().add(us);
+                gManager.update(g);
                 AlertFactory f = new InformationAlert();
                 f.createAlert(null, "Ryhmään liittyminen onnistui", g.getGroup_name());
                 return g;
@@ -198,15 +200,6 @@ public class RootSceneController implements Initializable {
         root.setCenter(node);
     }
 
-    private Node loadFXML(String fileName, SceneController controller) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/"+ fileName +".fxml"));
-            loader.setController(controller);
-            return loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+    
 
 }

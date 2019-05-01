@@ -9,6 +9,7 @@ import com.r4.matkapp.mvc.model.SecurePassword;
 import com.r4.matkapp.dao.*;
 import com.r4.matkapp.mvc.model.*;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
 import com.r4.matkapp.mvc.model.dbmanager.UserManager;
 import javafx.scene.control.Alert;
 
@@ -100,10 +101,12 @@ public class UserController {
         if(DatabaseManager.getLoggedUser() != null) {
 
             Group group = new Group(group_name);
-            DatabaseManager.getLoggedUser().addGroup(group);
-            DatabaseManager<User> manager = new UserManager();
+            group.getUsers().add(DatabaseManager.getLoggedUser());
+            DatabaseManager<Group> manager = new GroupManager();
+            DatabaseManager<User> uManager = new UserManager();
             try {
-                manager.update(DatabaseManager.getLoggedUser());
+                manager.create(group);
+                uManager.refresh(DatabaseManager.getLoggedUser());
                 return group;
             } catch (Exception e) {
 

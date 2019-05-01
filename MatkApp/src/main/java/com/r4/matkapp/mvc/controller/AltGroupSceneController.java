@@ -16,6 +16,7 @@ import com.r4.matkapp.mvc.view.alertfactory.ConfirmationAlert;
 import com.r4.matkapp.mvc.view.alertfactory.ConfirmationFactory;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
@@ -36,7 +37,7 @@ import javafx.stage.Stage;
  *
  * @author Eero
  */
-public class AltGroupSceneController implements Initializable {
+public class AltGroupSceneController extends AbstractSceneController implements Initializable {
 
     @FXML
     BorderPane root;
@@ -48,10 +49,8 @@ public class AltGroupSceneController implements Initializable {
     private Group selectedGroup;
     private Node navMenu;
 
-    private RootSceneController parentController;
-
-    protected AltGroupSceneController(RootSceneController ctrl, Group g) {
-        parentController = ctrl;
+    protected AltGroupSceneController(AbstractSceneController ctrl, Group g) {
+        super(ctrl);
         DatabaseManager<Group> manager = new GroupManager();
         selectedGroup = manager.find(g.getId());
     }
@@ -79,38 +78,32 @@ public class AltGroupSceneController implements Initializable {
     @FXML
     private void openExpenseWizard() {
         try {
-            Parent rootPane = loadFXML("ExpenseWizard" , new ExpenseWizardController(this, selectedGroup));       
+            Parent rootPane = loadFXML("ExpenseWizard", new ExpenseWizardController(this, selectedGroup));
             createNewStage(rootPane, "Luo uusi kulu");
         } catch (IOException ex) {
             Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private Parent loadFXML(String fxmlFileName, SceneController controller) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + fxmlFileName + ".fxml"));
-        loader.setController(controller);
-        return loader.load();
-    }
-
     private void createNewStage(Parent pane, String title) throws IOException {
         Stage stage = new Stage();
         stage.setTitle(title);
         stage.setScene(new Scene(pane));
-        
+
         // set owner and modality
         stage.initOwner(MainApp.getWindow());
         // block evets from beign delivered to its entire owner window hierarchy
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
     }
-    
-    
+
     @FXML
-    private void openGroupInvitationScene(){
+    private void openGroupInvitationScene() {
         try {
+            //Parent p = loadFXML("GroupInvitationScene", new GroupInvitationSceneController(this, selectedGroup));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GroupInvitationScene.fxml"));
             loader.setController(new GroupInvitationSceneController(this, selectedGroup));
-            
+
             Stage stage = new Stage();
             stage.setTitle("Kutsu uusi jäsen");
             stage.setScene(new Scene(loader.load()));
@@ -121,7 +114,7 @@ public class AltGroupSceneController implements Initializable {
             Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     private void setNavMenu() {
         root.setCenter(navMenu);
@@ -137,34 +130,25 @@ public class AltGroupSceneController implements Initializable {
             Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
-    private void leaveGroup() {
-       ConfirmationFactory confirmation = new ConfirmationAlert();
-       boolean result = confirmation.createAlert(null, "Poistutaako ryhmästä " + selectedGroup.getGroup_name() + "?");
-       if(result) {
-           
-           User u = DatabaseManager.getLoggedUser();
-           u.getGroup().remove(selectedGroup);
-           DatabaseManager<User> manager = new UserManager();
-           manager.update(u);
-           parentController.setHomeScene();
-           updateGroupData();
-       }
-    }
-
-    // parannettavaa..
-    protected void updateGroupData() {
-        DatabaseManager<Group> manager = new GroupManager();
-        selectedGroup = manager.find(selectedGroup.getId());
-        System.out.println(selectedGroup.getExpenses().size());
-        if (groupNameLabel.getText() != selectedGroup.getGroup_name()) {
-            groupNameLabel.setText(getSelectedGroup().getGroup_name());
-            parentController.updateGroupList();
+    private void leaveGroup() throws IOException {
+        ConfirmationFactory confirmation = new ConfirmationAlert();
+        boolean result = confirmation.createAlert(null, "Poistutaako ryhmästä " + selectedGroup.getGroup_name() + "?");
+        if (result) {
+            Set<User> users = selectedGroup.getUsers();
+            Iterator<User> itr = users.iterator();
+            while(itr.hasNext()) {
+                if(itr.next().getId() == DatabaseManager.getLoggedUser().getId()) {
+                    itr.remove();
+                }
+            }
+            selectedGroup.setUsers(users);
+            DatabaseManager<Group> manager = new GroupManager();    
+            manager.update(selectedGroup);
+            owner.update();
+            ((RootSceneController) owner).setHomeScene();
         }
-
-        updateBudgetProgress();
-
     }
 
     private void updateBudgetProgress() {
@@ -184,6 +168,22 @@ public class AltGroupSceneController implements Initializable {
      */
     public Group getSelectedGroup() {
         return selectedGroup;
+    }
+
+    @Override
+    protected void update() {
+        DatabaseManager<Group> manager = new GroupManager();
+        selectedGroup = manager.find(selectedGroup.getId());
+        if (!(groupNameLabel.getText().equals(selectedGroup.getGroup_name()))) {
+            groupNameLabel.setText(getSelectedGroup().getGroup_name()); 
+            owner.update();   
+        }
+        updateBudgetProgress();     
+    }
+    
+    // poistaa kuha kaikki child scenet muutettu et extendaa abstractscene
+    void updateGroupData() {
+        update();
     }
 
 }

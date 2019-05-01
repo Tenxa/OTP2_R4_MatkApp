@@ -6,8 +6,10 @@ package com.r4.matkapp.mvc.controller;
  * and open the template in the editor.
  */
 import com.r4.matkapp.mvc.model.Group;
+import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
+import com.r4.matkapp.mvc.model.dbmanager.UserManager;
 import com.r4.matkapp.mvc.view.ElementInitor;
 import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import com.r4.matkapp.mvc.view.alertfactory.WarningAlert;
@@ -26,7 +28,7 @@ import javafx.stage.Stage;
  *
  * @author Eero
  */
-public class GroupSettingsSceneController implements Initializable, SceneController {
+public class GroupSettingsSceneController extends AbstractSceneController implements Initializable {
 
     @FXML
     TextField groupName, invite;
@@ -35,10 +37,9 @@ public class GroupSettingsSceneController implements Initializable, SceneControl
     Spinner budget;
 
     private Group group;
-    private AltGroupSceneController parentController;
 
-    protected GroupSettingsSceneController(AltGroupSceneController c, Group g) {
-        parentController = c;
+    public GroupSettingsSceneController(AbstractSceneController owner, Group g) {
+        super(owner);
         group = g;
     }
 
@@ -46,6 +47,7 @@ public class GroupSettingsSceneController implements Initializable, SceneControl
     public void initialize(URL url, ResourceBundle rb) {
         groupName.setText(group.getGroup_name());
         new ElementInitor().init(budget);
+        budget.getValueFactory().setValue(group.getBudget());
         invite.setText(group.getInvite());
     }
 
@@ -63,11 +65,16 @@ public class GroupSettingsSceneController implements Initializable, SceneControl
             DatabaseManager<Group> manager = new GroupManager();
             manager.update(group);
             
-            parentController.updateGroupData();
+            owner.update();
             closeWindow(event);
         } catch (NumberFormatException e) {
             AlertFactory alert = new WarningAlert();
             alert.createAlert("Virheellinen syöte", "");
         }
+    }
+
+    @Override
+    protected void update() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

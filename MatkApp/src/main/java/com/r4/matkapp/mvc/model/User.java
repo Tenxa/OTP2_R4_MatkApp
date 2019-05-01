@@ -14,11 +14,7 @@ public class User {
     @Column(name ="id", updatable = false, nullable = false)
     private int id;
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_group",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "group_id")
-    )
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "users")
     private Set<Group> user_group = new HashSet<Group>();
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "joined_users")
