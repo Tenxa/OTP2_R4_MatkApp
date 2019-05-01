@@ -48,6 +48,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
 
     private Group selectedGroup;
     private Node navMenu;
+    private ExpensesListController expenseList;
 
     protected AltGroupSceneController(AbstractSceneController ctrl, Group g) {
         super(ctrl);
@@ -122,8 +123,12 @@ public class AltGroupSceneController extends AbstractSceneController implements 
 
     @FXML
     private void setExpenseListScene() {
+        if (expenseList == null) {
+            expenseList = new ExpensesListController(this);
+
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ExpensesList.fxml"));
-        loader.setController(new ExpensesListController(this));
+        loader.setController(expenseList);
         try {
             root.setCenter(loader.load());
         } catch (IOException ex) {
@@ -138,13 +143,13 @@ public class AltGroupSceneController extends AbstractSceneController implements 
         if (result) {
             Set<User> users = selectedGroup.getUsers();
             Iterator<User> itr = users.iterator();
-            while(itr.hasNext()) {
-                if(itr.next().getId() == DatabaseManager.getLoggedUser().getId()) {
+            while (itr.hasNext()) {
+                if (itr.next().getId() == DatabaseManager.getLoggedUser().getId()) {
                     itr.remove();
                 }
             }
             selectedGroup.setUsers(users);
-            DatabaseManager<Group> manager = new GroupManager();    
+            DatabaseManager<Group> manager = new GroupManager();
             manager.update(selectedGroup);
             owner.update();
             ((RootSceneController) owner).setHomeScene();
@@ -175,12 +180,17 @@ public class AltGroupSceneController extends AbstractSceneController implements 
         DatabaseManager<Group> manager = new GroupManager();
         selectedGroup = manager.find(selectedGroup.getId());
         if (!(groupNameLabel.getText().equals(selectedGroup.getGroup_name()))) {
-            groupNameLabel.setText(getSelectedGroup().getGroup_name()); 
-            owner.update();   
+            groupNameLabel.setText(getSelectedGroup().getGroup_name());
+            owner.update();
         }
-        updateBudgetProgress();     
+
+        if (expenseList != null) {
+            expenseList.loadExpenseList();
+        }
+
+        updateBudgetProgress();
     }
-    
+
     // poistaa kuha kaikki child scenet muutettu et extendaa abstractscene
     void updateGroupData() {
         update();

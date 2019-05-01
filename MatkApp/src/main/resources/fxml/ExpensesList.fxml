@@ -15,17 +15,17 @@
   <tabs>
     <Tab text="Untitled Tab 1">
          <content>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="599.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true">
                <content>
                   <VBox fx:id="list" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0">
                      <children>
                         <GridPane>
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" percentWidth="40.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" percentWidth="15.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" percentWidth="15.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="15.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="15.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="40.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
                           </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="30.0" prefHeight="30.0" />

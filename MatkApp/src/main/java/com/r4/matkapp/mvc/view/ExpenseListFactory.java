@@ -77,17 +77,16 @@ public class ExpenseListFactory {
         ColumnConstraints descriptionColumn = new ColumnConstraints();
         descriptionColumn.setFillWidth(true);
         descriptionColumn.setPercentWidth(40);
-        descriptionColumn.setMinWidth(150);
+  
 
         ColumnConstraints priceColumn = new ColumnConstraints();
         priceColumn.setFillWidth(true);
         priceColumn.setPercentWidth(15);
-        priceColumn.setMinWidth(80);
+
 
         ColumnConstraints buttonColumn = new ColumnConstraints();
         buttonColumn.setFillWidth(true);
         buttonColumn.setPercentWidth(15);
-        buttonColumn.setMinWidth(80);
 
         pane.getColumnConstraints().addAll(descriptionColumn, priceColumn, priceColumn,
                 buttonColumn, buttonColumn);

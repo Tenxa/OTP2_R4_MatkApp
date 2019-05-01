@@ -12,7 +12,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class MainApp extends Application {
@@ -37,11 +39,12 @@ public class MainApp extends Application {
         
         
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResource("/fxml/LoginScene.fxml"));
-
+        BorderPane root = new BorderPane();
+        Parent pane = loader.load(getClass().getResource("/fxml/LoginScene.fxml"));
+        root.setCenter(pane);
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-
+        stage.initStyle(StageStyle.UNIFIED);
         stage.setTitle("MatkApp");
         stage.setScene(scene);
         stage.sizeToScene();

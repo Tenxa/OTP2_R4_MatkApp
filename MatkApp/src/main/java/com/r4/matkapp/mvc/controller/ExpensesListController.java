@@ -38,15 +38,17 @@ public class ExpensesListController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        refreshExpenseList();       
+        refreshExpenseList();      
     }
     
     @FXML
-    private void refreshExpenseList() {
-        list.getChildren().remove(1); // remove old list (index 1)
+    private void refreshExpenseList() { 
         cont.updateGroupData();
-        
+    } 
+    
+    public void loadExpenseList() {
+        list.getChildren().remove(1); // remove old list (index 1)
         ExpenseListFactory factory = new ExpenseListFactory();
         list.getChildren().add(factory.createList(cont.getSelectedGroup().getExpenses()));
-    } 
+    }
 }
