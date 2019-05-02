@@ -60,6 +60,7 @@ public class MainApp extends Application {
         
         stage.show();
         window = stage;
+        ResizeHelper.addResizeListener(stage);
     }
 
     /**
