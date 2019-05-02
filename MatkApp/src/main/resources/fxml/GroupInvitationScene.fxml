@@ -21,7 +21,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label prefHeight="18.0" prefWidth="94.0" text="Sähköposti" />
+            <Label fx:id="emailLabel" prefHeight="18.0" prefWidth="94.0" text="Sähköposti" />
             <TextField fx:id="email" GridPane.rowIndex="1" />
          </children>
       </GridPane>
