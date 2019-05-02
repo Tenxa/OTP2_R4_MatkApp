@@ -1,9 +1,7 @@
 package com.r4.matkapp;
 
-import com.r4.matkapp.mvc.controller.UserController;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -13,15 +11,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class MainApp extends Application {
-    
+
     private static Stage window;
     private static Locale locale;
-    
+
     public static Stage getWindow() {
         return window;
     }
@@ -29,22 +28,23 @@ public class MainApp extends Application {
     public static void setLocale(Locale l) {
         locale = l;
     }
-    
+
     public static Locale getLocale() {
         return locale;
     }
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        
-        
+
         FXMLLoader loader = new FXMLLoader();
         BorderPane root = new BorderPane();
         Parent pane = loader.load(getClass().getResource("/fxml/LoginScene.fxml"));
+        HBox dragBar = new DragBar().create(stage);
+        root.setTop(dragBar);
         root.setCenter(pane);
-        Scene scene = new Scene(root);
+        Scene scene = (new ShadowEffect()).getShadowScene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-        stage.initStyle(StageStyle.UNIFIED);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("MatkApp");
         stage.setScene(scene);
         stage.sizeToScene();
@@ -57,6 +57,7 @@ public class MainApp extends Application {
                 System.exit(0);
             }
         });
+        
         stage.show();
         window = stage;
     }
@@ -72,16 +73,16 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     @Override
     public void init() {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        if(prefs.get("language", null) == null) {
+        if (prefs.get("language", null) == null) {
             prefs.put("language", "en");
             prefs.put("region", "US");
         }
         String lang = prefs.get("language", "root");
-        String region = prefs.get("region", "root");   
+        String region = prefs.get("region", "root");
         setLocale(new Locale(lang, region));
     }
 }

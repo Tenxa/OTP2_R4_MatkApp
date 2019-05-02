@@ -42,14 +42,14 @@
                               <Insets bottom="15.0" top="5.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button fx:id="createUserButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createUser" text="Luo käyttäjä">
+                        <Button fx:id="createUserButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createUser" stylesheets="@../styles/Button.css" text="Luo käyttäjä">
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Button>
                      </children>
                   </VBox>
-                  <Button fx:id="backButton" layoutX="35.0" layoutY="336.0" mnemonicParsing="false" onAction="#setLoginPane" text="Takaisin" />
+                  <Button fx:id="backButton" layoutX="35.0" layoutY="336.0" mnemonicParsing="false" onAction="#setLoginPane" stylesheets="@../styles/Button.css" text="Takaisin" />
                </children>
             </AnchorPane>
          </children>
@@ -72,13 +72,13 @@
                               <Insets bottom="15.0" top="5.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button fx:id="loginButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" prefHeight="37.0" text="Kirjaudu Sisään">
+                        <Button fx:id="loginButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" prefHeight="37.0" stylesheets="@../styles/Button.css" text="Kirjaudu Sisään">
                            <VBox.margin>
                               <Insets bottom="10.0" top="20.0" />
                            </VBox.margin>
                         </Button>
                         <Label fx:id="loginOrLabel" layoutX="10.0" layoutY="84.0" text="Tai" />
-                        <Button fx:id="loginSignUpButton" layoutX="10.0" layoutY="178.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setCreatePane" prefHeight="37.0" text="Luo Käyttäjä">
+                        <Button fx:id="loginSignUpButton" layoutX="10.0" layoutY="178.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setCreatePane" prefHeight="37.0" stylesheets="@../styles/Button.css" text="Luo Käyttäjä">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

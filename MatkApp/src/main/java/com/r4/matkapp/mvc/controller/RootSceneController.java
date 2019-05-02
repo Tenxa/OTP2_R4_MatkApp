@@ -83,13 +83,15 @@ public class RootSceneController extends AbstractSceneController implements Init
         try {
             DatabaseManager.setLoggedUser(null);
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginScene.fxml"));
-            Scene scene = new Scene(root);
+            //Scene scene = new Scene(root);
             Stage window = MainApp.getWindow();
             window.setMinHeight(400);
             window.setMinWidth(600);
             window.sizeToScene();
             window.setResizable(false);
-            window.setScene(scene);
+            //window.setScene(scene);
+            BorderPane p = (BorderPane) ((BorderPane)window.getScene().getRoot()).getCenter();
+            p.setCenter(root);
             window.show();
         } catch (IOException ex) {
             Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);

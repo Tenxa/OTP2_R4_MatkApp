@@ -21,7 +21,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -88,7 +90,8 @@ public class LoginSceneController implements Initializable {
             window.setResizable(true);
             window.setMinWidth(750);
             window.setMinHeight(450);
-            window.setScene(scene);
+            BorderPane p = (BorderPane) ((BorderPane) window.getScene().getRoot()).getCenter();
+            p.setCenter(root);
             cont.setHomeScene();
             window.show();
         } else {
