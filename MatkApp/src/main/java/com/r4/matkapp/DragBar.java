@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -71,6 +72,7 @@ public class DragBar {
 
     private Button createExitButton() {
         MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_CLOSE);
+        icon.setFill(Color.WHITE);
         icon.setSize("16");
 
         Button button = createButton(icon);
@@ -89,6 +91,8 @@ public class DragBar {
     private Button createMaximizeButton() {
         MaterialDesignIconView iconMaximize = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_MAXIMIZE);
         MaterialDesignIconView iconRestore = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_RESTORE);
+        iconMaximize.setFill(Color.WHITE);
+        iconRestore.setFill(Color.WHITE);
         iconMaximize.setSize("16");
         iconRestore.setSize("16");
 
@@ -115,6 +119,7 @@ public class DragBar {
 
     private Button createMinimizeButton() {
         MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_MINIMIZE);
+        icon.setFill(Color.WHITE);
         icon.setSize("16");
 
         Button button = createButton(icon);

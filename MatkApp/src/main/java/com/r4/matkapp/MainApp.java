@@ -44,6 +44,7 @@ public class MainApp extends Application {
         root.setCenter(pane);
         Scene scene = (new ShadowEffect()).getShadowScene(root);
         scene.getStylesheets().add("/styles/Styles.css");
+        scene.getStylesheets().add(MainApp.class.getResource("/styles/RootStyles.css").toExternalForm());
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("MatkApp");
         stage.setScene(scene);

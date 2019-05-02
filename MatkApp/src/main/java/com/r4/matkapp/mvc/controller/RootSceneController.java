@@ -86,12 +86,12 @@ public class RootSceneController extends AbstractSceneController implements Init
             //Scene scene = new Scene(root);
             Stage window = MainApp.getWindow();
             window.setMinHeight(400);
-            window.setMinWidth(600);
-            window.sizeToScene();
+            window.setMinWidth(600);           
             window.setResizable(false);
             //window.setScene(scene);
             BorderPane p = (BorderPane) ((BorderPane)window.getScene().getRoot()).getCenter();
             p.setCenter(root);
+            window.sizeToScene();
             window.show();
         } catch (IOException ex) {
             Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,10 +112,10 @@ public class RootSceneController extends AbstractSceneController implements Init
     }
     
     public void updateGroupList() {
-        Node n = groupList.getChildren().get(0);
-        Node n1 = groupList.getChildren().get(1);
+        //Node n = groupList.getChildren().get(0);
+        //Node n1 = groupList.getChildren().get(1);
         groupList.getChildren().clear();
-        groupList.getChildren().addAll(n, n1);
+        //groupList.getChildren().addAll(n, n1);
         generateGroupList();
     }
 
@@ -142,8 +142,10 @@ public class RootSceneController extends AbstractSceneController implements Init
             }
         });
         FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.GROUP);
-        icon.setSize("16");
+        icon.setSize("30");
+        icon.getStyleClass().add("icon");
         b.setGraphic(icon);
+        b.setGraphicTextGap(6);
         b.setAlignment(Pos.BASELINE_LEFT);
         b.setMaxWidth(Double.MAX_VALUE);
         b.setMinHeight(40);
