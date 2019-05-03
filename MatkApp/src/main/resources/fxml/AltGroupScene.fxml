@@ -12,47 +12,47 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <ToolBar BorderPane.alignment="CENTER">
-        <items>
-          <Button mnemonicParsing="false" onAction="#setNavMenu" text="Etusivu" />
-            <Button mnemonicParsing="false" onAction="#showGroupProperties" text="Asetukset" />
-            <Button mnemonicParsing="false" onAction="#openGroupInvitationScene" text="Kutsu Käyttäjä" />
-            <Button mnemonicParsing="false" onAction="#openExpenseWizard" text="Lisää Kulu" />
-            <Button mnemonicParsing="false" onAction="#leaveGroup" text="Poistu Ryhmästä" />
-        </items>
-      </ToolBar>
-   </top>
-   <bottom>
-      <VBox alignment="CENTER" BorderPane.alignment="TOP_LEFT">
-         <children>
-            <Label fx:id="budgetIndicator" alignment="CENTER" text="p" />
-            <ProgressBar fx:id="budgetBar" maxWidth="1.7976931348623157E308" progress="0.0" />
-         </children>
-      </VBox>
-   </bottom>
-   <center>
-      <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="550.0" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" percentHeight="75.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Chat" GridPane.columnIndex="2" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setExpenseListScene" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Kulut" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
-            <Label fx:id="groupNameLabel" minHeight="50.0" text="I" GridPane.columnIndex="1">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Ostoslista" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
-         </children>
-      </GridPane>
-   </center>
+    <top>
+        <ToolBar BorderPane.alignment="CENTER">
+            <items>
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#setNavMenu" text="Etusivu" />
+                <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#showGroupProperties" text="Asetukset" />
+                <Button fx:id="inviteButton" mnemonicParsing="false" onAction="#openGroupInvitationScene" text="Kutsu Käyttäjä" />
+                <Button fx:id="addExpButton" mnemonicParsing="false" onAction="#openExpenseWizard" text="Lisää Kulu" />
+                <Button fx:id="leaveGrpButton" mnemonicParsing="false" onAction="#leaveGroup" text="Poistu Ryhmästä" />
+            </items>
+        </ToolBar>
+    </top>
+    <bottom>
+        <VBox alignment="CENTER" BorderPane.alignment="TOP_LEFT">
+            <children>
+                <Label fx:id="budgetIndicator" alignment="CENTER" text="p" />
+                <ProgressBar fx:id="budgetBar" maxWidth="1.7976931348623157E308" progress="0.0" />
+            </children>
+        </VBox>
+    </bottom>
+    <center>
+        <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="550.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="75.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Chat" GridPane.columnIndex="2" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
+                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setExpenseListScene" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Kulut" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
+                <Label fx:id="groupNameLabel" minHeight="50.0" text="I" GridPane.columnIndex="1">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                </Label>
+                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Ostoslista" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
+            </children>
+        </GridPane>
+    </center>
 </BorderPane>
