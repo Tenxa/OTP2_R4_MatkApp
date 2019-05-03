@@ -41,17 +41,18 @@ import javafx.stage.Stage;
 public class AltGroupSceneController extends AbstractSceneController implements Initializable {
 
     @FXML
-    BorderPane root;
+    private BorderPane root;
     @FXML
-    ProgressBar budgetBar;
+    private ProgressBar budgetBar;
     @FXML
-    Label budgetIndicator, groupNameLabel;
+    private Label budgetIndicator, groupNameLabel;
     @FXML
-    Button homeButton, settingsButton, inviteButton, addExpButton, leaveGrpButton;
+    private Button homeButton, settingsButton, inviteButton, addExpButton, leaveGrpButton, expensesButton, notepadButton, chatButton;
 
     private Group selectedGroup;
     private Node navMenu;
     private ExpensesListController expenseList;
+    private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
 
     protected AltGroupSceneController(AbstractSceneController ctrl, Group g) {
         super(ctrl);
@@ -61,13 +62,15 @@ public class AltGroupSceneController extends AbstractSceneController implements 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
-        
         homeButton.setText(bundle.getString("GroupHomeButton"));
         settingsButton.setText(bundle.getString("GroupSettingsButton"));
         inviteButton.setText(bundle.getString("GroupInviteUserButton"));
         addExpButton.setText(bundle.getString("GroupNewExpenseCreateExpenseButton"));
         leaveGrpButton.setText(bundle.getString("GroupExitGroup"));
+        
+        expensesButton.setText(bundle.getString("GroupExpensesButton"));
+        notepadButton.setText(bundle.getString("GroupNotepadButton"));
+        chatButton.setText(bundle.getString("GroupChatButton"));
         
         updateBudgetProgress();
         groupNameLabel.setText(getSelectedGroup().getGroup_name());
@@ -79,8 +82,8 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     private void showGroupProperties() {
         try {
             Parent rootPane = loadFXML("GroupSettingsScene", new GroupSettingsSceneController(this, selectedGroup));
-
-            String title = selectedGroup.getGroup_name() + " Asetukset".intern();
+            
+            String title = selectedGroup.getGroup_name() + bundle.getString("GroupSettingHeaderLabel").intern();
             createNewStage(rootPane, title);
         } catch (IOException ex) {
             Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,7 +94,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     private void openExpenseWizard() {
         try {
             Parent rootPane = loadFXML("ExpenseWizard", new ExpenseWizardController(this, selectedGroup));
-            createNewStage(rootPane, "Luo uusi kulu");
+            createNewStage(rootPane, bundle.getString("GroupNewExpenseHeaderLabel"));
         } catch (IOException ex) {
             Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -117,7 +120,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
             loader.setController(new GroupInvitationSceneController(this, selectedGroup));
 
             Stage stage = new Stage();
-            stage.setTitle("Kutsu uusi jäsen");
+            stage.setTitle(bundle.getString("GroupInviteHeaderLabel"));
             stage.setScene(new Scene(loader.load()));
             stage.initOwner(MainApp.getWindow());
             stage.initModality(Modality.WINDOW_MODAL);
@@ -150,7 +153,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     @FXML
     private void leaveGroup() throws IOException {
         ConfirmationFactory confirmation = new ConfirmationAlert();
-        boolean result = confirmation.createAlert(null, "Poistutaako ryhmästä " + selectedGroup.getGroup_name() + "?");
+        boolean result = confirmation.createAlert(null, bundle.getString("GroupExitConfirmLabel") + selectedGroup.getGroup_name() + "?");
         if (result) {
             Set<User> users = selectedGroup.getUsers();
             Iterator<User> itr = users.iterator();
@@ -175,7 +178,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
         }
         double progress = spent / selectedGroup.getBudget();
 
-        budgetIndicator.setText(String.format("%.1f", progress * 100) + "% käytetty budjetista");
+        budgetIndicator.setText(String.format("%.1f", progress * 100) + "% " + bundle.getString("HomeExpensesPercentage"));
         budgetBar.setProgress(progress);
     }
 

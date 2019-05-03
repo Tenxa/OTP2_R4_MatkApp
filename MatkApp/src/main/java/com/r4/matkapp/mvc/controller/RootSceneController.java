@@ -56,6 +56,8 @@ public class RootSceneController extends AbstractSceneController implements Init
     private VBox groupList;
     @FXML
     private MenuItem userDetailsButton, userLogOutButton;
+    @FXML
+    private Button naviHomeButton, naviNewGrpBtn, naviJoinGrpBtn;
 
     private Set<Group> userGroups;
 
@@ -69,6 +71,9 @@ public class RootSceneController extends AbstractSceneController implements Init
         
         userDetailsButton.setText(bundle.getString("UserDetails"));
         userLogOutButton.setText(bundle.getString("UserLogOut"));
+        naviHomeButton.setText(bundle.getString("NaviHome"));
+        naviNewGrpBtn.setText(bundle.getString("NaviNewGroup"));
+        naviJoinGrpBtn.setText(bundle.getString("NaviJoinGroup"));
         
         loggedUserBox.setText(DatabaseManager.getLoggedUser().getEmail());
         generateGroupList();
