@@ -44,14 +44,14 @@
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Chat" GridPane.columnIndex="2" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
-                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setExpenseListScene" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Kulut" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
+                <Button fx:id="expensesButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setExpenseListScene" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Kulut" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
+                <Button fx:id="notepadButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Ostoslista" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
+                <Button fx:id="chatButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Chat" GridPane.columnIndex="2" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
                 <Label fx:id="groupNameLabel" minHeight="50.0" text="I" GridPane.columnIndex="1">
                     <font>
                         <Font size="36.0" />
                     </font>
                 </Label>
-                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Ostoslista" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
             </children>
         </GridPane>
     </center>
