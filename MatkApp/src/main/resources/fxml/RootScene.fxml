@@ -26,8 +26,8 @@
          <children>
             <MenuButton fx:id="loggedUserBox" minWidth="100.0" mnemonicParsing="false" text="user" GridPane.columnIndex="1">
               <items>
-                <MenuItem fx:id="userDetailsButton" mnemonicParsing="false" onAction="#setDetailScene" text="Omat tiedot" />
-                <MenuItem fx:id="userLogOutButton" mnemonicParsing="false" onAction="#logout" text="Kirjaudu ulos" />
+                <MenuItem mnemonicParsing="false" onAction="#setDetailScene" text="Omat tiedot" />
+                <MenuItem mnemonicParsing="false" onAction="#logout" text="Kirjaudu ulos" />
               </items>
                <GridPane.margin>
                   <Insets right="5.0" />
