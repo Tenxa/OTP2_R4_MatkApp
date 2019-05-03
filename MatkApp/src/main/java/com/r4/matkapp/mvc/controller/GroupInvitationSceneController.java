@@ -5,6 +5,7 @@
  */
 package com.r4.matkapp.mvc.controller;
 
+import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
@@ -36,6 +37,7 @@ public class GroupInvitationSceneController implements Initializable {
     private Label emailLabel;            
     
     private UserController uController;
+    private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
     
     private Group activeGroup;
     private AltGroupSceneController parentController;
@@ -58,15 +60,13 @@ public class GroupInvitationSceneController implements Initializable {
                 
                 uController.sendInvitation(activeGroup, addUser);
                 
-                String content = "Osoitteeseen: " + addUser.getEmail();
                 alert = new InformationAlert();
-                alert.createAlert("Liittymis koodi on lähetetty", content);
+                alert.createAlert(bundle.getString("GroupInvitePopupSuccess") + addUser.getEmail() + "", null);
                 closeWindow(event);
                 
-            } else {
-                
+            } else {                
                 alert = new WarningAlert();
-                alert.createAlert("Liittymis koodin lähetys epäonnistui!", null);
+                alert.createAlert(bundle.getString("GroupInvitePopupFailure"), null);
             }
         }
     }
@@ -79,6 +79,7 @@ public class GroupInvitationSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         uController = new UserController();
+        emailLabel.setText(bundle.getString("GroupInviteEmailLabel"));
     }
 
     public TextField getEmail() {
