@@ -35,6 +35,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -53,6 +54,8 @@ public class RootSceneController extends AbstractSceneController implements Init
     private MenuButton loggedUserBox;
     @FXML
     private VBox groupList;
+    @FXML
+    private MenuItem userDetailsButton, userLogOutButton;
 
     private Set<Group> userGroups;
 
@@ -62,6 +65,11 @@ public class RootSceneController extends AbstractSceneController implements Init
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+        
+        userDetailsButton.setText(bundle.getString("UserDetails"));
+        userLogOutButton.setText(bundle.getString("UserLogOut"));
+        
         loggedUserBox.setText(DatabaseManager.getLoggedUser().getEmail());
         generateGroupList();
     }

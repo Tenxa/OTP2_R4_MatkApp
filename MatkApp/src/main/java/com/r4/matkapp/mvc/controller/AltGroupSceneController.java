@@ -27,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
@@ -45,6 +46,8 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     ProgressBar budgetBar;
     @FXML
     Label budgetIndicator, groupNameLabel;
+    @FXML
+    Button homeButton, settingsButton, inviteButton, addExpButton, leaveGrpButton;
 
     private Group selectedGroup;
     private Node navMenu;
@@ -57,7 +60,15 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL url, ResourceBundle rb) {
+        ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+        
+        homeButton.setText(bundle.getString("GroupHomeButton"));
+        settingsButton.setText(bundle.getString("GroupSettingsButton"));
+        inviteButton.setText(bundle.getString("GroupInviteUserButton"));
+        addExpButton.setText(bundle.getString("GroupNewExpenseCreateExpenseButton"));
+        leaveGrpButton.setText(bundle.getString("GroupExitGroup"));
+        
         updateBudgetProgress();
         groupNameLabel.setText(getSelectedGroup().getGroup_name());
         navMenu = root.getCenter();
