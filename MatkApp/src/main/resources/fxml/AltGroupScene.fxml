@@ -52,7 +52,6 @@
                         <Font size="36.0" />
                     </font>
             </Label>
-            <Button fx:id="notepadButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-radius: 100;" text="Ostoslista" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES" />
          </children>
       </GridPane>
    </center>

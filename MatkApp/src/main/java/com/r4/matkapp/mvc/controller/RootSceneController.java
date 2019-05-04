@@ -69,7 +69,7 @@ public class RootSceneController extends AbstractSceneController implements Init
     public void initialize(URL location, ResourceBundle resources) {
         ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
         
-        userDetailsButton.setText(bundle.getString("UserDetails"));
+        userDetailsButton.setText(bundle.getString("UserDetailsDropDown"));
         userLogOutButton.setText(bundle.getString("UserLogOut"));
         naviHomeButton.setText(bundle.getString("NaviHome"));
         naviNewGrpBtn.setText(bundle.getString("NaviNewGroup"));

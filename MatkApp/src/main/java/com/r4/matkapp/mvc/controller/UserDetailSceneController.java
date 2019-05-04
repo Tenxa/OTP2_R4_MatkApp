@@ -5,6 +5,7 @@ package com.r4.matkapp.mvc.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.model.dbmanager.UserManager;
@@ -40,21 +41,33 @@ public class UserDetailSceneController implements Initializable, SceneController
     private AnchorPane root;
 
     @FXML
-    private Label lbFirstname, lbLastname, lbEmail, lbAddress, lbPhonenumber, lbPostnumber, lbCity, lbCountry;
+    private Label lbFirstname, lbLastname, lbEmail, lbAddress, lbPhonenumber, lbPostnumber, lbCity, lbCountry, userDetailsLabel, userDetailsFN, userDetailsLN, userDetailsEmail, userDetailsPhoneNo, userDetailsAddress, userDetailsZipCode, userDetailsCity, userDetailsCountry;
 
     @FXML
     private TextField tfFirstname, tfLastname, tfEmail, tfAddress, tfPhonenumber, tfPostnumber, tfCity, tfCountry;
 
     private TextField lastFocus;
+    private ResourceBundle bundle  = ResourceBundle.getBundle("properties.default", MainApp.getLocale());;
 
     /**
-     * Initializes the controller class.
+     * Initialises the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initLaTe();
         initlbDetails();
         loadUserDetails();
+        
+        userDetailsLabel.setText(bundle.getString("UserDetailsLabel"));
+        userDetailsFN.setText(bundle.getString("GenericFNameLabel"));
+        userDetailsLN.setText(bundle.getString("GenericLNameLabel"));
+        userDetailsEmail.setText(bundle.getString("GenericEmailLabel"));
+        userDetailsPhoneNo.setText(bundle.getString("GenericPhoneNoLabel"));
+        userDetailsAddress.setText(bundle.getString("UserDetailsAddressLabel"));
+        userDetailsZipCode.setText(bundle.getString("UserDetailsZipCode"));
+        userDetailsCity.setText(bundle.getString("UserDetailsCity"));
+        userDetailsCountry.setText(bundle.getString("UserDetailsCountry"));
+                
         root.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -148,7 +161,7 @@ public class UserDetailSceneController implements Initializable, SceneController
     @FXML
     private void setupToolTip() {
         Tooltip toolTip = new Tooltip();
-        toolTip.setText("Klikkaa muokataksesi!");
+        toolTip.setText(bundle.getString("UserDetailsTooltip"));
         lbDetails.forEach((label) -> {
             label.setTooltip(toolTip);
         });

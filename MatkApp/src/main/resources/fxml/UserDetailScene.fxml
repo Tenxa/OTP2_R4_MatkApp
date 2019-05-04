@@ -22,14 +22,14 @@
       <Label fx:id="lbPostnumber" layoutX="161.0" layoutY="197.0" minWidth="100.0" onMouseClicked="#clickLabelToShowTf" onMouseEntered="#setupToolTip" text="Postinumero" />
       <Label fx:id="lbCity" layoutX="161.0" layoutY="227.0" minWidth="100.0" onMouseClicked="#clickLabelToShowTf" onMouseEntered="#setupToolTip" text="Kaupunki" />
       <Label fx:id="lbCountry" layoutX="161.0" layoutY="257.0" minWidth="100.0" onMouseClicked="#clickLabelToShowTf" onMouseEntered="#setupToolTip" text="Maa" />
-      <Label layoutX="58.0" layoutY="14.0" text="Käyttäjätiedot" />
-      <Label layoutX="57.0" layoutY="47.0" text="Etunimi:" />
-      <Label layoutX="57.0" layoutY="77.0" text="Sukunimi:" />
-      <Label layoutX="57.0" layoutY="107.0" text="Sähköposti:" />
-      <Label layoutX="57.0" layoutY="137.0" text="Puhelinnumero:" />
-      <Label layoutX="57.0" layoutY="167.0" text="Lähiosoite:" />
-      <Label layoutX="57.0" layoutY="197.0" text="Postinumero:" />
-      <Label layoutX="57.0" layoutY="227.0" text="Kaupunki:" />
-      <Label layoutX="57.0" layoutY="257.0" text="Maa:" />
+      <Label fx:id="userDetailsLabel" layoutX="58.0" layoutY="14.0" text="Käyttäjätiedot" />
+      <Label fx:id="userDetailsFN" layoutX="57.0" layoutY="47.0" text="Etunimi:" />
+      <Label fx:id="userDetailsLN" layoutX="57.0" layoutY="77.0" text="Sukunimi:" />
+      <Label fx:id="userDetailsEmail" layoutX="57.0" layoutY="107.0" text="Sähköposti:" />
+      <Label fx:id="userDetailsPhoneNo" layoutX="57.0" layoutY="137.0" text="Puhelinnumero:" />
+      <Label fx:id="userDetailsAddress" layoutX="57.0" layoutY="167.0" text="Lähiosoite:" />
+      <Label fx:id="userDetailsZipCode" layoutX="57.0" layoutY="197.0" text="Postinumero:" />
+      <Label fx:id="userDetailsCity" layoutX="57.0" layoutY="227.0" text="Kaupunki:" />
+      <Label fx:id="userDetailsCountry" layoutX="57.0" layoutY="257.0" text="Maa:" />
    </children>
 </AnchorPane>

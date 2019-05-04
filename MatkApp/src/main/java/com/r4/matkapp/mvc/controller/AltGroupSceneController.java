@@ -85,7 +85,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
         try {
             Parent rootPane = loadFXML("GroupSettingsScene", new GroupSettingsSceneController(this, selectedGroup));
 
-            String title = selectedGroup.getGroup_name() + bundle.getString("GroupSettingHeaderLabel").intern();
+            String title = selectedGroup.getGroup_name() + " " + bundle.getString("GroupSettingHeaderLabel").intern();
             createNewStage(rootPane, title);
         } catch (IOException ex) {
             Logger.getLogger(AltGroupSceneController.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,7 +180,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
         }
         double progress = spent / selectedGroup.getBudget();
 
-        budgetIndicator.setText(String.format("%.1f", progress * 100) + "% " + bundle.getString("HomeExpensesPercentage"));
+        budgetIndicator.setText(String.format("%.1f", progress * 100) + "% " + bundle.getString("GroupExpensesPercentage"));
         budgetBar.setProgress(progress);
     }
 
