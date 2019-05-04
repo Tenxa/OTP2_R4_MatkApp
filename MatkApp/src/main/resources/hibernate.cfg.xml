@@ -20,7 +20,7 @@
    <property name="hibernate.connection.password">
       eero
    </property>
-   <property name="hbm2ddl.auto">create</property>
+   <property name="hbm2ddl.auto">validate</property>
    <property name="show_sql">true</property>
    <!--<mapping class=""/> MAPPING CLASSES HERE-->
    <mapping class="com.r4.matkapp.mvc.model.Group"/>

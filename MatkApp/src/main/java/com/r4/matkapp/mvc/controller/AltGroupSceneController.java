@@ -48,11 +48,12 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     private Label budgetIndicator, groupNameLabel;
     @FXML
     private Button homeButton, settingsButton, inviteButton, addExpButton, leaveGrpButton, expensesButton, notepadButton, chatButton;
-
+    
     private Group selectedGroup;
     private Node navMenu;
     private ExpensesListController expenseList;
-    private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+    
+    private ResourceBundle bundle;
 
     protected AltGroupSceneController(AbstractSceneController ctrl, Group g) {
         super(ctrl);
@@ -61,7 +62,8 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL location, ResourceBundle resources) {
+        bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
         homeButton.setText(bundle.getString("GroupHomeButton"));
         settingsButton.setText(bundle.getString("GroupSettingsButton"));
         inviteButton.setText(bundle.getString("GroupInviteUserButton"));
@@ -82,7 +84,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     private void showGroupProperties() {
         try {
             Parent rootPane = loadFXML("GroupSettingsScene", new GroupSettingsSceneController(this, selectedGroup));
-            
+
             String title = selectedGroup.getGroup_name() + bundle.getString("GroupSettingHeaderLabel").intern();
             createNewStage(rootPane, title);
         } catch (IOException ex) {

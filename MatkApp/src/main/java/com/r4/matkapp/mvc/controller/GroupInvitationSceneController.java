@@ -34,6 +34,7 @@ public class GroupInvitationSceneController implements Initializable {
 
     @FXML
     private TextField email;
+    @FXML
     private Label emailLabel;            
     
     private UserController uController;
@@ -79,7 +80,7 @@ public class GroupInvitationSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         uController = new UserController();
-        emailLabel.setText(bundle.getString("GroupInviteEmailLabel"));
+        emailLabel.setText(bundle.getString("GenericEmailLabel"));
     }
 
     public TextField getEmail() {
