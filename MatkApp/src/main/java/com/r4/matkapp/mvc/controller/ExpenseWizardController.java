@@ -5,6 +5,7 @@ package com.r4.matkapp.mvc.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.r4.matkapp.MainApp;
 import com.r4.matkapp.dao.ExpenseDAO;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.Group;
@@ -25,7 +26,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
@@ -46,7 +49,8 @@ public class ExpenseWizardController implements Initializable, SceneController {
 
     @FXML
     private StackPane firstPane, secondPane;
-
+    @FXML
+    private Button createButton, cancelButton, backButton, nextButton, cancelButton2;
     @FXML
     private TextField description;
     @FXML
@@ -55,7 +59,10 @@ public class ExpenseWizardController implements Initializable, SceneController {
     private CheckBox equalSplit;
     @FXML
     private ListView<User> users, selectedUsers;
+    @FXML
+    private Label descriptionLabel, priceLabel, evensplitLabel, addUserHelp;
 
+    private ResourceBundle bundle;
     private boolean isEqualSplit;
 
     // selected group object
@@ -70,6 +77,17 @@ public class ExpenseWizardController implements Initializable, SceneController {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+        
+        descriptionLabel.setText(bundle.getString("GroupNewExpenseDescLabel"));
+        priceLabel.setText(bundle.getString("GroupNewExpensePriceLabel"));
+        evensplitLabel.setText(bundle.getString("GroupNewExpenseEvenSplitLabel"));
+        createButton.setText(bundle.getString("GroupNewExpenseCreateExpenseButton"));
+        cancelButton.setText(bundle.getString("GenericCancelButton"));
+        cancelButton2.setText(bundle.getString("GenericCancelButton"));
+        backButton.setText(bundle.getString("GroupNewExpenseBackButton"));
+        nextButton.setText(bundle.getString("GroupNewExpenseNextButton"));
+        addUserHelp.setText(bundle.getString("GroupNewExpenseAddUserLabel"));
 
         initListView(users);
         initListView(selectedUsers);
@@ -83,10 +101,7 @@ public class ExpenseWizardController implements Initializable, SceneController {
                 isEqualSplit = newValue;
             }
         });
-
     }
-
-    
 
     @FXML
     private void closeWindow(ActionEvent event) {

@@ -25,7 +25,7 @@
             <TextField fx:id="email" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="235.0" layoutY="273.0" mnemonicParsing="false" onAction="#inviteMember" text="Lähetä" />
-      <Button layoutX="300.0" layoutY="273.0" mnemonicParsing="false" onAction="#closeWindow" text="Peruuta" />
+      <Button fx:id="sendButton" layoutX="235.0" layoutY="273.0" mnemonicParsing="false" onAction="#inviteMember" text="Lähetä" />
+      <Button fx:id="cancelButton" layoutX="300.0" layoutY="273.0" mnemonicParsing="false" onAction="#closeWindow" text="Peruuta" />
    </children>
 </AnchorPane>

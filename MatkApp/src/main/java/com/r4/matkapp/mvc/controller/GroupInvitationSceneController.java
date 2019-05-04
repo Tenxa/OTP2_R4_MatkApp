@@ -35,10 +35,12 @@ public class GroupInvitationSceneController implements Initializable {
     @FXML
     private TextField email;
     @FXML
-    private Label emailLabel;            
+    private Label emailLabel;       
+    @FXML
+    private Button sendButton, cancelButton;
     
     private UserController uController;
-    private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+    private ResourceBundle bundle;
     
     private Group activeGroup;
     private AltGroupSceneController parentController;
@@ -79,8 +81,12 @@ public class GroupInvitationSceneController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
         uController = new UserController();
+        
         emailLabel.setText(bundle.getString("GenericEmailLabel"));
+        sendButton.setText(bundle.getString("GroupInviteSendButton"));
+        cancelButton.setText(bundle.getString("GenericCancelButton"));
     }
 
     public TextField getEmail() {
