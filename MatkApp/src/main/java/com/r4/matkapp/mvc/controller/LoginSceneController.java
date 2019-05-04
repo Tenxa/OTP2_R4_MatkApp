@@ -50,31 +50,30 @@ public class LoginSceneController implements Initializable {
     private StackPane loginPane, createPane;
     
     @FXML Button loginButton, createUserButton, loginSignUpButton, backButton;
-
     
     private UserController uController;
-    
+    private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
     private AlertFactory alert;
+    
     /**
-     * Initializes the controller class.
+     * Initialises the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uController = new UserController();
-        ResourceBundle bundle = ResourceBundle.getBundle("properties.Login", MainApp.getLocale());
+        uController = new UserController();        
         
-        loginEmailLabel.setText(bundle.getString("EmailLabel"));
-        loginPasswordLabel.setText(bundle.getString("PasswordLabel"));
-        loginButton.setText(bundle.getString("LoginButton"));
-        loginOrLabel.setText(bundle.getString("OrLabel"));
-        loginSignUpButton.setText(bundle.getString("SignUp"));
+        loginEmailLabel.setText(bundle.getString("GenericEmailLabel"));
+        loginPasswordLabel.setText(bundle.getString("LoginPasswordLabel"));
+        loginButton.setText(bundle.getString("LoginLoginButton"));
+        loginOrLabel.setText(bundle.getString("LoginOrLabel"));
+        loginSignUpButton.setText(bundle.getString("LoginSignUpLabel"));
         
-        registerFNameLabel.setText(bundle.getString("FNameLabel"));
-        registerLNameLabel.setText(bundle.getString("LNameLabel"));
-        registerEmailLabel.setText(bundle.getString("EmailLabel"));
-        registerPasswordLabel.setText(bundle.getString("PasswordLabel"));
-        createUserButton.setText(bundle.getString("CreateUser"));
-        backButton.setText(bundle.getString("Back"));
+        registerFNameLabel.setText(bundle.getString("GenericFNameLabel"));
+        registerLNameLabel.setText(bundle.getString("GenericLNameLabel"));
+        registerEmailLabel.setText(bundle.getString("GenericEmailLabel"));
+        registerPasswordLabel.setText(bundle.getString("LoginPasswordLabel"));
+        createUserButton.setText(bundle.getString("LoginCreateUser"));
+        backButton.setText(bundle.getString("GenericCancelButton"));
     }
     
     @FXML
@@ -96,7 +95,7 @@ public class LoginSceneController implements Initializable {
             window.show();
         } else {
             alert = new InformationAlert();
-            alert.createAlert("Kirjautuminen epäonnistui!", "Käyttäjä tunnus tai salasana väärin.");
+            alert.createAlert(bundle.getString("LoginFailureHdr"), bundle.getString("LoginFailureMsg"));
         }
     }
     
@@ -105,7 +104,7 @@ public class LoginSceneController implements Initializable {
         if (uController.addUser(first_name.getText(), last_name.getText(),
                 email.getText(), password.getText())) {
             AlertFactory alert = new InformationAlert();
-            alert.createAlert(null, "Käyttäjän luonti onnistui!");
+            alert.createAlert(null, bundle.getString("LoginSignUpSuccess"));
 
             first_name.clear();
             last_name.clear();

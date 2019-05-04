@@ -5,6 +5,7 @@ package com.r4.matkapp.mvc.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
@@ -19,6 +20,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -31,12 +34,19 @@ import javafx.stage.Stage;
 public class GroupSettingsSceneController extends AbstractSceneController implements Initializable {
 
     @FXML
-    TextField groupName, invite;
+    private TextField groupName, invite;
     
     @FXML
-    Spinner budget;
+    private Spinner budget;
+    
+    @FXML
+    private Label grpSettingNameLabel, grpSettingBudgetLabel, grpSettingInvLabel;
+    
+    @FXML
+    private Button saveButton, cancelButton;
 
     private Group group;
+    private ResourceBundle bundle;
 
     public GroupSettingsSceneController(AbstractSceneController owner, Group g) {
         super(owner);
@@ -45,10 +55,17 @@ public class GroupSettingsSceneController extends AbstractSceneController implem
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
         groupName.setText(group.getGroup_name());
         new ElementInitor().init(budget);
         budget.getValueFactory().setValue(group.getBudget());
         invite.setText(group.getInvite());
+        
+        grpSettingNameLabel.setText(bundle.getString("GroupSettingNameLabel"));
+        grpSettingBudgetLabel.setText(bundle.getString("GroupSettingBudgetLabel"));
+        grpSettingInvLabel.setText(bundle.getString("GroupSettingInvCode"));
+        saveButton.setText(bundle.getString("GroupSettingSaveButton"));
+        cancelButton.setText(bundle.getString("GenericCancelButton"));
     }
 
     @FXML
@@ -69,7 +86,7 @@ public class GroupSettingsSceneController extends AbstractSceneController implem
             closeWindow(event);
         } catch (NumberFormatException e) {
             AlertFactory alert = new WarningAlert();
-            alert.createAlert("Virheellinen syöte", "");
+            alert.createAlert(bundle.getString("GenericInvalidInput"), "");
         }
     }
 

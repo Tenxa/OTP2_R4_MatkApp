@@ -60,6 +60,7 @@ public class RootSceneController extends AbstractSceneController implements Init
     private Button naviHomeButton, naviNewGrpBtn, naviJoinGrpBtn;
 
     private Set<Group> userGroups;
+    private ResourceBundle bundle;
 
     public RootSceneController() {
         super(null);
@@ -67,7 +68,7 @@ public class RootSceneController extends AbstractSceneController implements Init
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+        bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
         
         userDetailsButton.setText(bundle.getString("UserDetailsDropDown"));
         userLogOutButton.setText(bundle.getString("UserLogOut"));
@@ -117,7 +118,6 @@ public class RootSceneController extends AbstractSceneController implements Init
             updateGroupList();
         }
     }
-
     
     @Override
     protected void update() {
@@ -169,8 +169,8 @@ public class RootSceneController extends AbstractSceneController implements Init
     // vois joskus toteuttaa paremmin
     private Group inputDialog() {
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Luo uusi ryhmä");
-        dialog.setContentText("Syötä ryhmän nimi:");
+        dialog.setTitle(bundle.getString("NewGroupHeaderLabel"));
+        dialog.setContentText(bundle.getString("NewGroupHelpText"));
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
@@ -178,7 +178,7 @@ public class RootSceneController extends AbstractSceneController implements Init
             Group g = u.createGroup(result.get());
             if (g.getInvite() != null) {
                 AlertFactory f = new InformationAlert();
-                f.createAlert(null, "Ryhmän luonti onnistui!", g.getInvite());
+                f.createAlert(null, bundle.getString("NewGroupSuccess"), g.getInvite());
                 return g;
             }
         }
@@ -194,8 +194,8 @@ public class RootSceneController extends AbstractSceneController implements Init
 
     private Group JoinGroupInputDialog(){
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Liity ryhmään");
-        dialog.setContentText("Syötä ryhmän liittymis koodi");
+        dialog.setTitle(bundle.getString("JoinGroupHeader"));
+        dialog.setContentText(bundle.getString("JoinGroupMsg"));
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
@@ -206,7 +206,7 @@ public class RootSceneController extends AbstractSceneController implements Init
                 g.getUsers().add(us);
                 gManager.update(g);
                 AlertFactory f = new InformationAlert();
-                f.createAlert(null, "Ryhmään liittyminen onnistui", g.getGroup_name());
+                f.createAlert(null, bundle.getString("JoinGroupSuccess"), g.getGroup_name());
                 return g;
             }
         }
@@ -215,8 +215,6 @@ public class RootSceneController extends AbstractSceneController implements Init
 
     public void setCenter(Node node) {
         root.setCenter(node);
-    }
-
-    
+    }   
 
 }

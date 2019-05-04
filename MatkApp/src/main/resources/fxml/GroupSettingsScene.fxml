@@ -22,15 +22,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nimi" />
-            <Label text="Budjetti" GridPane.rowIndex="1" />
-            <Label text="Kutsumis Koodi" GridPane.rowIndex="2" />
+            <Label fx:id="grpSettingNameLabel" text="Nimi" />
+            <Label fx:id="grpSettingBudgetLabel" text="Budjetti" GridPane.rowIndex="1" />
+            <Label fx:id="grpSettingInvLabel" text="Kutsumis Koodi" GridPane.rowIndex="2" />
             <TextField fx:id="groupName" GridPane.columnIndex="1" />
             <TextField fx:id="invite" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Spinner fx:id="budget" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="178.0" layoutY="206.0" mnemonicParsing="false" onAction="#updateGroup" text="Tallenna" />
-      <Button layoutX="258.0" layoutY="206.0" mnemonicParsing="false" onAction="#closeWindow" text="Peruuta" />
+      <Button fx:id="saveButton" layoutX="178.0" layoutY="206.0" mnemonicParsing="false" onAction="#updateGroup" text="Tallenna" />
+      <Button fx:id="cancelButton" layoutX="258.0" layoutY="206.0" mnemonicParsing="false" onAction="#closeWindow" text="Peruuta" />
    </children>
 </AnchorPane>
