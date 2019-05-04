@@ -31,10 +31,10 @@
                               <RowConstraints minHeight="30.0" prefHeight="30.0" />
                            </rowConstraints>
                            <children>
-                              <Label text="Kuvaus" />
-                              <Label text="Kokonais hinta" GridPane.columnIndex="1" />
-                              <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
-                              <Label text="Osallistujia" GridPane.columnIndex="2" />
+                              <Label fx:id="descriptionLabel" text="Kuvaus" />
+                              <Label fx:id="totalpriceLabel" text="Kokonais hinta" GridPane.columnIndex="1" />
+                              <Button fx:id="updateButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
+                              <Label fx:id="participantsLabel" text="Osallistujia" GridPane.columnIndex="2" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="expenseList" layoutX="10.0" layoutY="100.0">

@@ -1,10 +1,12 @@
 package com.r4.matkapp.mvc.view;
 
+import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.model.dbmanager.ExpenseManager;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -26,8 +28,8 @@ import javafx.scene.layout.RowConstraints;
  */
 public class ExpenseListFactory {
 
-    private final String join = "Liity", info = "Lisätietoja";
-
+    private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+    private final String join = bundle.getString("GroupExpensesJoinButton"), info = bundle.getString("GroupExpensesInfoButton");
     private GridPane pane;
 
     public ExpenseListFactory() {

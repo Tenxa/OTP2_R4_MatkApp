@@ -5,12 +5,15 @@
  */
 package com.r4.matkapp.mvc.controller;
 
+import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.view.ExpenseListFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -25,20 +28,31 @@ public class ExpensesListController implements Initializable {
     private GridPane expenseList;
     @FXML
     private VBox list;
+    @FXML
+    private Label descriptionLabel, totalpriceLabel, participantsLabel;
+    @FXML
+    private Button updateButton;
 
     private Group activeGroup;
     private AltGroupSceneController cont;
+    private ResourceBundle bundle;
     
     public ExpensesListController(AltGroupSceneController cont) {
         this.cont = cont;
     }
 
     /**
-     * Initializes the controller class.
+     * Initialises the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        refreshExpenseList();      
+        bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+        refreshExpenseList();
+        
+        descriptionLabel.setText(bundle.getString("GroupExpensesDescLabel"));
+        totalpriceLabel.setText(bundle.getString("GroupExpensesPriceLabel"));
+        participantsLabel.setText(bundle.getString("GroupExpensesParticipantLabel"));
+        updateButton.setText(bundle.getString("GroupExpensesUpdateButton"));
     }
     
     @FXML
