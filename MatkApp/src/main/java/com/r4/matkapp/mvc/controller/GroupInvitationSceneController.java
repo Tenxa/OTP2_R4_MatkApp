@@ -71,6 +71,9 @@ public class GroupInvitationSceneController implements Initializable {
                 alert = new WarningAlert();
                 alert.createAlert(bundle.getString("GroupInvitePopupFailure"), null);
             }
+        } else{
+            alert = new WarningAlert();
+            alert.createAlert(bundle.getString("GroupInvitePopupFailure"), null);
         }
     }
     
