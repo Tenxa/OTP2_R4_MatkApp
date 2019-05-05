@@ -71,17 +71,24 @@
     -fx-background-color: white;
 }
 
-#allExpenses, #myExpenses {
+.tab {
     -fx-background-color: #c9ced8;
     -fx-background-radius: 0;
 }
-#allExpenses:selected, #myExpenses:selected {
+
+.tab:selected {
     -fx-background-color: #4f6c9b;
 
 }
+
 .tab .tab-label {
     -fx-text-fill: black;
 }
+
 .tab:selected .tab-label {
     -fx-text-fill: white;
+}
+
+.context-menu {
+    
 }
