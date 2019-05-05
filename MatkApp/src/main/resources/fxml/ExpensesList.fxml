@@ -13,7 +13,7 @@
 
 <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
-    <Tab text="Untitled Tab 1">
+    <Tab fx:id="allExpenses" text="Kaikki kulut">
          <content>
             <ScrollPane fitToHeight="true" fitToWidth="true">
                <content>
@@ -32,7 +32,7 @@
                            </rowConstraints>
                            <children>
                               <Label fx:id="descriptionLabel" text="Kuvaus" />
-                              <Label fx:id="totalpriceLabel" text="Kokonais hinta" GridPane.columnIndex="1" />
+                              <Label fx:id="totalpriceLabel" text="Kokonaishinta" GridPane.columnIndex="1" />
                               <Button fx:id="updateButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
                               <Label fx:id="participantsLabel" text="Osallistujia" GridPane.columnIndex="2" />
                            </children>
@@ -51,7 +51,7 @@
             </ScrollPane>
          </content>
     </Tab>
-    <Tab text="Untitled Tab 2">
+    <Tab fx:id="myExpenses" text="Omat kulut">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
