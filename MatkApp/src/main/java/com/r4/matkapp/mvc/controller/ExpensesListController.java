@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -32,6 +33,8 @@ public class ExpensesListController implements Initializable {
     private Label descriptionLabel, totalpriceLabel, participantsLabel;
     @FXML
     private Button updateButton;
+    @FXML
+    Tab allExpenses, myExpenses;
 
     private Group activeGroup;
     private AltGroupSceneController cont;

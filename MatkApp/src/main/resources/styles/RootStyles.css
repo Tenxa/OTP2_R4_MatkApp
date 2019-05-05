@@ -70,3 +70,15 @@
 .titled-pane:focused > .title > .arrow-button .arrow {
     -fx-background-color: white;
 }
+
+#allExpenses, #myExpenses {
+    -fx-background-color: #c9ced8;
+    -fx-background-radius: 0;
+}
+#allExpenses:selected, #myExpenses:selected {
+    -fx-background-color: #4f6c9b;
+    -fx-text-base-color: white;
+}
+.tab .tab-label {
+    -fx-text-fill: white;
+}
