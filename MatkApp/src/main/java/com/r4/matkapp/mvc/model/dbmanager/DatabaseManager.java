@@ -39,6 +39,10 @@ public abstract class DatabaseManager<D> {
     public static void setLoggedUser(User loggedUser) {
         LOGGED_USER = loggedUser;
     } 
+    
+    public static void updateLoggedUser() {
+        USER_DAO.refresh(LOGGED_USER);
+    }
 
     public abstract void create(D entity);
     public abstract void refresh(D entity);

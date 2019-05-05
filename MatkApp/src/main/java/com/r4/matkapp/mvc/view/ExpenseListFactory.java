@@ -1,6 +1,7 @@
 package com.r4.matkapp.mvc.view;
 
 import com.r4.matkapp.MainApp;
+import com.r4.matkapp.mvc.controller.ExpensesListController;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
@@ -31,10 +32,28 @@ public class ExpenseListFactory {
     private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
     private final String join = bundle.getString("GroupExpensesJoinButton"), info = bundle.getString("GroupExpensesInfoButton");
     private GridPane pane;
+    
+    private boolean split;
+    private ExpensesListController ctrl;
+   
 
     public ExpenseListFactory() {
         pane = new GridPane();
         setColumnConstraints();
+        split = false;
+    }
+    
+    public ExpenseListFactory(boolean split) {
+        pane = new GridPane();
+        setColumnConstraints();
+        this.split = split;
+    }
+    
+    public ExpenseListFactory(ExpensesListController ctrl) {
+        pane = new GridPane();
+        setColumnConstraints();
+        this.split = false;
+        this.ctrl = ctrl;
     }
 
     public GridPane createList(Set<Expense> expenses) {
@@ -44,7 +63,11 @@ public class ExpenseListFactory {
 
             Pane info = createInfoPane(e.getId());
             Pane description = createDescriptionPane(e.getExpense_description());
-            Pane price = createPricePane(e.getExpense_amount());
+            double ammount = e.getExpense_amount();
+            if(split) {
+                ammount = ammount / e.getUsers().size();
+            }
+            Pane price = createPricePane(ammount);
             Pane participants = createParticipantsPane(e.getUsers().size());
             Pane join = new Pane();
             Iterator itr = e.getUsers().iterator();
@@ -105,6 +128,9 @@ public class ExpenseListFactory {
             DatabaseManager<Expense> manager = new ExpenseManager();
             manager.update(e);
             p.getChildren().clear();
+            if(ctrl != null) {
+                ctrl.refreshExpenseList();
+            }
         });
         b.setMinHeight(30);
         b.setMinWidth(50);
@@ -134,7 +160,7 @@ public class ExpenseListFactory {
     }
 
     private Pane createPricePane(double price) {
-        AnchorPane p = new AnchorPane();
+        AnchorPane p = new AnchorPane();   
         Label l = new Label(Double.toString(price));
         anchorLabel(l);
         

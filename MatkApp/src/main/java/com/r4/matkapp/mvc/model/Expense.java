@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "expense")
-public class Expense {
+public class Expense implements Comparable<Expense>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -114,5 +114,9 @@ public class Expense {
     public void setUsers(Set<User> users) {
         this.joined_users = users;
     }
-    
+
+    @Override
+    public int compareTo(Expense o) {
+        return expense_description.compareTo(o.getExpense_description());
+    }  
 }

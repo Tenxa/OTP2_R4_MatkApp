@@ -8,53 +8,142 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="229.0" prefWidth="442.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
     <Tab fx:id="allExpenses" text="Kaikki kulut">
          <content>
-            <ScrollPane fitToHeight="true" fitToWidth="true">
-               <content>
-                  <VBox fx:id="list" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0">
-                     <children>
-                        <GridPane>
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="40.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
-                          </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                           </rowConstraints>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <VBox fx:id="list" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0">
                            <children>
-                              <Label fx:id="descriptionLabel" text="Kuvaus" />
-                              <Label fx:id="totalpriceLabel" text="Kokonaishinta" GridPane.columnIndex="1" />
-                              <Button fx:id="updateButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
-                              <Label fx:id="participantsLabel" text="Osallistujia" GridPane.columnIndex="2" />
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="40.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label fx:id="descriptionLabel" text="Kuvaus" />
+                                    <Label fx:id="totalpriceLabel" text="Kokonaishinta" GridPane.columnIndex="1" />
+                                    <Button fx:id="updateButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
+                                    <Label fx:id="participantsLabel" text="Osallistujia" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <GridPane fx:id="expenseList" layoutX="10.0" layoutY="100.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                              </GridPane>
                            </children>
-                        </GridPane>
-                        <GridPane fx:id="expenseList" layoutX="10.0" layoutY="100.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                        </GridPane>
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
          </content>
     </Tab>
     <Tab fx:id="myExpenses" text="Omat kulut">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <VBox fx:id="listJoined" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0">
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="40.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label fx:id="descriptionLabel1" text="Kuvaus" />
+                                    <Label fx:id="totalpriceLabel1" text="Oma osuus" GridPane.columnIndex="1" />
+                                    <Button fx:id="updateButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
+                                    <Label fx:id="participantsLabel1" text="Osallistujia" GridPane.columnIndex="2" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
+                                       <children>
+                                          <Label fx:id="totalLabel" text="Yht:" />
+                                          <Label fx:id="totalPrice" text="0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </GridPane>
+                              <GridPane fx:id="expenseList1" layoutX="10.0" layoutY="100.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children></AnchorPane>
       </content>
     </Tab>
+      <Tab fx:id="notJoinedExpenses" text="Ei liitytty">
+         <content>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <VBox fx:id="listNotJoined" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0">
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="40.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label fx:id="descriptionLabel2" text="Kuvaus" />
+                                    <Label fx:id="totalpriceLabel2" text="Kokonaishinta" GridPane.columnIndex="1" />
+                                    <Button fx:id="updateButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
+                                    <Label fx:id="participantsLabel2" text="Osallistujia" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <GridPane fx:id="expenseList2" layoutX="10.0" layoutY="100.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
   </tabs>
 </TabPane>
