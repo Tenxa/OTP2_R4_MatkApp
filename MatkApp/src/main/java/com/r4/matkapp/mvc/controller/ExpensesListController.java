@@ -56,6 +56,8 @@ public class ExpensesListController implements Initializable {
         totalpriceLabel.setText(bundle.getString("GroupExpensesPriceLabel"));
         participantsLabel.setText(bundle.getString("GroupExpensesParticipantLabel"));
         updateButton.setText(bundle.getString("GroupExpensesUpdateButton"));
+        allExpenses.setText(bundle.getString("GroupExpensesTabAll"));
+        myExpenses.setText(bundle.getString("GroupExpensesTabMine"));
     }
     
     @FXML
