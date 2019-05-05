@@ -67,7 +67,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
         homeButton.setText(bundle.getString("GroupHomeButton"));
         settingsButton.setText(bundle.getString("GroupSettingsButton"));
         inviteButton.setText(bundle.getString("GroupInviteUserButton"));
-        addExpButton.setText(bundle.getString("GroupNewExpenseCreateExpenseButton"));
+        addExpButton.setText(bundle.getString("GroupAddExpense"));
         leaveGrpButton.setText(bundle.getString("GroupExitGroup"));
         
         expensesButton.setText(bundle.getString("GroupExpensesButton"));
