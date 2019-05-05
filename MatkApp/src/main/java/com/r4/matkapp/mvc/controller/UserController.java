@@ -116,9 +116,12 @@ public class UserController {
     }
 
     public void sendInvitation(Group group, User user){
+        User loggedUser = DatabaseManager.getLoggedUser();
         SendEmail email = new SendEmail();
         String subject = "MatkApp group invitation";
-        String text = "Group: " + group.getGroup_name() + " has sent you an invitation. Here is the link: " +group.getInvite();
+        String text = loggedUser.getFirst_name() + " "+ loggedUser.getLast_name() + " has sent you an invitation.\n"
+                + "Group: " + group.getGroup_name() + "\n"
+                + "Here is the link: " +group.getInvite();
         email.Send(user.getEmail(), subject, text);
     }
 
