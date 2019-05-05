@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -33,7 +35,14 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </MenuButton>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #929eb5;" />
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #929eb5;">
+               <children>
+                  <ImageView fitHeight="56.0" fitWidth="167.0" layoutX="-2.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pictures/matkapp_logo2.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
          </children>
          <BorderPane.margin>
             <Insets />
