@@ -89,6 +89,36 @@
     -fx-text-fill: white;
 }
 
+.menu-button {
+    -fx-background-color: #c9ced8;
+}
+
+.menu-button:hover {
+    -fx-background-color: #32486b;
+}
+
+.menu-button:hover > .label {
+    -fx-text-fill: white;
+}
+
 .context-menu {
-    
+    -fx-background-color: #c9ced8;
+    -fx-background-radius: 0;
+}
+
+.menu-item {
+    -fx-pref-width: inherit;
+}
+
+.menu-item .label {
+    -fx-text-fill: black;
+}
+
+.menu-item:focused {
+    -fx-background-color: #32486b;
+    -fx-scale-y: 1.1;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: white;
 }
