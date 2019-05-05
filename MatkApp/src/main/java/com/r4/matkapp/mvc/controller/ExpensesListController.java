@@ -96,7 +96,7 @@ public class ExpensesListController implements Initializable {
         listJoined.getChildren().add(new ExpenseListFactory(true).createList(expenses[1]));
         double total = 0;
         for (Expense e : expenses[1]) {
-            total += e.getExpense_amount();
+            total += e.getExpense_amount() / e.getUsers().size();
         }
         totalPrice.setText(Double.toString(total));
 

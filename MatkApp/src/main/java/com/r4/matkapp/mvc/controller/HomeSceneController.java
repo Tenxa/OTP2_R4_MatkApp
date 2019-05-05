@@ -5,6 +5,10 @@
  */
 package com.r4.matkapp.mvc.controller;
 
+import com.r4.matkapp.mvc.model.Expense;
+import com.r4.matkapp.mvc.model.User;
+import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.view.GroupBudgetListFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -16,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 
 /**
  *
@@ -26,13 +31,17 @@ public class HomeSceneController implements Initializable, SceneController  {
     @FXML
     ProgressBar bar;
     
-    @FXML Label text;
+    @FXML Label text, personalTotal;
 
+    @FXML
+    private ScrollPane budgetList;
+    
     int p;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         junajunajuna();
+        refresh();
     }
 
     @FXML
@@ -79,6 +88,21 @@ public class HomeSceneController implements Initializable, SceneController  {
             }
             
         };
+    }
+    
+    private void refresh() {
+        DatabaseManager.updateLoggedUser();
+        budgetList.setContent(new GroupBudgetListFactory().createList(DatabaseManager.getLoggedUser().getGroup()));
+        personalTotal.setText(Double.toString(calculateTotalExpense()));
+    }
+    
+    private double calculateTotalExpense() {
+        User u = DatabaseManager.getLoggedUser();
+        double total = 0;
+        for(Expense e : u.getUser_expenses()) {
+            total += e.getExpense_amount();
+        }
+        return total;  
     }
 
 }
