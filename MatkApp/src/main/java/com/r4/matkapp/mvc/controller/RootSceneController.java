@@ -97,7 +97,7 @@ public class RootSceneController extends AbstractSceneController implements Init
         }
         selected = naviHomeButton;
         selected.setStyle("-fx-background-color: #4f6c9b;\n"
-            + "-fx-text-fill: white;");
+                + "-fx-text-fill: white;");
         selected.getGraphic().setStyle("-fx-fill: white;");
     }
 
@@ -106,10 +106,10 @@ public class RootSceneController extends AbstractSceneController implements Init
         Parent fxmlRoot = loadFXML("UserDetailScene", new UserDetailSceneController());
         setCenter(fxmlRoot);
     }
-    
+
     @FXML
     private void changeLanguage() {
-        
+
     }
 
     @FXML
@@ -123,7 +123,7 @@ public class RootSceneController extends AbstractSceneController implements Init
             window.setMinWidth(600);
             window.setResizable(false);
             //window.setScene(scene);
-            BorderPane p = (BorderPane) ((BorderPane)window.getScene().getRoot()).getCenter();
+            BorderPane p = (BorderPane) ((BorderPane) window.getScene().getRoot()).getCenter();
             p.setCenter(root);
             window.sizeToScene();
             window.show();
@@ -143,18 +143,16 @@ public class RootSceneController extends AbstractSceneController implements Init
     protected void update() {
         updateGroupList();
     }
-    
-    public void setLanguage(MouseEvent e) {
+
+    @FXML
+    public void setLanguage(MouseEvent e) throws IOException {
         if (e.getSource() == finFlag) {
-            MainApp.setLocale(new Locale("fi", "FI"));
+            MainApp.setPerf("fi", "FI");
         } else if (e.getSource() == engFlag) {
-            MainApp.setLocale(new Locale("en", "US"));
-        } else {
-            MainApp.setLocale(new Locale("ja", "JP"));
+            MainApp.setPerf("en", "US");
+        } else if (e.getSource() == jpnFlag) {
+            MainApp.setPerf("ja", "JP");
         }
-        
-        //TODO: reload
-        
     }
 
     public void updateGroupList() {
@@ -195,7 +193,7 @@ public class RootSceneController extends AbstractSceneController implements Init
             } catch (IOException ex) {
 
             }
-        });   
+        });
         icon.setSize("30");
         icon.getStyleClass().add("icon");
         b.setGraphic(icon);

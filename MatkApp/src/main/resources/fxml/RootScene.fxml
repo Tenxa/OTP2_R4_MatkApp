@@ -33,17 +33,17 @@
                </children></Pane>
             <HBox GridPane.columnIndex="1">
                <children>
-                  <ImageView fx:id="finFlag" fitHeight="19.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="finFlag" fitHeight="19.0" fitWidth="28.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@pictures/flag_fi.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="engFlag" fitHeight="19.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="engFlag" fitHeight="19.0" fitWidth="28.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@pictures/flag_gb.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="jpnFlag" fitHeight="19.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="jpnFlag" fitHeight="19.0" fitWidth="28.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@pictures/flag_jp.png" />
                      </image>
