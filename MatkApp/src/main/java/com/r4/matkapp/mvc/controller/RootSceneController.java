@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -38,6 +39,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -140,6 +142,19 @@ public class RootSceneController extends AbstractSceneController implements Init
     @Override
     protected void update() {
         updateGroupList();
+    }
+    
+    public void setLanguage(MouseEvent e) {
+        if (e.getSource() == finFlag) {
+            MainApp.setLocale(new Locale("fi", "FI"));
+        } else if (e.getSource() == engFlag) {
+            MainApp.setLocale(new Locale("en", "US"));
+        } else {
+            MainApp.setLocale(new Locale("ja", "JP"));
+        }
+        
+        //TODO: reload
+        
     }
 
     public void updateGroupList() {
