@@ -93,6 +93,7 @@ public class RootSceneController extends AbstractSceneController implements Init
         selected = naviHomeButton;
         selected.setStyle("-fx-background-color: #4f6c9b;\n"
             + "-fx-text-fill: white;");
+        selected.getGraphic().setStyle("-fx-fill: white;");
     }
 
     @FXML
