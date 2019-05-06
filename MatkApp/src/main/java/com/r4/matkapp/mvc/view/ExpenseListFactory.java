@@ -161,7 +161,7 @@ public class ExpenseListFactory {
 
     private Pane createPricePane(double price) {
         AnchorPane p = new AnchorPane();   
-        Label l = new Label(Double.toString(price));
+        Label l = new Label(String.format("%.2f",price));
         anchorLabel(l);
         
         p.getChildren().add(l); 

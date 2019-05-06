@@ -98,7 +98,7 @@ public class ExpensesListController implements Initializable {
         for (Expense e : expenses[1]) {
             total += e.getExpense_amount() / e.getUsers().size();
         }
-        totalPrice.setText(Double.toString(total));
+        totalPrice.setText(String.format("%.2f", total));
 
     }
 
