@@ -62,20 +62,22 @@ public class RootSceneController extends AbstractSceneController implements Init
     private Set<Group> userGroups;
     private ResourceBundle bundle;
 
+    private Button selected;
+
     public RootSceneController() {
         super(null);
     }
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
-        
+
         userDetailsButton.setText(bundle.getString("UserDetailsDropDown"));
         userLogOutButton.setText(bundle.getString("UserLogOut"));
         naviHomeButton.setText(bundle.getString("NaviHome"));
         naviNewGrpBtn.setText(bundle.getString("NaviNewGroup"));
         naviJoinGrpBtn.setText(bundle.getString("NaviJoinGroup"));
-        
+
         loggedUserBox.setText(DatabaseManager.getLoggedUser().getEmail());
         generateGroupList();
     }
@@ -84,6 +86,13 @@ public class RootSceneController extends AbstractSceneController implements Init
     public void setHomeScene() throws IOException {
         Parent fxmlRoot = loadFXML("HomeScene", new HomeSceneController());
         setCenter(fxmlRoot);
+        if (selected != null) {
+            selected.setStyle(null);
+            selected.getGraphic().setStyle(null);
+        }
+        selected = naviHomeButton;
+        selected.setStyle("-fx-background-color: #4f6c9b;\n"
+            + "-fx-text-fill: white;");
     }
 
     @FXML
@@ -100,7 +109,7 @@ public class RootSceneController extends AbstractSceneController implements Init
             //Scene scene = new Scene(root);
             Stage window = MainApp.getWindow();
             window.setMinHeight(400);
-            window.setMinWidth(600);           
+            window.setMinWidth(600);
             window.setResizable(false);
             //window.setScene(scene);
             BorderPane p = (BorderPane) ((BorderPane)window.getScene().getRoot()).getCenter();
@@ -118,12 +127,12 @@ public class RootSceneController extends AbstractSceneController implements Init
             updateGroupList();
         }
     }
-    
+
     @Override
     protected void update() {
         updateGroupList();
     }
-    
+
     public void updateGroupList() {
         //Node n = groupList.getChildren().get(0);
         //Node n1 = groupList.getChildren().get(1);
@@ -145,16 +154,24 @@ public class RootSceneController extends AbstractSceneController implements Init
 
     private void createGroupButton(Group g) {
         Button b = new Button(g.getGroup_name());
+        FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.GROUP);
         b.setOnAction((ActionEvent event) -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AltGroupScene.fxml"));
                 loader.setController(new AltGroupSceneController(this, g));
                 setCenter(loader.load());
+                if (selected != null) {
+                    selected.setStyle(null);
+                    selected.getGraphic().setStyle(null);
+                }
+                selected = b;
+                selected.setStyle("-fx-background-color: #4f6c9b;\n"
+                        + "-fx-text-fill: white;");
+                icon.setStyle("-fx-fill: white;");
             } catch (IOException ex) {
-                
+
             }
-        });
-        FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.GROUP);
+        });   
         icon.setSize("30");
         icon.getStyleClass().add("icon");
         b.setGraphic(icon);
@@ -186,13 +203,13 @@ public class RootSceneController extends AbstractSceneController implements Init
     }
 
     @FXML
-    private void JoinGroup(){
-        if (JoinGroupInputDialog() != null){
+    private void JoinGroup() {
+        if (JoinGroupInputDialog() != null) {
             updateGroupList();
         }
     }
 
-    private Group JoinGroupInputDialog(){
+    private Group JoinGroupInputDialog() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle(bundle.getString("JoinGroupHeader"));
         dialog.setContentText(bundle.getString("JoinGroupMsg"));
@@ -201,7 +218,7 @@ public class RootSceneController extends AbstractSceneController implements Init
         if (result.isPresent()) {
             DatabaseManager<Group> gManager = new GroupManager();
             Group g = gManager.find(result.get());
-            if (g != null){
+            if (g != null) {
                 User us = DatabaseManager.getLoggedUser();
                 g.getUsers().add(us);
                 gManager.update(g);
@@ -215,6 +232,6 @@ public class RootSceneController extends AbstractSceneController implements Init
 
     public void setCenter(Node node) {
         root.setCenter(node);
-    }   
+    }
 
 }
