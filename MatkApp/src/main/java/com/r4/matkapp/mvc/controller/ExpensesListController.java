@@ -86,9 +86,11 @@ public class ExpensesListController implements Initializable {
     public void loadExpenseList() {
 
         list.getChildren().remove(1);
-        list.getChildren().add(new ExpenseListFactory(this).createList(cont.getSelectedGroup().getExpenses()));
+        List<Expense> l = new ArrayList<>(cont.getSelectedGroup().getExpenses());
+        Collections.sort(l);
+        list.getChildren().add(new ExpenseListFactory(this).createList((l)));
 
-        Set<Expense>[] expenses = split(cont.getSelectedGroup().getExpenses());
+        List<Expense>[] expenses = split(cont.getSelectedGroup().getExpenses());
         listNotJoined.getChildren().remove(1); // remove old list (index 1)
         listNotJoined.getChildren().add(new ExpenseListFactory(this).createList(expenses[0]));
 
@@ -102,7 +104,7 @@ public class ExpensesListController implements Initializable {
 
     }
 
-    private Set<Expense>[] split(Set<Expense> expenses) {
+    private List<Expense>[] split(Set<Expense> expenses) {
         List<Expense> notJoined = new ArrayList<>();
         List<Expense> joined = new ArrayList<>();
         User loggedUser = DatabaseManager.getLoggedUser();
@@ -121,9 +123,9 @@ public class ExpensesListController implements Initializable {
         }
         Collections.sort(notJoined);
         Collections.sort(joined);
-        Set<Expense>[] result = new Set[2];
-        result[0] = new HashSet<>(notJoined);
-        result[1] = new HashSet<>(joined);
+        List<Expense>[] result = new List[2];
+        result[0] = notJoined;
+        result[1] = joined;
         return result;
     }
 }

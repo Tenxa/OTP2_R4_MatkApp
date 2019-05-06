@@ -7,6 +7,7 @@ import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.model.dbmanager.ExpenseManager;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.event.ActionEvent;
@@ -56,7 +57,7 @@ public class ExpenseListFactory {
         this.ctrl = ctrl;
     }
 
-    public GridPane createList(Set<Expense> expenses) {
+    public GridPane createList(List<Expense> expenses) {
 
         int row = 0;
         for (Expense e : expenses) {
