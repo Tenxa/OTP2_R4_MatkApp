@@ -89,12 +89,12 @@
             </Button>
             <Button fx:id="naviNewGrpBtn" alignment="BASELINE_LEFT" graphicTextGap="8.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#createNewGroup" prefHeight="50.0" prefWidth="100.0" text="Uusi ryhmä" GridPane.rowIndex="3">
                <graphic>
-                  <FontAwesomeIconView glyphName="PLUS" size="34" />
+                  <FontAwesomeIconView glyphName="PLUS" size="34" styleClass="icon" />
                </graphic>
             </Button>
             <Button fx:id="naviJoinGrpBtn" alignment="BASELINE_LEFT" graphicTextGap="8.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#JoinGroup" prefHeight="50.0" prefWidth="165.0" text="Liity ryhmään" GridPane.rowIndex="4">
                <graphic>
-                  <FontAwesomeIconView glyphName="ARROW_RIGHT" size="34" />
+                  <FontAwesomeIconView glyphName="ARROW_RIGHT" size="34" styleClass="icon" />
                </graphic>
             </Button>
          </children>
