@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
@@ -39,6 +40,25 @@
                <children>
                   <ImageView fitHeight="56.0" fitWidth="167.0" layoutX="-2.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
                </children></Pane>
+            <HBox GridPane.columnIndex="1">
+               <children>
+                  <ImageView fx:id="finFlag" fitHeight="19.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/flag_fi.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="engFlag" fitHeight="19.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/flag_gb.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="jpnFlag" fitHeight="19.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/flag_jp.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
          <BorderPane.margin>
             <Insets />

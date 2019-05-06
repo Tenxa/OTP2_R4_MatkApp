@@ -37,6 +37,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -58,6 +59,8 @@ public class RootSceneController extends AbstractSceneController implements Init
     private MenuItem userDetailsButton, userLogOutButton;
     @FXML
     private Button naviHomeButton, naviNewGrpBtn, naviJoinGrpBtn;
+    @FXML
+    private ImageView finFlag, engFlag, jpnFlag;
 
     private Set<Group> userGroups;
     private ResourceBundle bundle;
@@ -100,6 +103,11 @@ public class RootSceneController extends AbstractSceneController implements Init
     private void setDetailScene() throws IOException {
         Parent fxmlRoot = loadFXML("UserDetailScene", new UserDetailSceneController());
         setCenter(fxmlRoot);
+    }
+    
+    @FXML
+    private void changeLanguage() {
+        
     }
 
     @FXML
