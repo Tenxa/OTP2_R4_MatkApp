@@ -27,15 +27,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <MenuButton fx:id="loggedUserBox" minWidth="100.0" mnemonicParsing="false" text="user" GridPane.columnIndex="1">
-              <items>
-                <MenuItem fx:id="userDetailsButton" mnemonicParsing="false" onAction="#setDetailScene" text="Omat tiedot" />
-                <MenuItem fx:id="userLogOutButton" mnemonicParsing="false" onAction="#logout" text="Kirjaudu ulos" />
-              </items>
-               <GridPane.margin>
-                  <Insets right="5.0" />
-               </GridPane.margin>
-            </MenuButton>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #929eb5;">
                <children>
                   <ImageView fitHeight="56.0" fitWidth="167.0" layoutX="-2.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
@@ -59,6 +50,15 @@
                   </ImageView>
                </children>
             </HBox>
+            <MenuButton fx:id="loggedUserBox" minWidth="100.0" mnemonicParsing="false" text="user" GridPane.columnIndex="1">
+              <items>
+                <MenuItem fx:id="userDetailsButton" mnemonicParsing="false" onAction="#setDetailScene" text="Omat tiedot" />
+                <MenuItem fx:id="userLogOutButton" mnemonicParsing="false" onAction="#logout" text="Kirjaudu ulos" />
+              </items>
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </MenuButton>
          </children>
          <BorderPane.margin>
             <Insets />
