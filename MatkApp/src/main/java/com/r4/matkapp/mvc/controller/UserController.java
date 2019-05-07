@@ -122,7 +122,7 @@ public class UserController {
         String text = loggedUser.getFirst_name() + " "+ loggedUser.getLast_name() + " has sent you an invitation.\n"
                 + "Group: " + group.getGroup_name() + "\n"
                 + "Here is the link: " +group.getInvite();
-        email.Send(user.getEmail(), subject, text);
+        email.send(user.getEmail(), subject, text);
     }
 
     public boolean addUsertoGroup(String invitation, Group group){

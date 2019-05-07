@@ -15,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,7 +24,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -51,7 +49,8 @@ public class LoginSceneController implements Initializable {
     @FXML
     private StackPane loginPane, createPane;
     
-    @FXML Button loginButton, createUserButton, loginSignUpButton, backButton;
+    @FXML 
+    private Button loginButton, createUserButton, loginSignUpButton, backButton;
     
     @FXML
     private ImageView finFlag, engFlag, jpnFlag;

@@ -1,5 +1,6 @@
 package com.r4.matkapp;
 
+import com.r4.matkapp.mvc.model.SendEmail;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import java.util.Locale;
 import java.util.prefs.Preferences;
@@ -24,8 +25,12 @@ public class MainApp extends Application {
     public static Stage getWindow() {
         return window;
     }
+    
+    public static synchronized void setWindow(Stage s) {
+        window = s;
+    }
 
-    public static void setLocale(Locale l) {
+    public static synchronized void setLocale(Locale l) {
         locale = l;
     }
 
@@ -35,7 +40,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        
         FXMLLoader loader = new FXMLLoader();
         BorderPane root = new BorderPane();
         Parent pane = loader.load(getClass().getResource("/fxml/LoginScene.fxml"));
@@ -60,7 +65,7 @@ public class MainApp extends Application {
         });
         
         stage.show();
-        window = stage;
+        setWindow(stage);
         ResizeHelper.addResizeListener(stage);
     }
 
