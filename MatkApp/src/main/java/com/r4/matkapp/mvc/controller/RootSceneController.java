@@ -61,8 +61,6 @@ public class RootSceneController extends AbstractSceneController implements Init
     private MenuItem userDetailsButton, userLogOutButton;
     @FXML
     private Button naviHomeButton, naviNewGrpBtn, naviJoinGrpBtn;
-    @FXML
-    private ImageView finFlag, engFlag, jpnFlag;
 
     private Set<Group> userGroups;
     private ResourceBundle bundle;
@@ -142,17 +140,6 @@ public class RootSceneController extends AbstractSceneController implements Init
     @Override
     protected void update() {
         updateGroupList();
-    }
-
-    @FXML
-    public void setLanguage(MouseEvent e) throws IOException {
-        if (e.getSource() == finFlag) {
-            MainApp.setPerf("fi", "FI");
-        } else if (e.getSource() == engFlag) {
-            MainApp.setPerf("en", "US");
-        } else if (e.getSource() == jpnFlag) {
-            MainApp.setPerf("ja", "JP");
-        }
     }
 
     public void updateGroupList() {

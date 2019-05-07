@@ -91,6 +91,7 @@ public class MainApp extends Application {
     public static void setPerf(String lang, String region) {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
         prefs.put("language", lang);
-            prefs.put("region", region);
+        prefs.put("region", region);
+        setLocale(new Locale(lang, region));
     }
 }

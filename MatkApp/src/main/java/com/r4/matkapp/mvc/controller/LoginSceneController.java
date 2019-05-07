@@ -21,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -51,8 +53,11 @@ public class LoginSceneController implements Initializable {
     
     @FXML Button loginButton, createUserButton, loginSignUpButton, backButton;
     
+    @FXML
+    private ImageView finFlag, engFlag, jpnFlag;
+    
     private UserController uController;
-    private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+    private ResourceBundle bundle;
     private AlertFactory alert;
     
     /**
@@ -61,7 +66,12 @@ public class LoginSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         uController = new UserController();        
+        setTexts();
         
+    }
+    
+    private void setTexts() {
+        bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
         loginEmailLabel.setText(bundle.getString("GenericEmailLabel"));
         loginPasswordLabel.setText(bundle.getString("LoginPasswordLabel"));
         loginButton.setText(bundle.getString("LoginLoginButton"));
@@ -76,6 +86,18 @@ public class LoginSceneController implements Initializable {
         backButton.setText(bundle.getString("GenericCancelButton"));
     }
     
+    @FXML
+    public void setLanguage(MouseEvent e) throws IOException {
+        if (e.getSource() == finFlag) {
+            MainApp.setPerf("fi", "FI");
+        } else if (e.getSource() == engFlag) {
+            MainApp.setPerf("en", "US");
+        } else if (e.getSource() == jpnFlag) {
+            MainApp.setPerf("ja", "JP");
+        }
+        
+        setTexts();
+    }
     @FXML
     private void login(ActionEvent event) throws IOException {
         if (uController.checkLogin(getLoginEmail().getText(), loginPassword.getText())) {
