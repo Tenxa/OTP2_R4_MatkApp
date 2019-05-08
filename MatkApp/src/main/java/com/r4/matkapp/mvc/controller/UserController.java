@@ -6,7 +6,6 @@
 package com.r4.matkapp.mvc.controller;
 
 import com.r4.matkapp.mvc.model.SecurePassword;
-import com.r4.matkapp.dao.*;
 import com.r4.matkapp.mvc.model.*;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
@@ -21,17 +20,6 @@ import javafx.scene.control.Alert;
 // näyttäis vaa database controllerilt
 // muutenki aika sekava
 public class UserController {
-/*
-    public static DatabaseSession dbSession = new DatabaseSession();
-    static DAO dao = new UserDAO(dbSession.getSessionFactory());
-    public static DAO groupDAO = new GroupDAO(dbSession.getSessionFactory());
-    public static DAO expenseDAO = new ExpenseDAO(dbSession.getSessionFactory());
-
-    private static User loggedUser = null;
-*/
-    public UserController() {
-
-    }
 
     /**
      * Adds new user into database.
@@ -133,10 +121,6 @@ public class UserController {
             return true;
         }
         return false;
-    }
-
-    public void deleteGroup(Group group) {
-        // TODO
     }
 
     /**

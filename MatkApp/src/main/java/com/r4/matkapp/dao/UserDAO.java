@@ -17,14 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  * @author teemu
  */
-public class UserDAO implements DAO<User> {
-    
-    private SessionFactory sessionFactory = null;
-    private Session session = null;
+public class UserDAO extends AbstractDAO<User> {
     
     @Autowired
     public UserDAO(SessionFactory dbSession) {
-        sessionFactory = dbSession;
+        super(dbSession);
     }
 
     @Override
@@ -114,7 +111,6 @@ public class UserDAO implements DAO<User> {
             getSession().getTransaction().commit();
            return u;
        } catch (Exception e) {
-            e.printStackTrace();
             if (getSession().getTransaction().isActive()) {
                 getSession().getTransaction().rollback();
             }
@@ -140,34 +136,6 @@ public class UserDAO implements DAO<User> {
         } finally {
             getSession().close();
         } 
-    }
-
-    /**
-     * @return the sessionFactory
-     */
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    /**
-     * @param sessionFactory the sessionFactory to set
-     */
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    /**
-     * @return the session
-     */
-    public Session getSession() {
-        return session;
-    }
-
-    /**
-     * @param session the session to set
-     */
-    public void setSession(Session session) {
-        this.session = session;
     }
 
     @Override
