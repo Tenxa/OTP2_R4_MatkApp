@@ -29,35 +29,39 @@ import javafx.scene.layout.RowConstraints;
  */
 public class ExpenseListFactory {
 
-    private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
-    private final String join = bundle.getString("GroupExpensesJoinButton"), info = bundle.getString("GroupExpensesInfoButton");
-    private GridPane pane;
+    private ResourceBundle bundle;
+    private String join;
+    private String info;
     
     private boolean split;
     private ExpensesListController ctrl;
    
 
     public ExpenseListFactory() {
-        pane = new GridPane();
-        setColumnConstraints();
-        split = false;
+        this(ResourceBundle.getBundle("properties.default", MainApp.getLocale()), false);
     }
     
     public ExpenseListFactory(boolean split) {
-        pane = new GridPane();
-        setColumnConstraints();
-        this.split = split;
+        this(ResourceBundle.getBundle("properties.default", MainApp.getLocale()), split);
     }
     
     public ExpenseListFactory(ExpensesListController ctrl) {
-        pane = new GridPane();
-        setColumnConstraints();
-        this.split = false;
+        this(ResourceBundle.getBundle("properties.default", MainApp.getLocale()), false);
         this.ctrl = ctrl;
+    }
+    
+    public ExpenseListFactory(ResourceBundle rb, boolean split) {
+        this.split = split;
+        this.bundle = rb;
+        this.join = bundle.getString("GroupExpensesJoinButton");
+        this.info = bundle.getString("GroupExpensesInfoButton");
     }
 
     public GridPane createList(List<Expense> expenses) {
-
+        if(expenses == null) {
+            return null;
+        }
+        GridPane pane = new GridPane();
         int row = 0;
         for (Expense e : expenses) {
 
@@ -95,10 +99,11 @@ public class ExpenseListFactory {
             pane.getRowConstraints().add(new RowConstraints(50));
 
         }
+        setColumnConstraints(pane);
         return pane;
     }
 
-    private void setColumnConstraints() {
+    private void setColumnConstraints(GridPane pane) {
         ColumnConstraints descriptionColumn = new ColumnConstraints();
         descriptionColumn.setFillWidth(true);
         descriptionColumn.setPercentWidth(40);
