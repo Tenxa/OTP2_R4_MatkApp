@@ -8,33 +8,59 @@ package com.r4.matkapp.dao;
 import java.util.List;
 
 /**
- * @param <T>
+ * @param <Entity>
  */
-public interface DAO<T> {
+public interface DAO<Entity> {
     
-    abstract List<T> getAll();
+    /**
+     * 
+     * @return List containing all entities (rows) in table or null if table is empty.
+     */
+    abstract List<Entity> getAll();
     
-    abstract void create(T t);
+    /**
+     * Persist the given transient entity, first assigning a generated identifier.
+     * 
+     * @param entity 
+     */
+    abstract void create(Entity entity);
     
-    abstract void update(T t);
+    /**
+     * Update the persistent entity with the identifier of the given detached instance.
+     * 
+     * @param entity 
+     */
+    abstract void update(Entity entity);
     
-    abstract void delete(T t);
+    /**
+     * Remove a persistent entity.
+     * 
+     * @param entity 
+     */
+    abstract void delete(Entity entity);
     
     /**
      * Find Object with specified column data value.
      * Currently each concrete data access object specifies what column it is.
-     * @param column
-     * @return Object
+     * 
+     * @param column Table column name.
+     * @return Entity or null if row does not exits.
      */
-    abstract T find(String column);
+    abstract Entity find(String column);
     
     /**
-     * Find Object with id value.
-     * @param id
-     * @return Object 
+     * Find Entity with id value.
+     * 
+     * @param id Entity id attribute.
+     * @return Entity or null if row does not exits. 
      */
-    abstract T find(int id);
+    abstract Entity find(int id);
     
-    abstract void refresh(T t);
+    /**
+     * Re-read the state of the given entity from the underlying database.
+     * 
+     * @param entity 
+     */
+    abstract void refresh(Entity entity);
     
 }

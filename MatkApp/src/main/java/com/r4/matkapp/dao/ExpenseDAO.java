@@ -41,24 +41,6 @@ public class ExpenseDAO extends AbstractDAO<Expense> {
     }
 
     @Override
-    public void create(Expense e) {
-        setSession(getSessionFactory().openSession());
-        getSession().beginTransaction();
-        getSession().saveOrUpdate(e);
-        getSession().getTransaction().commit();
-        getSession().close();
-    }
-
-    @Override
-    public void update(Expense e) {
-        setSession(getSessionFactory().openSession());
-        getSession().beginTransaction();
-        getSession().update(e);
-        getSession().getTransaction().commit();
-        getSession().close();
-    }
-
-    @Override
     public void delete(Expense e) {
         setSession(getSessionFactory().openSession());
         try {
@@ -78,6 +60,12 @@ public class ExpenseDAO extends AbstractDAO<Expense> {
         }
     }
 
+    /**
+     * Find Expense by description.
+     * 
+     * @param description Expense description
+     * @return Expense Object or null if no Expense found with given description
+     */
     @Override
     public Expense find(String description) {
         setSession(getSessionFactory().openSession());
@@ -118,14 +106,5 @@ public class ExpenseDAO extends AbstractDAO<Expense> {
         } finally {
             getSession().close();
         }
-    }
-
-    @Override
-    public void refresh(Expense t) {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.refresh(t);
-        session.getTransaction().commit();
-        session.close();
     }
 }

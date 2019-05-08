@@ -36,10 +36,19 @@ public class DatabaseSession {
         }
     }
     
+    /**
+     *
+     * @return SessionFactory
+     * @see SessionFactory
+     */
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
     
+    /**
+     * Closes the SessionFactory
+     * @see SessionFactory#close() 
+     */
     public void close() {
         sessionFactory.close();
     }

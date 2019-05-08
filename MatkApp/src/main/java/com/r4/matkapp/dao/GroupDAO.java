@@ -46,40 +46,6 @@ public class GroupDAO extends AbstractDAO<Group> {
     }
 
     @Override
-    public void create(Group g) {
-        setSession(getSessionFactory().openSession());
-        try {
-            getSession().beginTransaction();
-            getSession().saveOrUpdate(g);
-            getSession().getTransaction().commit();
-        } catch (Exception e) {
-            if (getSession().getTransaction() != null) {
-                getSession().beginTransaction().rollback();
-            }
-            throw e;
-        } finally {
-            getSession().close();
-        }
-    }
-
-    @Override
-    public void update(Group g) {
-        setSession(getSessionFactory().openSession());
-        try {
-            getSession().beginTransaction();
-            getSession().update(g);
-            getSession().getTransaction().commit();
-        } catch (Exception e) {
-            if (getSession().getTransaction() != null) {
-                getSession().beginTransaction().rollback();
-            }
-            throw e;
-        } finally {
-            getSession().close();
-        }
-    }
-
-    @Override
     public void delete(Group g) {
         setSession(getSessionFactory().openSession());
         try {
@@ -99,6 +65,12 @@ public class GroupDAO extends AbstractDAO<Group> {
         }
     }
 
+    /**
+     * Find Group by invite.
+     * 
+     * @param invite Group invite String
+     * @return Group Object or null if no groups found with given invite
+     */
     @Override
     public Group find(String invite) {
         setSession(getSessionFactory().openSession());
@@ -140,14 +112,4 @@ public class GroupDAO extends AbstractDAO<Group> {
             getSession().close();
         } 
     }
-
-    @Override
-    public void refresh(Group t) {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.refresh(t);
-        session.getTransaction().commit();
-        session.close();       
-    }
-
 }

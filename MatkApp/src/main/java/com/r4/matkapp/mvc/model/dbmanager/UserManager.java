@@ -5,42 +5,17 @@
  */
 package com.r4.matkapp.mvc.model.dbmanager;
 
+import com.r4.matkapp.dao.UserDAO;
 import com.r4.matkapp.mvc.model.User;
 
 /**
+ * Class for managing User Database Access Object
  *
  * @author Eero
  */
 public class UserManager extends DatabaseManager<User> {
 
-    @Override
-    public void create(User entity) {
-        USER_DAO.create(entity);
+    public UserManager() {
+        super(new UserDAO(dbSession.getSessionFactory()));
     }
-
-    @Override
-    public void refresh(User entity) {
-        USER_DAO.refresh(entity);
-    }
-
-    @Override
-    public void update(User entity) {
-        USER_DAO.update(entity);
-    }
-
-    @Override
-    public void delete(User entity) {
-        USER_DAO.delete(entity);
-    }
-
-    @Override
-    public User find(int id) {
-        return USER_DAO.find(id);
-    }
-
-    @Override
-    public User find(String col) {
-        return USER_DAO.find(col);
-    }
-    
 }

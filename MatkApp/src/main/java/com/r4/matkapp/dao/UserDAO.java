@@ -42,40 +42,6 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     @Override
-    public void create(User u) {
-        setSession(getSessionFactory().openSession());
-        try {
-            getSession().beginTransaction();
-            getSession().saveOrUpdate(u);
-            getSession().getTransaction().commit();
-        } catch (Exception e) {
-            if (getSession().getTransaction() != null) {
-                getSession().getTransaction().rollback();
-            }
-            throw e;
-        } finally {
-            getSession().close();
-        }
-    }
-
-    @Override
-    public void update(User u) {
-        setSession(getSessionFactory().openSession());
-        try {
-            getSession().beginTransaction();
-            getSession().update(u);
-            getSession().getTransaction().commit();
-        } catch (Exception e) {
-            if (getSession().getTransaction() != null) {
-                getSession().getTransaction().rollback();
-            }
-            throw e;
-        } finally {
-            getSession().close();
-        }
-    }
-
-    @Override
     public void delete(User u) {
         setSession(getSessionFactory().openSession());
         try {
@@ -95,7 +61,12 @@ public class UserDAO extends AbstractDAO<User> {
         }
     }
 
-
+    /**
+     * Find User by email
+     * 
+     * @param email User email
+     * @return User Object or null if no user found with given email.
+     */
     @Override
     public User find(String email) {
         setSession(getSessionFactory().openSession());
@@ -136,15 +107,6 @@ public class UserDAO extends AbstractDAO<User> {
         } finally {
             getSession().close();
         } 
-    }
-
-    @Override
-    public void refresh(User t) {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.refresh(t);
-        session.getTransaction().commit();
-        session.close();  
     }
 
 }
