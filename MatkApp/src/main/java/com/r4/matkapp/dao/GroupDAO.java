@@ -21,13 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 
 
-public class GroupDAO implements DAO<Group> {
-    private SessionFactory sessionFactory = null;
-    private Session session = null;
-    
+public class GroupDAO extends AbstractDAO<Group> {
+
     @Autowired
     public GroupDAO(SessionFactory dbSession) {
-        sessionFactory = dbSession;
+        super(dbSession);
     }
     
     @Override
@@ -116,7 +114,6 @@ public class GroupDAO implements DAO<Group> {
             getSession().getTransaction().commit();
             return g;
         } catch (Exception e) {
-            e.printStackTrace();
             if (getSession().getTransaction().isActive()) {
                 getSession().beginTransaction().rollback();
             }
@@ -142,34 +139,6 @@ public class GroupDAO implements DAO<Group> {
         } finally {
             getSession().close();
         } 
-    }
-
-    /**
-     * @return the sessionFactory
-     */
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    /**
-     * @param sessionFactory the sessionFactory to set
-     */
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    /**
-     * @return the session
-     */
-    public Session getSession() {
-        return session;
-    }
-
-    /**
-     * @param session the session to set
-     */
-    public void setSession(Session session) {
-        this.session = session;
     }
 
     @Override

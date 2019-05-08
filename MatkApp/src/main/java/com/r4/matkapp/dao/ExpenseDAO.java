@@ -7,9 +7,6 @@ package com.r4.matkapp.dao;
 
 import com.r4.matkapp.mvc.model.Expense;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Eero
  */
-public class ExpenseDAO implements DAO<Expense> {
-
-    private SessionFactory sessionFactory = null;
-    private Session session = null;
+public class ExpenseDAO extends AbstractDAO<Expense> {
 
     @Autowired
     public ExpenseDAO(SessionFactory dbSession) {
-        sessionFactory = dbSession;
+        super(dbSession);
     }
 
     @Override
@@ -124,34 +118,6 @@ public class ExpenseDAO implements DAO<Expense> {
         } finally {
             getSession().close();
         }
-    }
-
-    /**
-     * @return the sessionFactory
-     */
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    /**
-     * @param sessionFactory the sessionFactory to set
-     */
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    /**
-     * @return the session
-     */
-    public Session getSession() {
-        return session;
-    }
-
-    /**
-     * @param session the session to set
-     */
-    public void setSession(Session session) {
-        this.session = session;
     }
 
     @Override
