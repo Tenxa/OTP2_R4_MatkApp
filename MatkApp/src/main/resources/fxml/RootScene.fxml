@@ -5,12 +5,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -25,10 +25,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #929eb5;">
-               <children>
-                  <ImageView fitHeight="56.0" fitWidth="167.0" layoutX="-2.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
-               </children></Pane>
             <MenuButton fx:id="loggedUserBox" minWidth="100.0" mnemonicParsing="false" text="user" GridPane.columnIndex="1">
               <items>
                 <MenuItem fx:id="userDetailsButton" mnemonicParsing="false" onAction="#setDetailScene" text="Omat tiedot" />
@@ -38,6 +34,11 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </MenuButton>
+            <ImageView fitHeight="55.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/matkapp_logo2.png" />
+               </image>
+            </ImageView>
          </children>
          <BorderPane.margin>
             <Insets />
