@@ -11,7 +11,6 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -19,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -57,7 +55,7 @@ public class DragBar {
         bar.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (ResizeHelper.canMove) {
+                if (ResizeHelper.getCanMove()) {
                     if (MainApp.getWindow().isMaximized()) {
                         maxButton.fire();
                     }
@@ -154,8 +152,8 @@ public class DragBar {
     private void setStageCenter(Stage stage) {
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
-        double offset = 400;
-        stage.setX(bounds.getWidth()/2 - 400);
-        stage.setY(bounds.getHeight()/2 - 400);
+        final double offset = 400;
+        stage.setX(bounds.getWidth()/2 - offset);
+        stage.setY(bounds.getHeight()/2 - offset);
     }
 }

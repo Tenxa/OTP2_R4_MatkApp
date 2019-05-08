@@ -43,12 +43,10 @@ public class GroupInvitationSceneController implements Initializable {
     private ResourceBundle bundle;
     
     private Group activeGroup;
-    private AltGroupSceneController parentController;
     private AlertFactory alert;
 
-    protected GroupInvitationSceneController(AltGroupSceneController parentController, Group activeGroup) {
-        this.activeGroup = activeGroup;
-        this.parentController = parentController;
+    protected GroupInvitationSceneController(Group activeGroup) {
+        this.activeGroup = activeGroup; 
     }
     
     /* Sähköposti osoite, mikä syötetään käyttöliittymään

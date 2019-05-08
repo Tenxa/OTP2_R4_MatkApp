@@ -11,13 +11,11 @@ import com.r4.matkapp.mvc.model.Group;
 import java.util.Set;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 /**
@@ -54,7 +52,6 @@ public class GroupBudgetListFactory {
         
         ProgressBar bar = new ProgressBar(percent);
         bar.setMaxWidth(Double.MAX_VALUE);
-        //bar.setPrefWidth(Control.USE_COMPUTED_SIZE);
         pane.add(bar, 0, 2, 3 ,1);
         
         pane.styleProperty().set("-fx-background-color: white;");

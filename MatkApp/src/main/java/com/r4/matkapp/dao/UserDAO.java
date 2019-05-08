@@ -5,7 +5,6 @@
  */
 package com.r4.matkapp.dao;
 
-import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.User;
 import java.util.List;
 import org.hibernate.Session;
@@ -134,10 +133,13 @@ public class UserDAO implements DAO<User> {
            getSession().getTransaction().commit();
            return u;
         } catch(Exception ex) {
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
+            }
+            throw ex;
         } finally {
             getSession().close();
         } 
-        return null;
     }
 
     /**

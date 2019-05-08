@@ -1,6 +1,5 @@
 package com.r4.matkapp;
 
-import com.r4.matkapp.mvc.model.SendEmail;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import java.util.Locale;
 import java.util.prefs.Preferences;
@@ -18,11 +17,13 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class MainApp extends Application {
-
+    
+    private static final String LANGUAGE = "language", REGION = "region";
+    
     private static Stage window;
     private static Locale locale;
 
-    public static Stage getWindow() {
+    public static synchronized Stage getWindow() {
         return window;
     }
     
@@ -34,7 +35,7 @@ public class MainApp extends Application {
         locale = l;
     }
 
-    public static Locale getLocale() {
+    public static synchronized Locale getLocale() {
         return locale;
     }
 
@@ -84,19 +85,19 @@ public class MainApp extends Application {
     @Override
     public void init() {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        if (prefs.get("language", null) == null) {
-            prefs.put("language", "en");
-            prefs.put("region", "US");
+        if (prefs.get(LANGUAGE, null) == null) {
+            prefs.put(LANGUAGE, "en");
+            prefs.put(REGION, "US");
         }
-        String lang = prefs.get("language", "root");
-        String region = prefs.get("region", "root");
+        String lang = prefs.get(LANGUAGE, "root");
+        String region = prefs.get(REGION, "root");
         setLocale(new Locale(lang, region));
     }
     
     public static void setPerf(String lang, String region) {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        prefs.put("language", lang);
-        prefs.put("region", region);
+        prefs.put(LANGUAGE, lang);
+        prefs.put(REGION, region);
         setLocale(new Locale(lang, region));
     }
 }

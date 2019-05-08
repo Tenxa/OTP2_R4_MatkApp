@@ -1,12 +1,10 @@
 package com.r4.matkapp.mvc.model;
 
-import com.r4.matkapp.mvc.model.User;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -16,9 +14,6 @@ import javax.crypto.spec.PBEKeySpec;
  * authenticating user.
  * @author Mika
  */
-
-// TODO:
-// - tesit
 
 // Each user has a unique salt
 // This salt must be recomputed during password change!
@@ -40,22 +35,19 @@ public class SecurePassword {
         } else {
             String salt = user.getSalt();
             String calculatedHash = getEncryptedPassword(inputPass, salt);
-            if (calculatedHash.equals(user.getPassword())) {
-                return true;
-            } else {
-                return false;
-            }
+            return calculatedHash.equals(user.getPassword());
         }
     }
     
     /**
      * Generates Encrypted password for password with given salt.
-     * @param inputPassword
-     * @param salt
-     * @return
-     * @throws Exception 
+     * @param inputPassword 
+     * @param salt User salt
+     * @return generated encrypted String
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException 
      */
-    public String generateEncryptedPassword(String inputPassword, String salt) throws Exception {
+    public String generateEncryptedPassword(String inputPassword, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException{
         String algorithm = "PBKDF2WithHmacSHA1";
         int derivedKeyLength = 160;
         int iterations = 20000;
@@ -70,8 +62,13 @@ public class SecurePassword {
     
     /**
      * Get a encrypted password using PBKDF2 hash algorithm
+     * @param password
+     * @param salt
+     * @return encrypted String
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException
      */
-    public String getEncryptedPassword(String password, String salt) throws Exception {
+    public String getEncryptedPassword(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
         String algorithm = "PBKDF2WithHmacSHA1";
         int derivedKeyLength = 160; // for SHA1
         int iterations = 20000; // NIST specifies 10000
@@ -87,12 +84,12 @@ public class SecurePassword {
     
     /**
      * Returns base64 encoded salt.
-     * @return
-     * @throws Exception 
+     * @return Salt
+     * @throws java.security.NoSuchAlgorithmException 
      */
     // (salt = random string, joka lisätään salasanan perään
     // kryptauksen randomisoinnin varimistamiseksi)
-    public String getNewSalt() throws Exception {
+    public String getNewSalt() throws NoSuchAlgorithmException {
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         // NIST recommends minimum 4 bytes. We use 8.
         byte[] salt = new byte[8];

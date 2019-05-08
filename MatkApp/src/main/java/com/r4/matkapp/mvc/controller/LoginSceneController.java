@@ -105,7 +105,6 @@ public class LoginSceneController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("/fxml/RootScene.fxml").openStream());
             RootSceneController cont = loader.getController();
-            Scene scene = new Scene(root);
             Stage window = MainApp.getWindow();
             window.setResizable(true);
             window.setMinWidth(750);
@@ -124,8 +123,8 @@ public class LoginSceneController implements Initializable {
     private void createUser(ActionEvent event) {
         if (uController.addUser(first_name.getText(), last_name.getText(),
                 email.getText(), password.getText())) {
-            AlertFactory alert = new InformationAlert();
-            alert.createAlert(null, bundle.getString("LoginSignUpSuccess"));
+            AlertFactory createAlert = new InformationAlert();
+            createAlert.createAlert(null, bundle.getString("LoginSignUpSuccess"));
 
             first_name.clear();
             last_name.clear();

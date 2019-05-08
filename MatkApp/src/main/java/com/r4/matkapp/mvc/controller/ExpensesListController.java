@@ -7,14 +7,12 @@ package com.r4.matkapp.mvc.controller;
 
 import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Expense;
-import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.view.ExpenseListFactory;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -38,13 +36,14 @@ public class ExpensesListController implements Initializable {
     @FXML
     private VBox list, listJoined, listNotJoined;
     @FXML
-    private Label descriptionLabel, totalpriceLabel, participantsLabel, totalPrice, descriptionLabel1, totalpriceLabel1, participantsLabel1, totalLabel, descriptionLabel2, totalpriceLabel2, participantsLabel2;
+    private Label descriptionLabel, totalpriceLabel, participantsLabel, totalPrice, 
+            descriptionLabel1, totalpriceLabel1, participantsLabel1, totalLabel, 
+            descriptionLabel2, totalpriceLabel2, participantsLabel2;
     @FXML
     private Button updateButton, updateButton1, updateButton2;
     @FXML
     private Tab allExpenses, myExpenses, notJoinedExpenses;
 
-    private Group activeGroup;
     private AltGroupSceneController cont;
     private ResourceBundle bundle;
 
@@ -59,19 +58,27 @@ public class ExpensesListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
         refreshExpenseList();
-
-        descriptionLabel.setText(bundle.getString("GroupExpensesDescLabel"));
-        descriptionLabel1.setText(bundle.getString("GroupExpensesDescLabel"));
-        descriptionLabel2.setText(bundle.getString("GroupExpensesDescLabel"));
-        totalpriceLabel.setText(bundle.getString("GroupExpensesPriceLabel"));
+        
+        final String GROUP_EXPENSE_DESC_LABEL = bundle.getString("GroupExpensesDescLabel");
+        descriptionLabel.setText(GROUP_EXPENSE_DESC_LABEL);
+        descriptionLabel1.setText(GROUP_EXPENSE_DESC_LABEL);
+        descriptionLabel2.setText(GROUP_EXPENSE_DESC_LABEL);
+        
+        final String GROUP_EXPENSE_PRICE_LABEL = bundle.getString("GroupExpensesPriceLabel");
+        totalpriceLabel.setText(GROUP_EXPENSE_PRICE_LABEL);
         totalpriceLabel1.setText(bundle.getString("GroupExpensesMyPortionLabel"));
-        totalpriceLabel2.setText(bundle.getString("GroupExpensesPriceLabel"));
-        participantsLabel.setText(bundle.getString("GroupExpensesParticipantLabel"));
-        participantsLabel1.setText(bundle.getString("GroupExpensesParticipantLabel"));
-        participantsLabel2.setText(bundle.getString("GroupExpensesParticipantLabel"));
-        updateButton.setText(bundle.getString("GroupExpensesUpdateButton"));
-        updateButton1.setText(bundle.getString("GroupExpensesUpdateButton"));
-        updateButton2.setText(bundle.getString("GroupExpensesUpdateButton"));
+        totalpriceLabel2.setText(GROUP_EXPENSE_PRICE_LABEL);
+        
+        final String GROUP_EXPENSE_PARTICIPANT_LABEL = bundle.getString("GroupExpensesParticipantLabel");
+        participantsLabel.setText(GROUP_EXPENSE_PARTICIPANT_LABEL);
+        participantsLabel1.setText(GROUP_EXPENSE_PARTICIPANT_LABEL);
+        participantsLabel2.setText(GROUP_EXPENSE_PARTICIPANT_LABEL);
+        
+        final String GROUP_EXPENSE_UPDATE_BUTTON = bundle.getString("GroupExpensesUpdateButton");
+        updateButton.setText(GROUP_EXPENSE_UPDATE_BUTTON);
+        updateButton1.setText(GROUP_EXPENSE_UPDATE_BUTTON);
+        updateButton2.setText(GROUP_EXPENSE_UPDATE_BUTTON);
+        
         allExpenses.setText(bundle.getString("GroupExpensesTabAll"));
         myExpenses.setText(bundle.getString("GroupExpensesTabMine"));
         notJoinedExpenses.setText(bundle.getString("GroupExpensesTabOthers"));

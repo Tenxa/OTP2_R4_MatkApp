@@ -5,6 +5,8 @@
  */
 package com.r4.matkapp.dao;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -28,8 +30,7 @@ public class DatabaseSession {
         try {
             sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Connection Failed");
+            Logger.getLogger(DatabaseSession.class.getName()).log(Level.SEVERE, null, e);
             StandardServiceRegistryBuilder.destroy(registry);
             System.exit(-1);
         }

@@ -6,8 +6,9 @@
 package com.r4.matkapp.dao;
 
 import com.r4.matkapp.mvc.model.Expense;
-import com.r4.matkapp.mvc.model.Group;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -84,12 +85,12 @@ public class ExpenseDAO implements DAO<Expense> {
     }
 
     @Override
-    public Expense find(String expense_description) {
+    public Expense find(String description) {
         setSession(getSessionFactory().openSession());
         try {
             getSession().beginTransaction();
             Query q = getSession().createQuery("from Expense where expense_description = :expense_description");
-            q.setParameter("expense_description", expense_description);
+            q.setParameter("expense_description", description);
             List<Expense> result = q.getResultList();
             Expense e = null;
             if (result.size() == 1) {
@@ -98,7 +99,6 @@ public class ExpenseDAO implements DAO<Expense> {
             getSession().getTransaction().commit();
             return e;
         } catch (Exception ex) {
-            ex.printStackTrace();
             if (getSession().getTransaction().isActive()) {
                 getSession().beginTransaction().rollback();
             }
@@ -107,20 +107,23 @@ public class ExpenseDAO implements DAO<Expense> {
             getSession().close();
         }
     }
-    
+
     @Override
     public Expense find(int id) {
         setSession(getSessionFactory().openSession());
         try {
-           getSession().beginTransaction();
-           Expense e = getSession().find(Expense.class, id); 
-           getSession().getTransaction().commit();
-           return e;
-        } catch(Exception ex) {
+            getSession().beginTransaction();
+            Expense e = getSession().find(Expense.class, id);
+            getSession().getTransaction().commit();
+            return e;
+        } catch (Exception ex) {
+            if (getSession().getTransaction().isActive()) {
+                getSession().beginTransaction().rollback();
+            }
+            throw ex;
         } finally {
             getSession().close();
-        } 
-        return null;
+        }
     }
 
     /**
@@ -157,6 +160,6 @@ public class ExpenseDAO implements DAO<Expense> {
         session.beginTransaction();
         session.refresh(t);
         session.getTransaction().commit();
-        session.close();  
+        session.close();
     }
 }

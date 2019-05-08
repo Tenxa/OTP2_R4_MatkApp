@@ -11,7 +11,6 @@ import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
-import com.r4.matkapp.mvc.model.dbmanager.UserManager;
 import com.r4.matkapp.mvc.view.alertfactory.ConfirmationAlert;
 import com.r4.matkapp.mvc.view.alertfactory.ConfirmationFactory;
 import java.io.IOException;
@@ -117,9 +116,8 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     @FXML
     private void openGroupInvitationScene() {
         try {
-            //Parent p = loadFXML("GroupInvitationScene", new GroupInvitationSceneController(this, selectedGroup));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GroupInvitationScene.fxml"));
-            loader.setController(new GroupInvitationSceneController(this, selectedGroup));
+            loader.setController(new GroupInvitationSceneController(selectedGroup));
 
             Stage stage = new Stage();
             stage.setTitle(bundle.getString("GroupInviteHeaderLabel"));

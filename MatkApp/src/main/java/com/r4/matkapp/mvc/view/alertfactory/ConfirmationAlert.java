@@ -27,10 +27,8 @@ public class ConfirmationAlert implements ConfirmationFactory {
         alert.setHeaderText(header);
         alert.setContentText(content);
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
+        
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 
     @Override
@@ -40,10 +38,8 @@ public class ConfirmationAlert implements ConfirmationFactory {
         alert.setHeaderText(header);
         alert.setContentText(content);
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
+        
+        return result.isPresent() && result.get() == ButtonType.OK;    
     }
     
 }

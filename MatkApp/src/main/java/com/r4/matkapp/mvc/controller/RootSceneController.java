@@ -20,7 +20,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -33,15 +32,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -106,23 +101,16 @@ public class RootSceneController extends AbstractSceneController implements Init
     }
 
     @FXML
-    private void changeLanguage() {
-
-    }
-
-    @FXML
     public void logout(ActionEvent event) {
         try {
             DatabaseManager.setLoggedUser(null);
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginScene.fxml"));
-            //Scene scene = new Scene(root);
+            Parent fxmlRoot = FXMLLoader.load(getClass().getResource("/fxml/LoginScene.fxml"));
             Stage window = MainApp.getWindow();
             window.setMinHeight(400);
             window.setMinWidth(600);
             window.setResizable(false);
-            //window.setScene(scene);
             BorderPane p = (BorderPane) ((BorderPane) window.getScene().getRoot()).getCenter();
-            p.setCenter(root);
+            p.setCenter(fxmlRoot);
             window.sizeToScene();
             window.show();
         } catch (IOException ex) {
@@ -143,10 +131,7 @@ public class RootSceneController extends AbstractSceneController implements Init
     }
 
     public void updateGroupList() {
-        //Node n = groupList.getChildren().get(0);
-        //Node n1 = groupList.getChildren().get(1);
         groupList.getChildren().clear();
-        //groupList.getChildren().addAll(n, n1);
         generateGroupList();
     }
 
@@ -169,6 +154,7 @@ public class RootSceneController extends AbstractSceneController implements Init
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AltGroupScene.fxml"));
                 loader.setController(new AltGroupSceneController(this, g));
                 setCenter(loader.load());
+            
                 if (selected != null) {
                     selected.setStyle(null);
                     selected.getGraphic().setStyle(null);
@@ -178,7 +164,7 @@ public class RootSceneController extends AbstractSceneController implements Init
                         + "-fx-text-fill: white;");
                 icon.setStyle("-fx-fill: white;");
             } catch (IOException ex) {
-
+                Logger.getLogger(RootSceneController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         icon.setSize("30");
@@ -212,13 +198,13 @@ public class RootSceneController extends AbstractSceneController implements Init
     }
 
     @FXML
-    private void JoinGroup() {
-        if (JoinGroupInputDialog() != null) {
+    private void joinGroup() {
+        if (joinGroupInputDialog() != null) {
             updateGroupList();
         }
     }
 
-    private Group JoinGroupInputDialog() {
+    private Group joinGroupInputDialog() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle(bundle.getString("JoinGroupHeader"));
         dialog.setContentText(bundle.getString("JoinGroupMsg"));

@@ -47,7 +47,9 @@ public class UserDetailSceneController implements Initializable, SceneController
     private TextField tfFirstname, tfLastname, tfEmail, tfAddress, tfPhonenumber, tfPostnumber, tfCity, tfCountry;
 
     private TextField lastFocus;
-    private ResourceBundle bundle  = ResourceBundle.getBundle("properties.default", MainApp.getLocale());;
+    private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+
+    ;
 
     /**
      * Initialises the controller class.
@@ -57,7 +59,7 @@ public class UserDetailSceneController implements Initializable, SceneController
         initLaTe();
         initlbDetails();
         loadUserDetails();
-        
+
         userDetailsLabel.setText(bundle.getString("UserDetailsLabel"));
         userDetailsFN.setText(bundle.getString("GenericFNameLabel"));
         userDetailsLN.setText(bundle.getString("GenericLNameLabel"));
@@ -67,7 +69,7 @@ public class UserDetailSceneController implements Initializable, SceneController
         userDetailsZipCode.setText(bundle.getString("UserDetailsZipCode"));
         userDetailsCity.setText(bundle.getString("UserDetailsCity"));
         userDetailsCountry.setText(bundle.getString("UserDetailsCountry"));
-                
+
         root.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -110,7 +112,7 @@ public class UserDetailSceneController implements Initializable, SceneController
         user.setPost_number(lbPostnumber.getText());
         user.setCity(lbCity.getText());
         user.setCountry(lbCountry.getText());
-        
+
         DatabaseManager<User> manager = new UserManager();
         manager.update(user);
     }
@@ -124,15 +126,12 @@ public class UserDetailSceneController implements Initializable, SceneController
         TextField tf = laTe.get(label);
         tf.setText(label.getText());
         tf.setVisible(true);
-        
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                tf.requestFocus();
-            }
+
+        Platform.runLater(() -> {
+            tf.requestFocus();
         });
         lastFocus = tf;
-        
+
         tf.setOnAction((ActionEvent event1) -> {
             label.setText(tf.getText());
             tf.setVisible(false);
@@ -166,14 +165,15 @@ public class UserDetailSceneController implements Initializable, SceneController
             label.setTooltip(toolTip);
         });
     }
-    
+
     // for firing event of last focused textfield
     private void checkFocus() {
-        if (root.getScene().focusOwnerProperty().get() instanceof TextField) {
-            if (lastFocus == (TextField) root.getScene().focusOwnerProperty().get()) {
-                lastFocus.fireEvent(new ActionEvent());
-                lastFocus = null;
-            }
+        if (root.getScene().focusOwnerProperty().get() instanceof TextField
+                && lastFocus == (TextField) root.getScene().focusOwnerProperty().get()) {
+
+            lastFocus.fireEvent(new ActionEvent());
+            lastFocus = null;
+
         }
     }
 }

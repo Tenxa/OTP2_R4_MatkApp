@@ -6,7 +6,6 @@
 package com.r4.matkapp.dao;
 
 import com.r4.matkapp.mvc.model.Group;
-import com.r4.matkapp.mvc.model.User;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -136,10 +135,13 @@ public class GroupDAO implements DAO<Group> {
            getSession().getTransaction().commit();
            return g;
         } catch(Exception ex) {
+            if (getSession().getTransaction() != null) {
+                getSession().beginTransaction().rollback();
+            }
+            throw ex;
         } finally {
             getSession().close();
         } 
-        return null;
     }
 
     /**
