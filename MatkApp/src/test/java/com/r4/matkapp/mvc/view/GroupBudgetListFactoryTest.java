@@ -20,12 +20,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.testfx.framework.junit.ApplicationTest;
 
 /**
  *
  * @author Eero
  */
+@Ignore
 public class GroupBudgetListFactoryTest extends ApplicationTest {
 
     public GroupBudgetListFactoryTest() {
