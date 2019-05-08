@@ -27,6 +27,9 @@ public class GroupBudgetListFactory {
     HomeSceneController ctrl;
 
     public VBox createList(Set<Group> groups) {
+        if(groups == null) {
+            return null;
+        }
         VBox box = new VBox();
         box.setFillWidth(true);
         box.setMaxWidth(Double.MAX_VALUE);
@@ -41,13 +44,13 @@ public class GroupBudgetListFactory {
         return box;
     }
 
-    public GridPane createEntry(Group g) {
+    private GridPane createEntry(Group g) {
         GridPane pane = new GridPane();
         pane.add(new Label(g.getGroup_name()), 0, 0, 3, 1);
         
         double percent = calculatePercentage(g);
         pane.add(new Label(Double.toString(calculateSpent(g))), 0, 1, 1, 1);
-        pane.add(new Label(String.format("%.1f", percent * 100) + "% "), 1, 1, 1 ,1);
+        pane.add(new Label(String.format("%.1f", percent * 100) + "%"), 1, 1, 1 ,1);
         pane.add(new Label(Double.toString(g.getBudget())), 2, 1, 1 ,1);
         
         ProgressBar bar = new ProgressBar(percent);

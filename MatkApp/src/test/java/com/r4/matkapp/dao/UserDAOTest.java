@@ -105,4 +105,30 @@ public class UserDAOTest {
         dao.update(u);
         assertEquals(u.getCountry(), dao.find(email).getCountry());      
     }
+    
+    @Test
+    public void testFind() {
+        
+        String email = "test@test.com";
+        u.setEmail(email);
+        dao.create(u);
+        assertNotNull(dao.find(u.getId()));
+        assertNull(dao.find(999));
+        
+        assertNotNull(dao.find(email));
+        assertNull(dao.find("asdfg"));
+           
+    }
+    
+    @Test
+    public void testRefresh() {
+        dao.create(u);
+        User user = u;
+        user.setCountry("england");
+        dao.update(user);
+        
+        dao.refresh(u);
+        assertEquals(user.getCountry(), u.getCountry());
+        
+    }
 }

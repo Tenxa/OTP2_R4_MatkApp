@@ -10,6 +10,8 @@ import com.r4.matkapp.mvc.model.*;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
 import com.r4.matkapp.mvc.model.dbmanager.UserManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 
 /**
@@ -97,7 +99,7 @@ public class UserController {
                 uManager.refresh(DatabaseManager.getLoggedUser());
                 return group;
             } catch (Exception e) {
-
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -131,7 +133,7 @@ public class UserController {
      */
     public boolean checkLogin(String email, String password) {
         DatabaseManager<User> manager = new UserManager();
-        User user = (User) manager.find(email);
+        User user = manager.find(email);
         if(user != null) {
             SecurePassword sPass = new SecurePassword();
             try {
@@ -140,7 +142,7 @@ public class UserController {
                     return true;
                 }
             } catch (Exception e) {
-
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return false;

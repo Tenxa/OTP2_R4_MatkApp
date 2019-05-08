@@ -27,9 +27,10 @@ public class SecurePassword {
      * @param user
      * @param inputPass
      * @return
-     * @throws Exception 
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException 
      */
-    public boolean authenticateUser(User user, String inputPass) throws Exception {
+    public boolean authenticateUser(User user, String inputPass) throws NoSuchAlgorithmException, InvalidKeySpecException {
         if (user == null) {
             return false;
         } else {
