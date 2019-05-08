@@ -109,5 +109,29 @@ public class GroupDAOTest {
         dao.delete(g);
         assertNull(dao.find(invite));
     }
+    
+    @Test
+    public void testFind() {
+        String invite = g.getInvite();
+        dao.create(g);
+        assertNotNull(dao.find(invite));
+        assertNull(dao.find("12345"));
+        
+        assertNotNull(dao.find(g.getId()));
+        assertNull(dao.find(999));
+        
+        
+    }
+    
+    @Test
+    public void testRefresh() {
+        dao.create(g);
+        Group group = g;
+        group.setBudget(500);
+        dao.update(group);
+        
+        dao.refresh(g);
+        assertEquals(group.getBudget(), g.getBudget(), 0.01);
+    }
    
 }

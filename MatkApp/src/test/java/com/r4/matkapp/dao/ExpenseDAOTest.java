@@ -110,5 +110,19 @@ public class ExpenseDAOTest {
         dao.create(e); 
         assertEquals(s, dao.find(s).getExpense_description());
         assertNull(dao.find("not_in_database"));
+        
+        assertNotNull(dao.find(e.getId()));
+        assertNull(dao.find(999));
+    }
+    
+    @Test
+    public void testRefresh() {
+        dao.create(e);
+        Expense expense = e;
+        expense.setExpense_amount(500);
+        dao.update(expense);
+        
+        dao.refresh(e);
+        assertEquals(expense.getExpense_amount(), e.getExpense_amount(), 0.01);
     }
 }

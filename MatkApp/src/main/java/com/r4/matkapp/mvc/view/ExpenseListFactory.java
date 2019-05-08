@@ -9,7 +9,6 @@ import com.r4.matkapp.mvc.model.dbmanager.ExpenseManager;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -62,7 +61,7 @@ public class ExpenseListFactory {
         int row = 0;
         for (Expense e : expenses) {
 
-            Pane info = createInfoPane(e.getId());
+            Pane infoPane = createInfoPane();
             Pane description = createDescriptionPane(e.getExpense_description());
             double ammount = e.getExpense_amount();
             if(split) {
@@ -70,7 +69,7 @@ public class ExpenseListFactory {
             }
             Pane price = createPricePane(ammount);
             Pane participants = createParticipantsPane(e.getUsers().size());
-            Pane join = new Pane();
+            Pane joinPane = new Pane();
             Iterator itr = e.getUsers().iterator();
             boolean isInGroup = false;
             while(itr.hasNext()) {
@@ -81,18 +80,18 @@ public class ExpenseListFactory {
                 }
             }
             if(!isInGroup) {
-                join = createJoinPane(e);
+                joinPane = createJoinPane(e);
             }
 
             if (row % 2 == 0) {
-                colorRow(info);
+                colorRow(infoPane);
                 colorRow(description);
                 colorRow(price);
-                colorRow(join);
+                colorRow(joinPane);
                 colorRow(participants);
             }
 
-            pane.addRow(row++, description, price, participants, info, join);
+            pane.addRow(row++, description, price, participants, infoPane, joinPane);
             pane.getRowConstraints().add(new RowConstraints(50));
 
         }
@@ -141,7 +140,7 @@ public class ExpenseListFactory {
         return p;
     }
 
-    private Pane createInfoPane(int expenseID) {
+    private Pane createInfoPane() {
         AnchorPane p = new AnchorPane();
         Button b = new Button(info);
         b.setMinHeight(30);

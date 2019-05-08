@@ -5,8 +5,6 @@
  */
 package com.r4.matkapp.mvc.model;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
@@ -20,6 +18,9 @@ public class ValidateUserInfo {
     static final int MIN_PASSWORD_LENGTH = 4;
     static final int MAX_PASSWORD_LENGTH = 14;
     
+    private ValidateUserInfo() {
+        throw new IllegalStateException("Utility class");
+    }
     /**
      * Validates User info. Returns false if any property is empty, password 
      * length isn't between min and max length or email address is not valid.
