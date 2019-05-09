@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -34,11 +35,15 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </MenuButton>
-            <ImageView fitHeight="55.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pictures/matkapp_logo2.png" />
-               </image>
-            </ImageView>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/matkapp_logo2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
          <BorderPane.margin>
             <Insets />

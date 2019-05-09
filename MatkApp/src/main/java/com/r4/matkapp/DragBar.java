@@ -12,11 +12,16 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.NodeOrientation;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -33,6 +38,7 @@ public class DragBar {
     public HBox create(Stage stage) {
         HBox bar = new HBox();
         bar.setMinHeight(26);
+        bar.setMaxHeight(26);
         bar.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         bar.styleProperty().setValue("-fx-background-color: #32486b");
 
@@ -65,6 +71,19 @@ public class DragBar {
 
             }
         });
+        HBox textBox = new HBox();
+        textBox.setMaxWidth(Double.MAX_VALUE);
+        textBox.setMaxHeight(26);
+        textBox.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        textBox.setAlignment(Pos.CENTER_LEFT);
+        HBox.setHgrow(textBox, Priority.ALWAYS);
+        //ImageView image = new ImageView(new Image("/pictures/matkapp_text.png"));
+        //image.fitHeightProperty().set(26);
+        Label label = new Label("MatkApp");
+        label.getStyleClass().add("dragBarText");
+        textBox.getChildren().add(label);
+        bar.getChildren().add(textBox);
+        
         return bar;
     }
 
