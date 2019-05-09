@@ -8,6 +8,7 @@ package com.r4.matkapp.mvc.controller;
 import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import com.r4.matkapp.mvc.view.alertfactory.InformationAlert;
+import com.r4.matkapp.mvc.view.alertfactory.WarningAlert;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -122,16 +123,30 @@ public class LoginSceneController implements Initializable {
     
     @FXML
     private void createUser(ActionEvent event) {
-        if (uController.addUser(first_name.getText(), last_name.getText(),
-                email.getText(), password.getText())) {
-            AlertFactory createAlert = new InformationAlert();
-            createAlert.createAlert(null, bundle.getString("LoginSignUpSuccess"));
-
-            first_name.clear();
-            last_name.clear();
-            email.clear();
-            password.clear();
-            setLoginPane();
+        int result = uController.addUser(first_name.getText(), last_name.getText(),
+                email.getText(), password.getText());
+        AlertFactory factory;
+        switch (result) {
+            case UserController.OK:
+                factory = new InformationAlert();
+                factory.createAlert(null, bundle.getString("LoginSignUpSuccess"));
+                first_name.clear();
+                last_name.clear();
+                email.clear();
+                password.clear();
+                setLoginPane();
+                break;
+            case UserController.INCORRECT_DATA:
+                factory = new WarningAlert();
+                factory.createAlert("Käyttäjän luonti epäonnistui!", 
+                        "Tietoja puuttuu tai ne ovat virheelliset.\n"
+                        + "Salasanan pituus pitää olla 4 - 14 merkkiä.\n"
+                        + "Sähköposti formaattia 'nimi@domain.fi'.");
+                break;
+            case UserController.EMAIL_EXISTS:
+                factory = new WarningAlert(); 
+                factory.createAlert("Käyttäjän luonti epäonnistui!", "Sähköposti on jo käytössä.");
+                break;
         }
 
     }

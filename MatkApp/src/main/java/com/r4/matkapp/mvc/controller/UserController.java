@@ -12,31 +12,29 @@ import com.r4.matkapp.mvc.controller.dbmanager.GroupManager;
 import com.r4.matkapp.mvc.controller.dbmanager.UserManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Alert;
 
 /**
  * Controller class for User data.
+ * 
  * @author teemu
  */
-// vois miettii tän luokan oikeet tarkotust
-// näyttäis vaa database controllerilt
-// muutenki aika sekava
 public class UserController {
 
+    static final int EMAIL_EXISTS = -1, INCORRECT_DATA = 0, OK = 1;
     /**
      * Adds new user into database.
      * Validates user info and encrypts password before creating.
      * Returns true if creation was successful.
-     * @param first_name
-     * @param last_name
+     * @param firstName
+     * @param lastName
      * @param email
      * @param password
      * @return
      */
-    public boolean addUser(String first_name, String last_name, String email, String password) {
+    public int addUser(String firstName, String lastName, String email, String password) {
         DatabaseManager<User> manager = new UserManager();
         // Validate user input.
-        if (ValidateUserInfo.isValid(first_name, last_name, email, password)) {
+        if (ValidateUserInfo.isValid(firstName, lastName, email, password)) {
 
             SecurePassword sPass = new SecurePassword();
             try {
@@ -44,53 +42,32 @@ public class UserController {
                 String userSalt = sPass.getNewSalt();
                 String encryptedPassword = sPass.generateEncryptedPassword(password, userSalt);
 
-                User user = new User(first_name, last_name, email, encryptedPassword, userSalt);
+                User user = new User(firstName, lastName, email, encryptedPassword, userSalt);
 
                 // check if email is not reserved.
                 if (manager.find(email) == null) {
                     manager.create(user);
-                    return true;
+                    return OK;
                 } else {
-                    // tän vois joskus siirtää/ toteuttaa FXMLControlleris
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle(null);
-                    alert.setHeaderText("Käyttäjän luonti epäonnistui!");
-                    alert.setContentText("Sähköposti on jo käytössä.");
-                    alert.showAndWait();
+                    return EMAIL_EXISTS;
                 }
             } catch (Exception e) {
-
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, e);
             }
-
-        } else {
-            // tän vois joskus siirtää/ toteuttaa FXMLControlleris
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText("Käyttäjän luonti epäonnistui!");
-            alert.setContentText("Tietoja puuttuu tai ne ovat virheelliset.\n"
-                    + "Salasanan pituus pitää olla 4 - 14 merkkiä.\n"
-                    + "Sähköposti formaattia 'nimi@domain.fi'.");
-            alert.showAndWait();
         }
-
-        return false;
+        return INCORRECT_DATA;
     }
 
     /**
-     * Create new Group and sets created Group as User group property and
-     * updates User. Updating User with group that does not exists creates 
-     * new Group row into database.
+     * Create new Group and refresh logged user.
      *
-     * So this method can be used to adding user into existing group.
-     * Returns true if successful.
-     *
-     * @param group_name
-     * @return
+     * @param groupName
+     * @return Created Group
      */
-    public Group createGroup(String group_name) {
+    public Group createGroup(String groupName) {
         if(DatabaseManager.getLoggedUser() != null) {
 
-            Group group = new Group(group_name);
+            Group group = new Group(groupName);
             group.getUsers().add(DatabaseManager.getLoggedUser());
             DatabaseManager<Group> manager = new GroupManager();
             DatabaseManager<User> uManager = new UserManager();
