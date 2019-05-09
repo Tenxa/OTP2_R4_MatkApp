@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * Util class to handle window resizing when a stage style set to
  * StageStyle.UNDECORATED. Created on 8/15/17.
  *
- * Modified by Eero Tuure
+ * Modified and added comments by Eero Tuure
  *
  * @author Evgenii Kanivets
  */
@@ -34,10 +34,24 @@ public class ResizeHelper {
         return canMove;
     }
 
+    /**
+     * Add resize listener to a specified Stage.
+     * 
+     * @param stage
+     */
     public static void addResizeListener(Stage stage) {
         addResizeListener(stage, 0, 0, Double.MAX_VALUE, Double.MAX_VALUE);
     }
-
+    
+    /**
+     * Add resize listener to a specified Stage with given constraints.
+     * 
+     * @param stage
+     * @param minWidth
+     * @param minHeight
+     * @param maxWidth
+     * @param maxHeight
+     */
     public static void addResizeListener(Stage stage, double minWidth, double minHeight, double maxWidth, double maxHeight) {
         ResizeListener resizeListener = new ResizeListener(stage);
         stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resizeListener);
@@ -57,6 +71,12 @@ public class ResizeHelper {
         }
     }
 
+    /**
+     * Recursively add listeners for all Parents.
+     * 
+     * @param node
+     * @param listener EventHandler to be added.
+     */
     private static void addListenerDeeply(Node node, EventHandler<MouseEvent> listener) {
         node.addEventHandler(MouseEvent.MOUSE_MOVED, listener);
         node.addEventHandler(MouseEvent.MOUSE_PRESSED, listener);
@@ -162,22 +182,31 @@ public class ResizeHelper {
 
         private void mouseDragged(MouseEvent mouseEvent, double mouseEventX, double mouseEventY) {
             if (!Cursor.W_RESIZE.equals(cursorEvent) && !Cursor.E_RESIZE.equals(cursorEvent)) {
-                double miniumHeight = stage.getMinHeight() > (border * 2) ? stage.getMinHeight() : (border * 2);
-                if (Cursor.NW_RESIZE.equals(cursorEvent) || Cursor.N_RESIZE.equals(cursorEvent)
-                        || Cursor.NE_RESIZE.equals(cursorEvent)) {
-                    if (stage.getHeight() > miniumHeight || mouseEventY < 0) {
-                        setStageHeight(stage.getY() - mouseEvent.getScreenY() + stage.getHeight());
-                        stage.setY(mouseEvent.getScreenY());
-                    }
-                } else {
-                    if (stage.getHeight() > miniumHeight || mouseEventY + startY - stage.getHeight() > 0) {
-                        setStageHeight(mouseEventY + startY);
-                    }
-                }
+                resizeY(mouseEvent, mouseEventY);
             }
 
             if (!Cursor.N_RESIZE.equals(cursorEvent) && !Cursor.S_RESIZE.equals(cursorEvent)) {
-                double miniumWidth = stage.getMinWidth() > (border * 2) ? stage.getMinWidth() : (border * 2);
+                resizeX(mouseEvent, mouseEventX);
+            }
+        }
+
+        private void resizeY(MouseEvent mouseEvent, double mouseEventY) {
+            double miniumHeight = stage.getMinHeight() > (border * 2) ? stage.getMinHeight() : (border * 2);
+            if (Cursor.NW_RESIZE.equals(cursorEvent) || Cursor.N_RESIZE.equals(cursorEvent)
+                    || Cursor.NE_RESIZE.equals(cursorEvent)) {
+                if (stage.getHeight() > miniumHeight || mouseEventY < 0) {
+                    setStageHeight(stage.getY() - mouseEvent.getScreenY() + stage.getHeight());
+                    stage.setY(mouseEvent.getScreenY());
+                }
+            } else {
+                if (stage.getHeight() > miniumHeight || mouseEventY + startY - stage.getHeight() > 0) {
+                    setStageHeight(mouseEventY + startY);
+                }
+            }
+        }
+
+        private void resizeX(MouseEvent mouseEvent, double mouseEventX) {
+            double miniumWidth = stage.getMinWidth() > (border * 2) ? stage.getMinWidth() : (border * 2);
                 if (Cursor.NW_RESIZE.equals(cursorEvent) || Cursor.W_RESIZE.equals(cursorEvent)
                         || Cursor.SW_RESIZE.equals(cursorEvent)) {
                     if (stage.getWidth() > miniumWidth || mouseEventX < 0) {
@@ -189,7 +218,6 @@ public class ResizeHelper {
                         setStageWidth(mouseEventX + startX);
                     }
                 }
-            }
         }
 
         private void setStageWidth(double width) {
