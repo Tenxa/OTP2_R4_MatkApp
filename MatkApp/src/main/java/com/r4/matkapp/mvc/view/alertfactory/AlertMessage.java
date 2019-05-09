@@ -4,41 +4,39 @@
  * and open the template in the editor.
  */
 package com.r4.matkapp.mvc.view.alertfactory;
-import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import javafx.scene.control.Alert;
 /**
- *
+ * Abstract class for creating different alert types.
+ * 
+ * @see AlertFactory
+ * @see javafx.scene.control.Alert
+ * 
  * @author Eero
  */
 public abstract class AlertMessage implements AlertFactory {
     
-    private Alert alert;
+    private Alert.AlertType alertType;
     
-    Alert.AlertType alertType;
-    
-    public AlertMessage() {
-        alertType = Alert.AlertType.INFORMATION; 
+    /**
+     * Creates a Alert with a specified AlertType.
+     * 
+     * @param type AlertType
+     */
+    public AlertMessage(Alert.AlertType type) {
+        alertType = type;
     }
     
     @Override
-    public void createAlert(String header, String content) {
-        alert = new Alert(alertType);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
+    public Alert createAlert(String header, String content) {
+        return createAlert(null, header, content);
     }
 
     @Override
-    public void createAlert(String title, String header, String content) {
-        alert = new Alert(alertType);
+    public Alert createAlert(String title, String header, String content) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
-        alert.showAndWait();
-    }
-    
-    public Alert getAlert() {
         return alert;
-    }
-    
+    }  
 }

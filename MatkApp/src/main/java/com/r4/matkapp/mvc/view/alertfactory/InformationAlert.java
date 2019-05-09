@@ -5,13 +5,18 @@
  */
 package com.r4.matkapp.mvc.view.alertfactory;
 
-import com.r4.matkapp.mvc.view.alertfactory.AlertMessage;
 import javafx.scene.control.Alert;
 
 /**
  *
  * @author Eero
  */
-public class InformationAlert extends AlertMessage {
+public class InformationAlert extends AlertMessageOK {
     
+    /**
+     * Creates a Alert with {@link Alert.AlertType.INFORMATION}.
+     */
+    public InformationAlert() {
+         super(Alert.AlertType.INFORMATION);
+    }
 }

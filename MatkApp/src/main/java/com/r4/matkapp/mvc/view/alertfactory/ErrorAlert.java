@@ -11,9 +11,12 @@ import javafx.scene.control.Alert;
  *
  * @author Eero
  */
-public class ErrorAlert extends AlertMessage {
+public class ErrorAlert extends AlertMessageOK {
     
+    /**
+     * Creates a ErrorAlert with {@link Alert.AlertType.ERROR}.
+     */
     public ErrorAlert() {
-        super.alertType = Alert.AlertType.ERROR;
+        super(Alert.AlertType.ERROR);
     }
 }

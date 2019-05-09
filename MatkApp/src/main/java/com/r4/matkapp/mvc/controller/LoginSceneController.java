@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -57,7 +58,7 @@ public class LoginSceneController implements Initializable {
     
     private UserController uController;
     private ResourceBundle bundle;
-    private AlertFactory alert;
+    private Alert loginAlert;
     
     /**
      * Initialises the controller class.
@@ -114,8 +115,8 @@ public class LoginSceneController implements Initializable {
             cont.setHomeScene();
             window.show();
         } else {
-            alert = new InformationAlert();
-            alert.createAlert(bundle.getString("LoginFailureHdr"), bundle.getString("LoginFailureMsg"));
+            AlertFactory alert = new InformationAlert();
+            loginAlert = alert.createAlert(bundle.getString("LoginFailureHdr"), bundle.getString("LoginFailureMsg"));
         }
     }
     
@@ -156,8 +157,8 @@ public class LoginSceneController implements Initializable {
         return loginEmail;
     }
     
-    public AlertFactory getAlert() {
-        return alert;
+    public Alert getAlert() {
+        return loginAlert;
     }
     
 }

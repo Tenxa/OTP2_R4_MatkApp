@@ -5,14 +5,12 @@
  */
 package com.r4.matkapp.mvc.controller;
 
-import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
-import com.r4.matkapp.mvc.view.alertfactory.AlertMessage;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -85,9 +83,9 @@ public class LoginSceneTest extends ApplicationTest{
         assertEquals("pass", passField.getText());
         
         clickOn("#loginButton");
-        AlertMessage alert = (AlertMessage)controller.getAlert();
+        Alert alert = controller.getAlert();
         
-        assertEquals("Kirjautuminen epäonnistui!", "Käyttäjä tunnus tai salasana väärin.", alert.getAlert().getContentText());
+        assertEquals("Kirjautuminen epäonnistui!", "Käyttäjä tunnus tai salasana väärin.", alert.getContentText());
         
         
         

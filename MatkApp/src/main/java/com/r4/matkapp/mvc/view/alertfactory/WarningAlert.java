@@ -11,9 +11,12 @@ import javafx.scene.control.Alert;
  *
  * @author Eero
  */
-public class WarningAlert extends AlertMessage {
+public class WarningAlert extends AlertMessageOK {
     
+    /**
+     * Creates a Alert with {@link Alert.AlertType.WARNING}.
+     */
     public WarningAlert() {
-        super.alertType = Alert.AlertType.WARNING;
+        super(Alert.AlertType.WARNING);
     }
 }

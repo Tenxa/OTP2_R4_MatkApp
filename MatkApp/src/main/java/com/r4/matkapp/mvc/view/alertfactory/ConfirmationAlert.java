@@ -5,41 +5,19 @@
  */
 package com.r4.matkapp.mvc.view.alertfactory;
 
-import java.util.Optional;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 /**
- *
+ * @see ConfirmationFactory
+ * 
  * @author Eero
  */
-public class ConfirmationAlert implements ConfirmationFactory {
-    private Alert alert;
-    private Alert.AlertType alertType;
-    
-    public ConfirmationAlert() {
-        alertType = Alert.AlertType.CONFIRMATION;
-    }
-    
-    @Override
-    public boolean createAlert(String header, String content) {
-        alert = new Alert(alertType);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        Optional<ButtonType> result = alert.showAndWait();
-        
-        return result.isPresent() && result.get() == ButtonType.OK;
-    }
+public class ConfirmationAlert extends AlertMessageOK {
 
-    @Override
-    public boolean createAlert(String title, String header, String content) {
-        alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        Optional<ButtonType> result = alert.showAndWait();
-        
-        return result.isPresent() && result.get() == ButtonType.OK;    
-    }
-    
+    /**
+     * Creates a Alert with {@link Alert.AlertType.Confirmation);
+     */
+    public ConfirmationAlert() {
+        super(Alert.AlertType.CONFIRMATION);
+    }   
 }

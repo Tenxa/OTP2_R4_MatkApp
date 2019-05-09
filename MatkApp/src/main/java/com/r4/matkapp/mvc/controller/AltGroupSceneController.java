@@ -11,11 +11,12 @@ import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
 import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import com.r4.matkapp.mvc.view.alertfactory.ConfirmationAlert;
-import com.r4.matkapp.mvc.view.alertfactory.ConfirmationFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
@@ -26,7 +27,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
@@ -152,9 +155,10 @@ public class AltGroupSceneController extends AbstractSceneController implements 
 
     @FXML
     private void leaveGroup() throws IOException {
-        ConfirmationFactory confirmation = new ConfirmationAlert();
-        boolean result = confirmation.createAlert(null, bundle.getString("GroupExitConfirmLabel") + selectedGroup.getGroup_name() + "?");
-        if (result) {
+        AlertFactory confirmation = new ConfirmationAlert();
+        Alert alert = confirmation.createAlert(null, bundle.getString("GroupExitConfirmLabel") + selectedGroup.getGroup_name() + "?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             Set<User> users = selectedGroup.getUsers();
             Iterator<User> itr = users.iterator();
             while (itr.hasNext()) {
