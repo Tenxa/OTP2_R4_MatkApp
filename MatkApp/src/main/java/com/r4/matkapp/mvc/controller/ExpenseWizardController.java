@@ -6,7 +6,6 @@ package com.r4.matkapp.mvc.controller;
  * and open the template in the editor.
  */
 import com.r4.matkapp.MainApp;
-import com.r4.matkapp.dao.ExpenseDAO;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.Group;
 import com.r4.matkapp.mvc.model.User;
@@ -14,7 +13,6 @@ import com.r4.matkapp.mvc.controller.dbmanager.ExpenseManager;
 import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.view.ElementInitor;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -24,7 +22,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -32,16 +29,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 /**
- * FXML Controller class
+ * FXML Controller class for ExpenseWizard scene. Controls input data and
+ * creation of new {@link Expense}.
  *
  * @author Eero
  */
@@ -64,30 +59,24 @@ public class ExpenseWizardController extends AbstractSceneController {
 
     private ResourceBundle bundle;
     private boolean isEqualSplit;
-
-    // selected group object
     private Group activeGroup;
 
-    protected ExpenseWizardController(SceneController c, Group g) {
-        super(c);
-        activeGroup = g;
+    /**
+     * Creates an ExpenseWizard for specified context.
+     *
+     * @param owner Owner Controller.
+     * @param group Selected Group.
+     */
+    protected ExpenseWizardController(SceneController owner, Group group) {
+        super(owner);
+        activeGroup = group;
         isEqualSplit = false;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+        setTexts();
         
-        descriptionLabel.setText(bundle.getString("GroupNewExpenseDescLabel"));
-        priceLabel.setText(bundle.getString("GroupNewExpensePriceLabel"));
-        evensplitLabel.setText(bundle.getString("GroupNewExpenseEvenSplitLabel"));
-        createButton.setText(bundle.getString("GroupNewExpenseCreateExpenseButton"));
-        cancelButton.setText(bundle.getString("GenericCancelButton"));
-        cancelButton2.setText(bundle.getString("GenericCancelButton"));
-        backButton.setText(bundle.getString("GroupNewExpenseBackButton"));
-        nextButton.setText(bundle.getString("GroupNewExpenseNextButton"));
-        addUserHelp.setText(bundle.getString("GroupNewExpenseAddUserLabel"));
-
         initListView(users);
         initListView(selectedUsers);
         users.getItems().addAll(FXCollections.observableArrayList(activeGroup.getUsers()));
@@ -100,6 +89,20 @@ public class ExpenseWizardController extends AbstractSceneController {
                 isEqualSplit = newValue;
             }
         });
+    }
+
+    private void setTexts() {
+        bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
+
+        descriptionLabel.setText(bundle.getString("GroupNewExpenseDescLabel"));
+        priceLabel.setText(bundle.getString("GroupNewExpensePriceLabel"));
+        evensplitLabel.setText(bundle.getString("GroupNewExpenseEvenSplitLabel"));
+        createButton.setText(bundle.getString("GroupNewExpenseCreateExpenseButton"));
+        cancelButton.setText(bundle.getString("GenericCancelButton"));
+        cancelButton2.setText(bundle.getString("GenericCancelButton"));
+        backButton.setText(bundle.getString("GroupNewExpenseBackButton"));
+        nextButton.setText(bundle.getString("GroupNewExpenseNextButton"));
+        addUserHelp.setText(bundle.getString("GroupNewExpenseAddUserLabel"));
     }
 
     @FXML
@@ -118,10 +121,10 @@ public class ExpenseWizardController extends AbstractSceneController {
 
         Set<User> set = new HashSet<>(selectedUsers.getItems());
         expense.setUsers(set);
-        
+
         DatabaseManager<Expense> manager = new ExpenseManager();
         manager.create(expense);
-        
+
         closeWindow(event);
     }
 
@@ -137,7 +140,7 @@ public class ExpenseWizardController extends AbstractSceneController {
 
     @FXML
     private void remove() {
-        ObservableList<User> list = users.getSelectionModel().getSelectedItems();
+        ObservableList<User> list = selectedUsers.getSelectionModel().getSelectedItems();
         for (User u : list) {
             selectedUsers.getItems().remove(u);
             users.getItems().add(u);
