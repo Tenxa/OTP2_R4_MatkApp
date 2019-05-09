@@ -28,7 +28,6 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -41,10 +40,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- *
+ * FXML controller for RootScene that controls navigation.
+ * 
  * @author Eero
  */
-public class RootSceneController extends AbstractSceneController implements Initializable {
+public class RootSceneController extends AbstractSceneController {
 
     @FXML
     private BorderPane root;
@@ -62,6 +62,9 @@ public class RootSceneController extends AbstractSceneController implements Init
 
     private Button selected;
 
+    /**
+     * Creates SceneController for root scene with owner set null.
+     */
     public RootSceneController() {
         super(null);
     }
@@ -80,6 +83,10 @@ public class RootSceneController extends AbstractSceneController implements Init
         generateGroupList();
     }
 
+    /**
+     * Loads HomeScene into root center.
+     * @throws IOException 
+     */
     @FXML
     public void setHomeScene() throws IOException {
         Parent fxmlRoot = loadFXML("HomeScene", new HomeSceneController());
@@ -101,7 +108,7 @@ public class RootSceneController extends AbstractSceneController implements Init
     }
 
     @FXML
-    public void logout(ActionEvent event) {
+    private void logout(ActionEvent event) {
         try {
             DatabaseManager.setLoggedUser(null);
             Parent fxmlRoot = FXMLLoader.load(getClass().getResource("/fxml/LoginScene.fxml"));
@@ -120,8 +127,40 @@ public class RootSceneController extends AbstractSceneController implements Init
 
     @FXML
     private void createNewGroup() {
-        if (inputDialog() != null) {
-            updateGroupList();
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle(bundle.getString("NewGroupHeaderLabel"));
+        dialog.setContentText(bundle.getString("NewGroupHelpText"));
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            UserController u = new UserController();
+            Group g = u.createGroup(result.get());
+            if (g.getInvite() != null) {
+                updateGroupList();
+                AlertFactory f = new InformationAlert();
+                f.createAlert(null, bundle.getString("NewGroupSuccess"), g.getInvite());
+            }
+        }
+    }
+    
+    @FXML
+    private void joinGroup() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle(bundle.getString("JoinGroupHeader"));
+        dialog.setContentText(bundle.getString("JoinGroupMsg"));
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            DatabaseManager<Group> gManager = new GroupManager();
+            Group g = gManager.find(result.get());
+            if (g != null) {
+                User us = DatabaseManager.getLoggedUser();
+                g.getUsers().add(us);
+                gManager.update(g);
+                updateGroupList();
+                AlertFactory f = new InformationAlert();
+                f.createAlert(null, bundle.getString("JoinGroupSuccess"), g.getGroup_name());
+            }
         }
     }
 
@@ -130,6 +169,9 @@ public class RootSceneController extends AbstractSceneController implements Init
         updateGroupList();
     }
 
+    /**
+     * Refreshes group list.
+     */
     public void updateGroupList() {
         groupList.getChildren().clear();
         generateGroupList();
@@ -150,9 +192,8 @@ public class RootSceneController extends AbstractSceneController implements Init
         FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.GROUP);
         b.setOnAction((ActionEvent event) -> {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AltGroupScene.fxml"));
-                loader.setController(new AltGroupSceneController(this, g));
-                setCenter(loader.load());
+                Parent p = this.loadFXML("AltGroupScene", new AltGroupSceneController(this, g));
+                setCenter(p);
             
                 if (selected != null) {
                     selected.setStyle(null);
@@ -176,54 +217,10 @@ public class RootSceneController extends AbstractSceneController implements Init
         groupList.getChildren().add(b);
     }
 
-    // kysy tiedot ryhmälle eli vain ryhmän nimi -> palauttaa luodun ryhmän
-    // vois joskus toteuttaa paremmin
-    private Group inputDialog() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle(bundle.getString("NewGroupHeaderLabel"));
-        dialog.setContentText(bundle.getString("NewGroupHelpText"));
-
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            UserController u = new UserController();
-            Group g = u.createGroup(result.get());
-            if (g.getInvite() != null) {
-                updateGroupList();
-                AlertFactory f = new InformationAlert();
-                f.createAlert(null, bundle.getString("NewGroupSuccess"), g.getInvite());
-                return g;
-            }
-        }
-        return null;
-    }
-
-    @FXML
-    private void joinGroup() {
-        joinGroupInputDialog();
-    }
-
-    private Group joinGroupInputDialog() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle(bundle.getString("JoinGroupHeader"));
-        dialog.setContentText(bundle.getString("JoinGroupMsg"));
-
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            DatabaseManager<Group> gManager = new GroupManager();
-            Group g = gManager.find(result.get());
-            if (g != null) {
-                User us = DatabaseManager.getLoggedUser();
-                g.getUsers().add(us);
-                gManager.update(g);
-                updateGroupList();
-                AlertFactory f = new InformationAlert();
-                f.createAlert(null, bundle.getString("JoinGroupSuccess"), g.getGroup_name());
-                return g;
-            }
-        }
-        return null;
-    }
-
+    /**
+     * Set new root Node into center of this scene root(BorderPane).
+     * @param node Node
+     */
     public void setCenter(Node node) {
         root.setCenter(node);
     }

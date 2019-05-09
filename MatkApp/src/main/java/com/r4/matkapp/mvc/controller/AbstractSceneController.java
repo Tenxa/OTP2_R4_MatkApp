@@ -34,12 +34,4 @@ public abstract class AbstractSceneController implements SceneController, Initia
     }
     
     public abstract void update();
-    
-    public void requestUpdate() {
-        if(owner != null) {
-            owner.requestUpdate();
-        } else {
-            update();
-        }
-    }
 }
