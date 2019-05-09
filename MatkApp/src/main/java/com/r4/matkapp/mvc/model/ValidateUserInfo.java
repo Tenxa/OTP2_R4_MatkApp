@@ -61,8 +61,7 @@ public class ValidateUserInfo {
     
     
     
-    //Modified isValid() so that it doesn't contain the long parameter list.
-    
+    //Modified isValid() to not contain a long parameter list    
     public static boolean userIsValid(User user){
         
         // Check not empty.
@@ -84,6 +83,8 @@ public class ValidateUserInfo {
             InternetAddress address = new InternetAddress(user.getEmail());
             address.validate();
         } catch (AddressException ex) {
+            return false;
+        } catch (NullPointerException np) {
             return false;
         }
         
