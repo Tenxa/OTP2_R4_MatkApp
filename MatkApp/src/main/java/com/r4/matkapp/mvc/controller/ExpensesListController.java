@@ -17,81 +17,74 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
- * FXML Controller class
+ * FXML Controller class for ExpenseList scene.
  *
  * @author Eero
  */
-public class ExpensesListController implements Initializable {
+public class ExpensesListController extends AbstractSceneController {
 
-    @FXML
-    private GridPane expenseList;
     @FXML
     private VBox list, listJoined, listNotJoined;
     @FXML
-    private Label descriptionLabel, totalpriceLabel, participantsLabel, totalPrice, 
-            descriptionLabel1, totalpriceLabel1, participantsLabel1, totalLabel, 
+    private Label descriptionLabel, totalpriceLabel, participantsLabel, totalPrice,
+            descriptionLabel1, totalpriceLabel1, participantsLabel1, totalLabel,
             descriptionLabel2, totalpriceLabel2, participantsLabel2;
     @FXML
     private Button updateButton, updateButton1, updateButton2;
     @FXML
     private Tab allExpenses, myExpenses, notJoinedExpenses;
 
-    private AltGroupSceneController cont;
     private ResourceBundle bundle;
 
-    public ExpensesListController(AltGroupSceneController cont) {
-        this.cont = cont;
+    public ExpensesListController(AbstractSceneController owner) {
+        super(owner);
     }
 
     /**
-     * Initialises the controller class.
+     * initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
-        refreshExpenseList();
-        
+        update();
+
         final String GROUP_EXPENSE_DESC_LABEL = bundle.getString("GroupExpensesDescLabel");
         descriptionLabel.setText(GROUP_EXPENSE_DESC_LABEL);
         descriptionLabel1.setText(GROUP_EXPENSE_DESC_LABEL);
         descriptionLabel2.setText(GROUP_EXPENSE_DESC_LABEL);
-        
+
         final String GROUP_EXPENSE_PRICE_LABEL = bundle.getString("GroupExpensesPriceLabel");
         totalpriceLabel.setText(GROUP_EXPENSE_PRICE_LABEL);
         totalpriceLabel1.setText(bundle.getString("GroupExpensesMyPortionLabel"));
         totalpriceLabel2.setText(GROUP_EXPENSE_PRICE_LABEL);
-        
+
         final String GROUP_EXPENSE_PARTICIPANT_LABEL = bundle.getString("GroupExpensesParticipantLabel");
         participantsLabel.setText(GROUP_EXPENSE_PARTICIPANT_LABEL);
         participantsLabel1.setText(GROUP_EXPENSE_PARTICIPANT_LABEL);
         participantsLabel2.setText(GROUP_EXPENSE_PARTICIPANT_LABEL);
-        
+
         final String GROUP_EXPENSE_UPDATE_BUTTON = bundle.getString("GroupExpensesUpdateButton");
         updateButton.setText(GROUP_EXPENSE_UPDATE_BUTTON);
         updateButton1.setText(GROUP_EXPENSE_UPDATE_BUTTON);
         updateButton2.setText(GROUP_EXPENSE_UPDATE_BUTTON);
-        
+
         allExpenses.setText(bundle.getString("GroupExpensesTabAll"));
         myExpenses.setText(bundle.getString("GroupExpensesTabMine"));
         notJoinedExpenses.setText(bundle.getString("GroupExpensesTabOthers"));
         totalLabel.setText(bundle.getString("GroupExpensesTotalPortionLabel") + " ");
     }
 
-    @FXML
-    public void refreshExpenseList() {
-        cont.updateGroupData();
-    }
-
+    /**
+     * Clears and recreates all expense lists and their contents.
+     */
     public void loadExpenseList() {
-
+        AltGroupSceneController cont = (AltGroupSceneController) owner;
         list.getChildren().remove(1);
         List<Expense> l = new ArrayList<>(cont.getSelectedGroup().getExpenses());
         Collections.sort(l);
@@ -111,6 +104,14 @@ public class ExpensesListController implements Initializable {
 
     }
 
+    /**
+     * Splits Set into two list. First list has expenses where user haven't
+     * joined. Second List contains expenses that user has joined.
+     *
+     * @param expenses Set of Group Expenses.
+     * @return array containing 2 Lists: not joined (index 0) and joined(index
+     * 1)
+     */
     private List<Expense>[] split(Set<Expense> expenses) {
         List<Expense> notJoined = new ArrayList<>();
         List<Expense> joined = new ArrayList<>();
@@ -134,5 +135,11 @@ public class ExpensesListController implements Initializable {
         result[0] = notJoined;
         result[1] = joined;
         return result;
+    }
+
+    @FXML
+    @Override
+    public void update() {
+        owner.update();
     }
 }

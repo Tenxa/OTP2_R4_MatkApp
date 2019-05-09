@@ -15,7 +15,10 @@ import com.r4.matkapp.mvc.model.Group;
  * @author Eero
  */
 public class GroupManager extends DatabaseManager<Group> {
-
+    
+    /**
+     * Creates a Manager with a {@link ExpenseDAO}.
+     */
     public GroupManager() {
         super(new GroupDAO(dbSession.getSessionFactory()));
     }

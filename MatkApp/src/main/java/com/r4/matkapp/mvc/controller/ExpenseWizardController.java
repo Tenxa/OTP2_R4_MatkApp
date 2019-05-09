@@ -105,7 +105,7 @@ public class ExpenseWizardController implements Initializable, SceneController {
 
     @FXML
     private void closeWindow(ActionEvent event) {
-        parentController.updateGroupData();
+        parentController.update();
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
     }
 

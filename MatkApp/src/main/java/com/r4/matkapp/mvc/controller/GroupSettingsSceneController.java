@@ -7,10 +7,8 @@ package com.r4.matkapp.mvc.controller;
  */
 import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Group;
-import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.controller.dbmanager.GroupManager;
-import com.r4.matkapp.mvc.controller.dbmanager.UserManager;
 import com.r4.matkapp.mvc.view.ElementInitor;
 import com.r4.matkapp.mvc.view.alertfactory.AlertFactory;
 import com.r4.matkapp.mvc.view.alertfactory.WarningAlert;
@@ -18,7 +16,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,7 +28,7 @@ import javafx.stage.Stage;
  *
  * @author Eero
  */
-public class GroupSettingsSceneController extends AbstractSceneController implements Initializable {
+public class GroupSettingsSceneController extends AbstractSceneController {
 
     @FXML
     private TextField groupName, invite;
@@ -91,7 +88,7 @@ public class GroupSettingsSceneController extends AbstractSceneController implem
     }
 
     @Override
-    protected void update() {
+    public void update() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

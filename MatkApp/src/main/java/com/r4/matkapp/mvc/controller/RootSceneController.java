@@ -126,7 +126,7 @@ public class RootSceneController extends AbstractSceneController implements Init
     }
 
     @Override
-    protected void update() {
+    public void update() {
         updateGroupList();
     }
 
@@ -137,8 +137,7 @@ public class RootSceneController extends AbstractSceneController implements Init
 
     private void generateGroupList() {
         DatabaseManager<User> manager = new UserManager();
-        manager.refresh(DatabaseManager.getLoggedUser());
-        userGroups = DatabaseManager.getLoggedUser().getGroup();
+        userGroups = manager.find(DatabaseManager.getLoggedUser().getId()).getGroup();
         List<Group> groups = new ArrayList<>(userGroups);
         Collections.sort(groups);
         for (Group g : groups) {
@@ -189,6 +188,7 @@ public class RootSceneController extends AbstractSceneController implements Init
             UserController u = new UserController();
             Group g = u.createGroup(result.get());
             if (g.getInvite() != null) {
+                updateGroupList();
                 AlertFactory f = new InformationAlert();
                 f.createAlert(null, bundle.getString("NewGroupSuccess"), g.getInvite());
                 return g;
@@ -199,9 +199,7 @@ public class RootSceneController extends AbstractSceneController implements Init
 
     @FXML
     private void joinGroup() {
-        if (joinGroupInputDialog() != null) {
-            updateGroupList();
-        }
+        joinGroupInputDialog();
     }
 
     private Group joinGroupInputDialog() {
@@ -217,6 +215,7 @@ public class RootSceneController extends AbstractSceneController implements Init
                 User us = DatabaseManager.getLoggedUser();
                 g.getUsers().add(us);
                 gManager.update(g);
+                updateGroupList();
                 AlertFactory f = new InformationAlert();
                 f.createAlert(null, bundle.getString("JoinGroupSuccess"), g.getGroup_name());
                 return g;

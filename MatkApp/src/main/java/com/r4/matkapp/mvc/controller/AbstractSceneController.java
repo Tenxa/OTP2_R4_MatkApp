@@ -6,17 +6,15 @@
 package com.r4.matkapp.mvc.controller;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 
 /**
  *
  * @author Eero
  */
-public abstract class AbstractSceneController implements SceneController {
+public abstract class AbstractSceneController implements SceneController, Initializable {
 
     protected AbstractSceneController owner;
     
@@ -35,5 +33,13 @@ public abstract class AbstractSceneController implements SceneController {
         return loader.load();
     }
     
-    protected abstract void update();
+    public abstract void update();
+    
+    public void requestUpdate() {
+        if(owner != null) {
+            owner.requestUpdate();
+        } else {
+            update();
+        }
+    }
 }

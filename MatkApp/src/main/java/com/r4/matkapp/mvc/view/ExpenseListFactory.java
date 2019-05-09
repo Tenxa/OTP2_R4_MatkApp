@@ -134,7 +134,7 @@ public class ExpenseListFactory {
             manager.update(e);
             p.getChildren().clear();
             if(ctrl != null) {
-                ctrl.refreshExpenseList();
+                ctrl.update();
             }
         });
         b.setMinHeight(30);

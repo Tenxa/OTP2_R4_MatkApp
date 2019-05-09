@@ -40,7 +40,7 @@ import javafx.stage.Stage;
  *
  * @author Eero
  */
-public class AltGroupSceneController extends AbstractSceneController implements Initializable {
+public class AltGroupSceneController extends AbstractSceneController {
 
     @FXML
     private BorderPane root;
@@ -194,7 +194,7 @@ public class AltGroupSceneController extends AbstractSceneController implements 
     }
 
     @Override
-    protected void update() {
+    public void update() {
         DatabaseManager<Group> manager = new GroupManager();
         selectedGroup = manager.find(selectedGroup.getId());
         if (!(groupNameLabel.getText().equals(selectedGroup.getGroup_name()))) {
@@ -207,11 +207,6 @@ public class AltGroupSceneController extends AbstractSceneController implements 
         }
 
         updateBudgetProgress();
-    }
-
-    // poistaa kuha kaikki child scenet muutettu et extendaa abstractscene
-    void updateGroupData() {
-        update();
     }
 
 }

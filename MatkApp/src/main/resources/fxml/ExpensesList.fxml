@@ -36,7 +36,7 @@
                                  <children>
                                     <Label fx:id="descriptionLabel" text="Kuvaus" />
                                     <Label fx:id="totalpriceLabel" text="Kokonaishinta" GridPane.columnIndex="1" />
-                                    <Button fx:id="updateButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
+                                    <Button fx:id="updateButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#update" text="Päivitä" GridPane.columnIndex="4" />
                                     <Label fx:id="participantsLabel" text="Osallistujia" GridPane.columnIndex="2" />
                                  </children>
                               </GridPane>
@@ -78,7 +78,7 @@
                                  <children>
                                     <Label fx:id="descriptionLabel1" text="Kuvaus" />
                                     <Label fx:id="totalpriceLabel1" text="Oma osuus" GridPane.columnIndex="1" />
-                                    <Button fx:id="updateButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
+                                    <Button fx:id="updateButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#update" text="Päivitä" GridPane.columnIndex="4" />
                                     <Label fx:id="participantsLabel1" text="Osallistujia" GridPane.columnIndex="2" />
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
                                        <children>
@@ -125,7 +125,7 @@
                                  <children>
                                     <Label fx:id="descriptionLabel2" text="Kuvaus" />
                                     <Label fx:id="totalpriceLabel2" text="Kokonaishinta" GridPane.columnIndex="1" />
-                                    <Button fx:id="updateButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refreshExpenseList" text="Päivitä" GridPane.columnIndex="4" />
+                                    <Button fx:id="updateButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#update" text="Päivitä" GridPane.columnIndex="4" />
                                     <Label fx:id="participantsLabel2" text="Osallistujia" GridPane.columnIndex="2" />
                                  </children>
                               </GridPane>

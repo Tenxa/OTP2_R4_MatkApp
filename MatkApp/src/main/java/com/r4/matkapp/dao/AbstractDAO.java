@@ -14,7 +14,7 @@ import org.hibernate.SessionFactory;
  * delete() and find() methods are implemented in concrete access objects.
  * 
  * @author Eero
- * @param <Entity>
+ * @param <Entity> Entity datatype
  */
 public abstract class AbstractDAO<Entity> implements DAO<Entity> {
 

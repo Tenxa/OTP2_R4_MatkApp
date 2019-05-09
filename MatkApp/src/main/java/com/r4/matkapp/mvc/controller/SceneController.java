@@ -10,5 +10,5 @@ package com.r4.matkapp.mvc.controller;
  * @author Eero
  */
 public interface SceneController {
-    
+
 }
