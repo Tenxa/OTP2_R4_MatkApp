@@ -16,6 +16,9 @@ import com.r4.matkapp.mvc.model.User;
  */
 public class UserManager extends DatabaseManager<User> {
 
+    /**
+     * Creates a Manager with a {@link UserDAO}.
+     */
     public UserManager() {
         super(new UserDAO(dbSession.getSessionFactory()));
     }

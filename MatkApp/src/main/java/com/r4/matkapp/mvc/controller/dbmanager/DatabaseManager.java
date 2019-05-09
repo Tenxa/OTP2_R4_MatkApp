@@ -11,7 +11,8 @@ import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.dao.DAO;
 
 /**
- *
+ * Abstract class for managing database session and database access objects.
+ * 
  * @author Eero
  * @param <Entity>
  */
@@ -21,16 +22,25 @@ public abstract class DatabaseManager<Entity> {
 
     protected DAO<Entity> dao;
 
+    /**
+     * Creates a DatabaseManager with a specified Database Access Object.
+     * @param d DatabaseAccessObject
+     */
     public DatabaseManager(DAO d) {
         dao = d;
     }
 
+    /**
+     * Closes the database session.
+     * 
+     * @see DatabaseSession#close() 
+     */
     public static void close() {
         dbSession.close();
     }
 
     private static User LOGGED_USER = null;
-
+    
     public static User getLoggedUser() {
         return LOGGED_USER;
     }
@@ -46,7 +56,7 @@ public abstract class DatabaseManager<Entity> {
 
     /**
      * @see DAO#create(java.lang.Object)
-     * @param entity
+     * @param entity Object
      */
     public void create(Entity entity) {
         dao.create(entity);
@@ -54,7 +64,7 @@ public abstract class DatabaseManager<Entity> {
 
     /**
      * @see DAO#refresh(java.lang.Object)
-     * @param entity
+     * @param entity Object
      */
     public void refresh(Entity entity) {
         dao.refresh(entity);
@@ -62,7 +72,7 @@ public abstract class DatabaseManager<Entity> {
 
     /**
      * @see DAO#update(java.lang.Object)
-     * @param entity
+     * @param entity Object
      */
     public void update(Entity entity) {
         dao.update(entity);
@@ -70,7 +80,7 @@ public abstract class DatabaseManager<Entity> {
 
     /**
      * @see DAO#delete(java.lang.Object)
-     * @param entity
+     * @param entity Object
      */
     public void delete(Entity entity) {
         dao.delete(entity);
@@ -78,8 +88,8 @@ public abstract class DatabaseManager<Entity> {
 
     /**
      * @see DAO#find(int)
-     * @param id
-     * @return
+     * @param id Entity id
+     * @return Entity or <code>null</code> if not found.
      */
     public Entity find(int id) {
         return dao.find(id);
@@ -87,8 +97,8 @@ public abstract class DatabaseManager<Entity> {
 
     /**
      * @see DAO#find(java.lang.String)
-     * @param col
-     * @return
+     * @param col Table column name
+     * @return Entity or <code>null</code> if not found.
      */
     public Entity find(String col) {
         return dao.find(col);

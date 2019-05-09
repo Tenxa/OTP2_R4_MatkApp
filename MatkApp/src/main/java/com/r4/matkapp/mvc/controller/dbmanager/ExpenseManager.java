@@ -5,7 +5,6 @@
  */
 package com.r4.matkapp.mvc.controller.dbmanager;
 
-import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
 import com.r4.matkapp.dao.ExpenseDAO;
 import com.r4.matkapp.mvc.model.Expense;
 
@@ -15,7 +14,10 @@ import com.r4.matkapp.mvc.model.Expense;
  * @author Eero
  */
 public class ExpenseManager extends DatabaseManager<Expense> {
-
+    
+    /**
+     * Creates a Manager with a {@link ExpenseDAO}.
+     */
     public ExpenseManager() {
         super(new ExpenseDAO(dbSession.getSessionFactory()));
     }
