@@ -17,8 +17,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -27,14 +25,22 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
- *
+ * Builder for creating drag-able HBox
+ * 
  * @author Eero
  */
 public class DragBar {
 
+    // offsets for draging bar
     private double xOffset = 0;
     private double yOffset = 0;
 
+    /**
+     * Create a DragBar for moving the Stage. 
+     * 
+     * @param stage Stage to be moved.
+     * @return Drag-able HBox containing buttons for exit, minimize and maximize.
+     */
     public HBox create(Stage stage) {
         HBox bar = new HBox();
         bar.setMinHeight(26);
@@ -45,46 +51,43 @@ public class DragBar {
         Button exitButton = createExitButton();
         Button maxButton = createMaximizeButton();
         Button minButton = createMinimizeButton();
+        HBox logo = createLogo();
 
-        bar.getChildren().addAll(exitButton, maxButton, minButton);
+        bar.getChildren().addAll(exitButton, maxButton, minButton, logo);
 
-        //grab your root here
-        bar.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
+        // grab 
+        bar.setOnMousePressed((MouseEvent event) -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
         });
 
-        //move around here
-        bar.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (ResizeHelper.getCanMove()) {
-                    if (MainApp.getWindow().isMaximized()) {
-                        maxButton.fire();
-                    }
-                    stage.setX(event.getScreenX() - xOffset);
-                    stage.setY(event.getScreenY() - yOffset);
+        // move stage
+        bar.setOnMouseDragged((MouseEvent event) -> {
+            if (ResizeHelper.getCanMove()) {
+                if (MainApp.getWindow().isMaximized()) {
+                    maxButton.fire();
                 }
-
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
             }
         });
-        HBox textBox = new HBox();
-        textBox.setMaxWidth(Double.MAX_VALUE);
-        textBox.setMaxHeight(26);
-        textBox.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        textBox.setAlignment(Pos.CENTER_LEFT);
-        HBox.setHgrow(textBox, Priority.ALWAYS);
-        //ImageView image = new ImageView(new Image("/pictures/matkapp_text.png"));
-        //image.fitHeightProperty().set(26);
+  
+        return bar;
+    }
+    
+    private HBox createLogo() {
+        HBox box = new HBox();
+        box.setMaxWidth(Double.MAX_VALUE);
+        box.setMaxHeight(26);
+        box.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        box.setAlignment(Pos.CENTER_LEFT);
+        HBox.setHgrow(box, Priority.ALWAYS);
+
         Label label = new Label("MatkApp");
         label.getStyleClass().add("dragBarText");
-        textBox.getChildren().add(label);
-        bar.getChildren().add(textBox);
+        box.getChildren().add(label);
         
-        return bar;
+        return box;
     }
 
     private Button createExitButton() {
