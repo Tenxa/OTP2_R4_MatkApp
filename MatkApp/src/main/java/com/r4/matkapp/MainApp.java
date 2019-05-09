@@ -1,6 +1,6 @@
 package com.r4.matkapp;
 
-import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
 import java.util.Locale;
 import java.util.prefs.Preferences;
 import javafx.application.Application;

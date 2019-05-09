@@ -8,7 +8,7 @@ package com.r4.matkapp.mvc.controller;
 import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.Expense;
 import com.r4.matkapp.mvc.model.User;
-import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.view.ExpenseListFactory;
 import java.net.URL;
 import java.util.ArrayList;

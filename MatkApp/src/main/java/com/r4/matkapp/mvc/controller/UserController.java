@@ -7,9 +7,9 @@ package com.r4.matkapp.mvc.controller;
 
 import com.r4.matkapp.mvc.model.SecurePassword;
 import com.r4.matkapp.mvc.model.*;
-import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
-import com.r4.matkapp.mvc.model.dbmanager.GroupManager;
-import com.r4.matkapp.mvc.model.dbmanager.UserManager;
+import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.controller.dbmanager.GroupManager;
+import com.r4.matkapp.mvc.controller.dbmanager.UserManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;

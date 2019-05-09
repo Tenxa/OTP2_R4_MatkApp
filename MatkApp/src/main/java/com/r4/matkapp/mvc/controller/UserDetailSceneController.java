@@ -7,8 +7,8 @@ package com.r4.matkapp.mvc.controller;
  */
 import com.r4.matkapp.MainApp;
 import com.r4.matkapp.mvc.model.User;
-import com.r4.matkapp.mvc.model.dbmanager.DatabaseManager;
-import com.r4.matkapp.mvc.model.dbmanager.UserManager;
+import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
+import com.r4.matkapp.mvc.controller.dbmanager.UserManager;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
