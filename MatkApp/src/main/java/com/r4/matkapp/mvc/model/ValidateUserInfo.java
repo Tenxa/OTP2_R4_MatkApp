@@ -74,11 +74,11 @@ public class ValidateUserInfo {
         }
         
         // Check password length.
-        if (user.getPassword().length() < MIN_PASSWORD_LENGTH
-                || user.getPassword().length() > MAX_PASSWORD_LENGTH){
+        if (MIN_PASSWORD_LENGTH > user.getPassword().length()
+                || MAX_PASSWORD_LENGTH < user.getPassword().length()){
             return false;
         }
-        
+               
         //Validate email address.
         try {
             InternetAddress address = new InternetAddress(user.getEmail());
