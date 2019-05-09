@@ -12,11 +12,18 @@ import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
 
 /**
- *
+ * The <code>ElementInitor</code> is class for initializing some javafx elements.
+ * Currently has only method for {@link javafx.scene.control.Spinner}.
  * @author Eero
  */
 public class ElementInitor {
     
+    /**
+     * Sets new SpinnerValueFactory for Spinner and adds StringConvertrer for 
+     * converting input text into double.
+     * 
+     * @param spinner Spinner to initialize
+     */
     public void init(Spinner spinner) {
         SpinnerValueFactory.DoubleSpinnerValueFactory priceFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 999999, 0, 0.1);
         // define converter

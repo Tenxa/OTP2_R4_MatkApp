@@ -7,20 +7,21 @@ package com.r4.matkapp.mvc.model;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Test Class for testing String encryption and user authentication.
+ * 
  * @author Eero
  */
 public class SecurePasswordTest {
     
-    
+    /**
+     * Test User authentication method by authenticating User with correct input.
+     * 
+     * @custom.expectedResult true
+     */
     @Test
     public void testAuthenticationSuccesfull() {
         
@@ -44,6 +45,11 @@ public class SecurePasswordTest {
         
     }
     
+    /**
+     * Test User authentication method by authenticating User with incorrect input.
+     * 
+     * @custom.expectedResult false
+     */
     @Test
     public void testAuthenticationFailed() {
         
@@ -67,6 +73,11 @@ public class SecurePasswordTest {
         }
     }
     
+    /**
+     * Test User authentication method by authenticating User with <code>null</code> input.
+     * 
+     * @custom.expectedResult false
+     */
     @Test
     public void testNullUserAuthentication() {
         SecurePassword sPass = new SecurePassword();

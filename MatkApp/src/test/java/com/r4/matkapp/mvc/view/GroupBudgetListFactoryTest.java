@@ -50,7 +50,8 @@ public class GroupBudgetListFactoryTest extends ApplicationTest {
     }
 
     /**
-     * Test of createList method, of class GroupBudgetListFactory.
+     * Test createList() method by creating list with Groups and asserting its
+     * size and correct Label texts.
      */
     @Test
     public void testCreateList() {

@@ -37,6 +37,7 @@ public abstract class AlertMessage implements AlertFactory {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/RootStyles.css").toExternalForm());
         return alert;
     }  
 }

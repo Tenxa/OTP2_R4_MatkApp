@@ -12,7 +12,9 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- *
+ * The <code>ExpenseDAO</code> class provides CRUD operations for <code>Expense</code>
+ * instances.
+ * 
  * @author Eero
  */
 public class ExpenseDAO extends AbstractDAO<Expense> {

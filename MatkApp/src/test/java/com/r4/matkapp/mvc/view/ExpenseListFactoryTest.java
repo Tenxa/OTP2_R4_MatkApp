@@ -49,7 +49,8 @@ public class ExpenseListFactoryTest extends ApplicationTest {
     }
 
     /**
-     * Test of createList method, of class ExpenseListFactory.
+     * Test createList method by creating list with expenses and asserting 
+     * its column and row count.
      */
     @Test
     public void testCreateList() {

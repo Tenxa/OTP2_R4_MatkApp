@@ -5,15 +5,12 @@
  */
 package com.r4.matkapp.mvc.model;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Test class for testing user detail validation.
+ * 
  * @author Eero
  */
 public class ValidateUserInfoTest {

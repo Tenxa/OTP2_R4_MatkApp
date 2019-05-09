@@ -7,20 +7,16 @@ package com.r4.matkapp.dao;
 
 import com.r4.matkapp.mvc.model.Group;
 import java.util.List;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Access object for Group class.
- * 
- * 
+ * The <code>GroupDAO</code> class provides CRUD operations for <code>Group</code>
+ * instances.
  * 
  * @author Eero
  */
-
-
 public class GroupDAO extends AbstractDAO<Group> {
 
     @Autowired
