@@ -29,6 +29,7 @@ import javafx.scene.layout.RowConstraints;
  */
 public class ExpenseListFactory {
 
+    private static final String PROPERTIES = "properties.default";
     private ResourceBundle bundle;
     private String join;
     private String info;
@@ -38,15 +39,15 @@ public class ExpenseListFactory {
    
 
     public ExpenseListFactory() {
-        this(ResourceBundle.getBundle("properties.default", MainApp.getLocale()), false);
+        this(ResourceBundle.getBundle(PROPERTIES, MainApp.getLocale()), false);
     }
     
     public ExpenseListFactory(boolean split) {
-        this(ResourceBundle.getBundle("properties.default", MainApp.getLocale()), split);
+        this(ResourceBundle.getBundle(PROPERTIES, MainApp.getLocale()), split);
     }
     
     public ExpenseListFactory(ExpensesListController ctrl) {
-        this(ResourceBundle.getBundle("properties.default", MainApp.getLocale()), false);
+        this(ResourceBundle.getBundle(PROPERTIES, MainApp.getLocale()), false);
         this.ctrl = ctrl;
     }
     

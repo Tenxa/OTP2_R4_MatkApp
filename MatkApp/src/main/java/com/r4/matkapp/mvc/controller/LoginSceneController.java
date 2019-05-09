@@ -147,6 +147,10 @@ public class LoginSceneController implements Initializable {
                 factory = new WarningAlert(); 
                 factory.createAlert(bundle.getString("RegisterFailureHeader"), bundle.getString("RegisterFailureEmailInUse"));
                 break;
+            default:
+                factory = new WarningAlert(); 
+                factory.createAlert(bundle.getString("RegisterFailureHeader"), "ERROR");
+                break;
         }
 
     }
