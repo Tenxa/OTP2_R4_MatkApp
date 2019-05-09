@@ -66,10 +66,10 @@ public class ValidateUserInfo {
     public static boolean userIsValid(User user){
         
         // Check not empty.
-        if (user.getFirst_name().equals("")
-                || user.getLast_name().equals("")
-                || user.getEmail().equals("")
-                || user.getPassword().equals("")) {
+        if (("").equals(user.getFirst_name())
+                || ("").equals(user.getLast_name())
+                || ("").equals(user.getEmail())
+                || ("").equals(user.getPassword())){
             return false;
         }
         
