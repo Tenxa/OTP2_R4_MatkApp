@@ -62,13 +62,12 @@ public class LoginSceneController implements Initializable {
     private Alert loginAlert;
     
     /**
-     * initializes the controller class.
+     * initialises the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         uController = new UserController();        
         setTexts();
-        
     }
     
     private void setTexts() {
@@ -99,6 +98,7 @@ public class LoginSceneController implements Initializable {
         
         setTexts();
     }
+    
     @FXML
     private void login(ActionEvent event) throws IOException {
         if (uController.checkLogin(getLoginEmail().getText(), loginPassword.getText())) {
@@ -138,14 +138,14 @@ public class LoginSceneController implements Initializable {
                 break;
             case UserController.INCORRECT_DATA:
                 factory = new WarningAlert();
-                factory.createAlert("Käyttäjän luonti epäonnistui!", 
-                        "Tietoja puuttuu tai ne ovat virheelliset.\n"
-                        + "Salasanan pituus pitää olla 4 - 14 merkkiä.\n"
-                        + "Sähköposti formaattia 'nimi@domain.fi'.");
+                factory.createAlert(bundle.getString("RegisterFailureHeader"), 
+                        bundle.getString("RegisterFailureHelp1") + "\n"
+                        + bundle.getString("RegisterFailureHelp2") + "\n"
+                        + bundle.getString("RegisterFailureHelp3"));
                 break;
             case UserController.EMAIL_EXISTS:
                 factory = new WarningAlert(); 
-                factory.createAlert("Käyttäjän luonti epäonnistui!", "Sähköposti on jo käytössä.");
+                factory.createAlert(bundle.getString("RegisterFailureHeader"), bundle.getString("RegisterFailureEmailInUse"));
                 break;
         }
 
