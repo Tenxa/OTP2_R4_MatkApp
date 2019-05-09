@@ -19,7 +19,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -27,11 +26,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * FXML Controller class
+ * FXML Controller class for UserDetailScene.
  *
  * @author Heikki
  */
-public class UserDetailSceneController implements Initializable, SceneController {
+public class UserDetailSceneController extends AbstractSceneController {
 
     private Map<Label, TextField> laTe;
     private String placeholder = "";
@@ -49,10 +48,12 @@ public class UserDetailSceneController implements Initializable, SceneController
     private TextField lastFocus;
     private ResourceBundle bundle = ResourceBundle.getBundle("properties.default", MainApp.getLocale());
 
-    ;
+    public UserDetailSceneController(SceneController owner) {
+        super(owner);
+    }
 
     /**
-     * Initialises the controller class.
+     * initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -175,5 +176,13 @@ public class UserDetailSceneController implements Initializable, SceneController
             lastFocus = null;
 
         }
+    }
+
+    /**
+     * Updates the User info in Labels.
+     */
+    @Override
+    public void update() {
+        loadUserDetails();
     }
 }

@@ -42,7 +42,7 @@ public class ExpensesListController extends AbstractSceneController {
 
     private ResourceBundle bundle;
 
-    public ExpensesListController(AbstractSceneController owner) {
+    public ExpensesListController(SceneController owner) {
         super(owner);
     }
 

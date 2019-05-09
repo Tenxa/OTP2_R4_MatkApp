@@ -61,7 +61,7 @@ public class LoginSceneController implements Initializable {
     private Alert loginAlert;
     
     /**
-     * Initialises the controller class.
+     * initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

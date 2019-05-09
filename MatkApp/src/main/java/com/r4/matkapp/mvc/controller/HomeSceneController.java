@@ -42,7 +42,7 @@ public class HomeSceneController extends AbstractSceneController {
 
     private ResourceBundle bundle;
 
-    public HomeSceneController(AbstractSceneController owner) {
+    public HomeSceneController(SceneController owner) {
         super(owner);
     }
 

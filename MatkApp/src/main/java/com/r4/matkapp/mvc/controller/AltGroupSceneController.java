@@ -56,7 +56,7 @@ public class AltGroupSceneController extends AbstractSceneController {
     
     private ResourceBundle bundle;
 
-    protected AltGroupSceneController(AbstractSceneController ctrl, Group g) {
+    protected AltGroupSceneController(SceneController ctrl, Group g) {
         super(ctrl);
         DatabaseManager<Group> manager = new GroupManager();
         selectedGroup = manager.find(g.getId());

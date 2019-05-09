@@ -45,7 +45,7 @@ public class GroupSettingsSceneController extends AbstractSceneController {
     private Group group;
     private ResourceBundle bundle;
 
-    public GroupSettingsSceneController(AbstractSceneController owner, Group g) {
+    public GroupSettingsSceneController(SceneController owner, Group g) {
         super(owner);
         group = g;
     }

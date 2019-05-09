@@ -45,7 +45,7 @@ import javafx.util.StringConverter;
  *
  * @author Eero
  */
-public class ExpenseWizardController implements Initializable, SceneController {
+public class ExpenseWizardController extends AbstractSceneController {
 
     @FXML
     private StackPane firstPane, secondPane;
@@ -67,10 +67,9 @@ public class ExpenseWizardController implements Initializable, SceneController {
 
     // selected group object
     private Group activeGroup;
-    private AltGroupSceneController parentController;
 
-    protected ExpenseWizardController(AltGroupSceneController c, Group g) {
-        parentController = c;
+    protected ExpenseWizardController(SceneController c, Group g) {
+        super(c);
         activeGroup = g;
         isEqualSplit = false;
     }
@@ -105,7 +104,7 @@ public class ExpenseWizardController implements Initializable, SceneController {
 
     @FXML
     private void closeWindow(ActionEvent event) {
-        parentController.update();
+        owner.update();
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
     }
 
@@ -180,5 +179,10 @@ public class ExpenseWizardController implements Initializable, SceneController {
                 return cell;
             }
         });
+    }
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

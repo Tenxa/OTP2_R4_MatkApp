@@ -7,22 +7,21 @@ package com.r4.matkapp.mvc.controller;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 
 /**
  *
  * @author Eero
  */
-public abstract class AbstractSceneController implements SceneController, Initializable {
+public abstract class AbstractSceneController implements SceneController {
 
-    protected AbstractSceneController owner;
+    protected SceneController owner;
     
     /**
      * Create SceneController with a specified owner Controller.
      * @param owner 
      */
-    public AbstractSceneController(AbstractSceneController owner) {
+    public AbstractSceneController(SceneController owner) {
         this.owner = owner;
     }
     

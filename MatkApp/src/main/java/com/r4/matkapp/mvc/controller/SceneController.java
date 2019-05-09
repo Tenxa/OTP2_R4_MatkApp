@@ -5,10 +5,13 @@
  */
 package com.r4.matkapp.mvc.controller;
 
+import javafx.fxml.Initializable;
+
 /**
  *
  * @author Eero
  */
-public interface SceneController {
+public interface SceneController extends Initializable {
 
+    public void update();
 }

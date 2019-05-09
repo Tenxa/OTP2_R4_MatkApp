@@ -103,7 +103,7 @@ public class RootSceneController extends AbstractSceneController {
 
     @FXML
     private void setDetailScene() throws IOException {
-        Parent fxmlRoot = loadFXML("UserDetailScene", new UserDetailSceneController());
+        Parent fxmlRoot = loadFXML("UserDetailScene", new UserDetailSceneController(this));
         setCenter(fxmlRoot);
     }
 
