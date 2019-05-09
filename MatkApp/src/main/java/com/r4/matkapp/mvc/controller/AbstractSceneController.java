@@ -18,10 +18,22 @@ public abstract class AbstractSceneController implements SceneController, Initia
 
     protected AbstractSceneController owner;
     
+    /**
+     * Create SceneController with a specified owner Controller.
+     * @param owner 
+     */
     public AbstractSceneController(AbstractSceneController owner) {
         this.owner = owner;
     }
     
+    /**
+     * Loads FXML document with a specified file name and controller.
+     * 
+     * @param fileName File name without file format. e.g "FXMLDocument".
+     * @param controller Controller to be set as owner.
+     * @return Root Element from FXML document.
+     * @throws IOException File not found.
+     */
     protected Parent loadFXML(String fileName, SceneController controller) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + fileName + ".fxml"));

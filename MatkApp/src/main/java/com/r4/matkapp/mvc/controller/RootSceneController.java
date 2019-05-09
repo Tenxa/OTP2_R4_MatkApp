@@ -89,7 +89,7 @@ public class RootSceneController extends AbstractSceneController {
      */
     @FXML
     public void setHomeScene() throws IOException {
-        Parent fxmlRoot = loadFXML("HomeScene", new HomeSceneController());
+        Parent fxmlRoot = loadFXML("HomeScene", new HomeSceneController(this));
         setCenter(fxmlRoot);
         if (selected != null) {
             selected.setStyle(null);

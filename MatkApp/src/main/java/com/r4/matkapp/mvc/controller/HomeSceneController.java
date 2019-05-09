@@ -12,23 +12,21 @@ import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
 import com.r4.matkapp.mvc.view.GroupBudgetListFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 
 /**
- *
+ * FXML Controller for HomeScene.
+ * 
  * @author Eero
  */
-public class HomeSceneController implements Initializable, SceneController {
+public class HomeSceneController extends AbstractSceneController {
 
     @FXML
     private ProgressBar bar;
@@ -42,8 +40,11 @@ public class HomeSceneController implements Initializable, SceneController {
     @FXML
     private Button junaResetButton;
 
-    private int p;
     private ResourceBundle bundle;
+
+    public HomeSceneController(AbstractSceneController owner) {
+        super(owner);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,8 +55,9 @@ public class HomeSceneController implements Initializable, SceneController {
         lastMonthLabel.setText(bundle.getString("HomeLabelLastMonth"));
         summaryLabel.setText(bundle.getString("HomeLabelSummary"));
         junaResetButton.setText(bundle.getString("HomeButtonTrainReset"));
+        
         junajunajuna();
-        refresh();
+        update();
     }
 
     @FXML
@@ -103,7 +105,11 @@ public class HomeSceneController implements Initializable, SceneController {
         };
     }
 
-    private void refresh() {
+    /**
+     * Updates budget list and total personal expenses.
+     */
+    @Override
+    public void update() {
         DatabaseManager.updateLoggedUser();
         budgetList.setContent(new GroupBudgetListFactory().createList(DatabaseManager.getLoggedUser().getGroup()));
         personalTotal.setText(Double.toString(calculateTotalExpense()));
