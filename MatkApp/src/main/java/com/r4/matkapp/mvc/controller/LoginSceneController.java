@@ -123,6 +123,7 @@ public class LoginSceneController implements Initializable {
     
     @FXML
     private void createUser(ActionEvent event) {
+        String registerFailureHeader = bundle.getString("RegisterFailureHeader");
         int result = uController.addUser(first_name.getText(), last_name.getText(),
                 email.getText(), password.getText());
         AlertFactory factory;
@@ -138,18 +139,18 @@ public class LoginSceneController implements Initializable {
                 break;
             case UserController.INCORRECT_DATA:
                 factory = new WarningAlert();
-                factory.createAlert(bundle.getString("RegisterFailureHeader"), 
+                factory.createAlert(registerFailureHeader, 
                         bundle.getString("RegisterFailureHelp1") + "\n"
                         + bundle.getString("RegisterFailureHelp2") + "\n"
                         + bundle.getString("RegisterFailureHelp3"));
                 break;
             case UserController.EMAIL_EXISTS:
                 factory = new WarningAlert(); 
-                factory.createAlert(bundle.getString("RegisterFailureHeader"), bundle.getString("RegisterFailureEmailInUse"));
+                factory.createAlert(registerFailureHeader, bundle.getString("RegisterFailureEmailInUse"));
                 break;
             default:
                 factory = new WarningAlert(); 
-                factory.createAlert(bundle.getString("RegisterFailureHeader"), "ERROR");
+                factory.createAlert(registerFailureHeader, "ERROR");
                 break;
         }
 
