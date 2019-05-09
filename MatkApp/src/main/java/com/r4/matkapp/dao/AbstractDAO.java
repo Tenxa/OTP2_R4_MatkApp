@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
- * Abstract class for Database Access Objects. 
+ * Abstract class for Data Access Objects. 
  * DAO create(), update() and refresh() methods are implemented here, getAll()
  * delete() and find() methods are implemented in concrete access objects.
  * 

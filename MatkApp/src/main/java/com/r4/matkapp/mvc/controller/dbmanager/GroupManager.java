@@ -5,12 +5,11 @@
  */
 package com.r4.matkapp.mvc.controller.dbmanager;
 
-import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
 import com.r4.matkapp.dao.GroupDAO;
 import com.r4.matkapp.mvc.model.Group;
 
 /**
- * Class for managing Group Database Access Object
+ * Class for managing Group Data Access Object
  *
  * @author Eero
  */

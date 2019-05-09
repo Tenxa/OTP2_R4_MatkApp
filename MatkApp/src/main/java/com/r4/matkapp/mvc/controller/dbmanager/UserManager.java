@@ -5,12 +5,11 @@
  */
 package com.r4.matkapp.mvc.controller.dbmanager;
 
-import com.r4.matkapp.mvc.controller.dbmanager.DatabaseManager;
 import com.r4.matkapp.dao.UserDAO;
 import com.r4.matkapp.mvc.model.User;
 
 /**
- * Class for managing User Database Access Object
+ * Class for managing User Data Access Object
  *
  * @author Eero
  */

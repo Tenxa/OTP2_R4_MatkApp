@@ -9,7 +9,7 @@ import com.r4.matkapp.dao.ExpenseDAO;
 import com.r4.matkapp.mvc.model.Expense;
 
 /**
- * Class for managing Expense Database Access Object
+ * Class for managing Expense Data Access Object
  *
  * @author Eero
  */

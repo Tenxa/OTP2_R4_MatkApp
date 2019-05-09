@@ -11,7 +11,7 @@ import com.r4.matkapp.mvc.model.User;
 import com.r4.matkapp.dao.DAO;
 
 /**
- * Abstract class for managing database session and database access objects.
+ * Abstract class for managing database session and data access objects.
  * 
  * @author Eero
  * @param <Entity>
@@ -23,7 +23,7 @@ public abstract class DatabaseManager<Entity> {
     protected DAO<Entity> dao;
 
     /**
-     * Creates a DatabaseManager with a specified Database Access Object.
+     * Creates a DatabaseManager with a specified Data Access Object.
      * @param d DatabaseAccessObject
      */
     public DatabaseManager(DAO d) {
